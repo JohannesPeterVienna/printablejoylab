@@ -19,6 +19,7 @@
 <div class="wrap layout">
   <article class="prose">
     {{ guide | safe }}
+    {% if cat != "paper" %}<a class="promo" href="/shop.html"><img src="/assets/shop/planner-p1.webp" alt="" width="497" height="702" loading="lazy"><div><strong>Want the whole year done for you?</strong><span>Our 111-page 2027 Planner bundles calendars, weekly spreads, habit, budget and meal pages in one PDF – A4 &amp; US Letter. From Printable Joy Lab.</span></div></a>{% endif %}
     {% if faq %}<h2>Questions</h2>{% for q, a in faq %}<details><summary>{{ q }}</summary><p>{{ a }}</p></details>{% endfor %}{% endif %}
     {{ m.ad("rect") }}
     <h2>More templates</h2>

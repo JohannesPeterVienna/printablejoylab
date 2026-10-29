@@ -145,3 +145,18 @@ main{overflow-wrap:break-word}main a{overflow-wrap:anywhere}
   .pp{break-after:page;page-break-after:always}
   .pp svg{width:100%;height:auto;display:block}
 }
+/* Shop */
+.product{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:28px;align-items:start;margin:10px 0 20px}
+.gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;background:var(--desk);padding:14px;border-radius:var(--r)}
+.gallery figure{margin:0}.gallery img{width:100%;height:auto;display:block;border-radius:2px;box-shadow:0 8px 16px -10px rgba(60,40,20,.5);background:#fff}
+.gallery figcaption{font-size:.72rem;color:var(--muted);text-align:center;margin-top:4px}
+.buybox{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px;position:sticky;top:84px}
+.price{font:400 2.6rem/1 var(--serif);margin-bottom:14px}
+.btn.big{width:100%;min-height:54px;font-size:1.05rem}
+.btn.disabled{background:var(--soft);color:var(--muted);cursor:default}
+.ticks{list-style:none;padding:0;margin:16px 0}.ticks li{padding-left:26px;position:relative;margin:.4em 0}
+.ticks li::before{content:"";position:absolute;left:0;top:.45em;width:14px;height:8px;border-left:2.5px solid var(--teal);border-bottom:2.5px solid var(--teal);transform:rotate(-45deg)}
+.promo{display:flex;gap:16px;align-items:center;background:var(--tomato-soft);border-radius:var(--r);padding:16px;margin:26px 0;text-decoration:none;color:var(--ink)}
+.promo img{width:76px;height:auto;border-radius:2px;box-shadow:0 8px 16px -10px rgba(60,40,20,.6);transform:rotate(-4deg)}
+.promo strong{display:block;font-size:1.05rem}.promo span{color:var(--muted);font-size:.92rem}
+@media (max-width:960px){.product{grid-template-columns:minmax(0,1fr)}.buybox{position:static}.gallery{grid-template-columns:repeat(2,1fr)}}

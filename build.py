@@ -7,8 +7,10 @@ from content.articles import ARTICLES
 
 ROOT = Path(__file__).parent
 OUT = ROOT / "docs"
-SITE = "https://printablejoylab.com"; V = "20261029"; UPDATED = "October 2026"
-NAV = [("/", "Templates"), ("/weekly-planner.html", "Planners"), ("/monthly-calendar.html", "Calendars"), ("/habit-tracker.html", "Trackers"), ("/dot-grid.html", "Paper"), ("/guides.html", "Guides")]
+SITE = "https://printablejoylab.com"; V = "20261029b"
+BUY_PLANNER = ""   # Lemon Squeezy checkout link – set once the product exists
+UPDATED = "October 2026"
+NAV = [("/", "Templates"), ("/weekly-planner.html", "Planners"), ("/monthly-calendar.html", "Calendars"), ("/habit-tracker.html", "Trackers"), ("/dot-grid.html", "Paper"), ("/guides.html", "Guides"), ("/shop.html", "2027 Planner")]
 env = Environment(loader=FileSystemLoader(ROOT / "templates"), autoescape=True, trim_blocks=True, lstrip_blocks=True)
 PAGES = []
 LEGAL_ADDR = "AdStern :: Agentur für digitales Marketing<br>Seilerstätte 8, 1010 Vienna, Austria<br>Email: <a href='mailto:office@adstern.com'>office@adstern.com</a><br>Web: <a href='https://www.adstern.com'>www.adstern.com</a>"
@@ -33,8 +35,8 @@ def crumbs_ld(items):
 def main():
     subprocess.run(["node", str(ROOT / "test_lab.js")], check=True)   # Vorlagen-Test: Build bricht bei Fehlern ab
     if OUT.exists(): shutil.rmtree(OUT)
-    (OUT / "assets").mkdir(parents=True)
-    for f in (ROOT / "assets").iterdir(): shutil.copy(f, OUT / "assets" / f.name)
+    OUT.mkdir(parents=True)
+    shutil.copytree(ROOT / "assets", OUT / "assets")
 
     write("index.html", "home.html", title="Printable Joy Lab – Free Customisable Printables: Planners, Calendars & Paper",
           description="Free printable planners, calendars, habit trackers, checklists and paper you customise in seconds – A4 or US Letter, your colours and dates – then download as PDF.",
@@ -50,7 +52,7 @@ def main():
                "applicationCategory": "UtilitiesApplication", "operatingSystem": "Web", "inLanguage": "en", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}},
               {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in t["faq"]]}]
         write(t["slug"] + ".html", "tool.html", title=t["title"] + " | Printable Joy Lab", description=t["description"], h1=f"{t['name']}",
-              lead=t["lead"], slug=t["slug"], guide=t["guide"], faq=t["faq"], related=related, crumbs=crumbs, jsonld=ld,
+              lead=t["lead"], slug=t["slug"], cat=t["cat"], guide=t["guide"], faq=t["faq"], related=related, crumbs=crumbs, jsonld=ld,
               active=next((h for h, l in NAV if h == "/" + t["slug"] + ".html"), ""), priority=0.9)
 
     for a in ARTICLES:
@@ -92,6 +94,51 @@ def main():
 <h2>Advertising (Google AdSense)</h2><p>We show ads via Google AdSense (Google Ireland Limited). Google may use cookies and similar technologies to deliver ads, limit how often you see them and measure their performance. Personalised ads are only shown with your consent (Art. 6(1)(a) GDPR); without consent, Google may show non-personalised or limited ads. Data may be transferred to the USA; Google is certified under the EU-US Data Privacy Framework. More: <a href="https://policies.google.com/technologies/ads" rel="noopener">How Google uses information from sites that use its services</a>.</p>
 <h2>Analytics (Google Analytics 4)</h2><p>With your consent we use Google Analytics 4 to understand which templates are used and how the site can be improved. IP addresses are not stored in full by Google Analytics 4; Google signals and ad personalisation are disabled. Legal basis: consent (Art. 6(1)(a) GDPR). You can withdraw consent at any time via “Privacy settings”.</p>
 <h2>Your rights</h2><p>You have the right to access, rectification, erasure, restriction of processing, data portability and objection, and the right to withdraw consent at any time. You may lodge a complaint with a supervisory authority; in Austria this is the Datenschutzbehörde (dsb.gv.at). Contact: <a href="mailto:office@adstern.com">office@adstern.com</a>.</p>""")
+
+    pics = [("1", "Cover"), ("2", "Clickable contents"), ("3", "Year at a glance"), ("5", "Monthly calendar"), ("17", "Weekly planner"), ("70", "Habit tracker"), ("82", "Monthly budget"), ("94", "Meal planner")]
+    gallery = "".join(f'<figure><img src="/assets/shop/planner-p{n}.webp" alt="{c} page of the 2027 planner" width="497" height="702" loading="lazy"><figcaption>{c}</figcaption></figure>' for n, c in pics)
+    buy = (f'<a class="btn big" href="{BUY_PLANNER}" rel="noopener">Buy the 2027 Planner – €9</a>' if BUY_PLANNER else
+           '<span class="btn big disabled" aria-disabled="true">Checkout opens shortly</span>')
+    write("shop.html", "page.html", title="The 2027 Planner – 111-Page Printable & Digital Planner (PDF) | Printable Joy Lab",
+          description="The complete 2027 planner as PDF: year, months, 53 weekly spreads, habit trackers, budget and meal pages – A4 and US Letter, Monday or Sunday start, clickable contents.",
+          h1="The 2027 Planner", lead="Everything from our free templates, ready-made for the whole year in one beautifully consistent PDF – 111 pages.", ads=False, active="/shop.html", priority=0.8,
+          jsonld=[{"@context": "https://schema.org", "@type": "Product", "name": "The 2027 Planner (PDF)", "brand": {"@type": "Brand", "name": "Printable Joy Lab"},
+                   "description": "111-page printable and digital planner for 2027 in A4 and US Letter, Monday or Sunday start.", "image": SITE + "/assets/shop/planner-p1.webp",
+                   **({"offers": {"@type": "Offer", "price": "9.00", "priceCurrency": "EUR", "availability": "https://schema.org/InStock", "url": SITE + "/shop.html"}} if BUY_PLANNER else {})}],
+          body=f"""<div class="product">
+<div class="gallery">{gallery}</div>
+<div class="buybox">
+  <p class="price">€9 <span class="small muted">incl. VAT · instant download</span></p>
+  {buy}
+  <ul class="ticks"><li>111 pages, crisp vector PDF</li><li>A4 and US Letter – both included</li><li>Week starts Monday or Sunday – both included</li><li>Clickable contents for tablets (GoodNotes, Notability, Xodo …)</li><li>Print as often as you like for personal use</li></ul>
+  <p class="small muted">Secure checkout by Lemon Squeezy, our merchant of record. You receive the download link by email right after payment. <a href="/refunds.html">Refund policy</a></p>
+</div></div>
+<h2>What's inside</h2>
+<ul><li><strong>Cover &amp; clickable contents</strong> – jump to any section or month in one tap.</li>
+<li><strong>Year at a glance</strong> for 2027 and 2028.</li>
+<li><strong>12 monthly calendars</strong> with week numbers and a notes area.</li>
+<li><strong>53 dated weekly spreads</strong> – every week of 2027, from Dec 28, 2026 to Jan 2, 2028, with day boxes, notes and a weekly to-do list.</li>
+<li><strong>12 habit trackers</strong> with 22 rows each and a “done” counter.</li>
+<li><strong>12 monthly budget pages</strong> with planned, actual and difference columns.</li>
+<li><strong>6 meal planners</strong> with grocery lists by category.</li>
+<li><strong>Lists &amp; notes</strong>: goals, books to read, birthdays &amp; gifts, a to-do list, 4 dot grid and 4 lined pages.</li></ul>
+<h2>Print it or use it digitally</h2>
+<p>Print the whole planner and punch it for a ring binder, or print only the sections you need. On an iPad or Android tablet, import the PDF into a note-taking app and write directly on the pages – the contents page and the small “Contents” link on every page make navigation quick.</p>
+<h2>Why buy if the templates are free?</h2>
+<p>Our free generators make one page or one month at a time, exactly as you configure it. The planner saves you the work: 111 matching pages, already dated, in a consistent design, with clickable navigation that the free pages don't have. Your purchase also keeps the free templates free – thank you!</p>
+<h2>Questions</h2>
+<details><summary>Which paper size do I get?</summary><p>Both. The download contains four PDFs: A4 and US Letter, each with Monday or Sunday as the first day of the week.</p></details>
+<details><summary>Can I print it more than once?</summary><p>Yes – print as many copies as you need for yourself and your household. Please don't share or resell the files.</p></details>
+<details><summary>Is it dated?</summary><p>Yes: calendars and weekly pages are dated for 2027. Habit, meal, budget and list pages work any time.</p></details>
+<details><summary>What if something is wrong with my download?</summary><p>Write to <a href="mailto:office@adstern.com">office@adstern.com</a> and we'll fix it quickly. See our <a href="/refunds.html">refund policy</a>.</p></details>""")
+
+    write("refunds.html", "page.html", title="Refund Policy | Printable Joy Lab", description="Refund policy for digital products from Printable Joy Lab.",
+          h1="Refund policy", lead="Last updated: 29 October 2026", ads=False, robots="noindex,follow", active="",
+          body="""<p>Our paid products are digital downloads (PDF files). Orders are processed by <strong>Lemon Squeezy</strong>, which acts as the merchant of record and handles payment, invoicing and sales tax.</p>
+<h2>Right of withdrawal for digital content</h2><p>If you are a consumer in the EU or UK, you normally have a 14-day right of withdrawal. For digital content delivered immediately, this right ends once the download is provided, provided you agreed at checkout to immediate delivery and acknowledged that you thereby lose your right of withdrawal.</p>
+<h2>Our promise</h2><p>If a file is damaged, incomplete or not as described, write to <a href="mailto:office@adstern.com">office@adstern.com</a> within 30 days of purchase with your order number. We will send a corrected file or refund your purchase in full. If you bought the wrong paper size or week start, don't worry – every download already contains all versions.</p>
+<h2>How refunds are paid</h2><p>Refunds are issued by Lemon Squeezy to the original payment method. Depending on your bank, it can take 5–10 business days to appear.</p>
+<h2>Contact</h2><p>AdStern, Seilerstätte 8, 1010 Vienna, Austria · <a href="mailto:office@adstern.com">office@adstern.com</a></p>""")
 
     write("404.html", "page.html", title="Page not found | Printable Joy Lab", description="This page does not exist.", h1="This page doesn't exist", ads=False, robots="noindex,follow", active="",
           body='<p>The page may have moved. Try one of our <a href="/">free templates</a>.</p>')
