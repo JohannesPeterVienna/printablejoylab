@@ -258,7 +258,7 @@
     pages(o) {
       const months = o.month === "all" ? [...Array(12).keys()] : [+o.month || 0], y = +o.year || thisYear;
       const list = String(o.habits || "").split("\n").map(s => s.trim()).filter(Boolean).slice(0, 15);
-      const n = Math.min(20, list.length + Math.max(0, Math.min(10, +o.rows || 0)));
+      const n = Math.min(24, list.length + Math.max(0, Math.min(24, +o.rows || 0)));
       return months.map(mi => {
         const P = Page({ ...o, lines: "light" }), top = P.title("Habit tracker", `${MONTHS[mi]} ${y}`), days = new Date(Date.UTC(y, mi + 1, 0)).getUTCDate();
         const nameW = Math.min(62, (P.x1 - P.x0) * 0.3), cw = (P.x1 - P.x0 - nameW - 12) / days, rh = Math.min(10, (P.y1 - top - 10) / Math.max(n, 1));
@@ -372,12 +372,9 @@
   const loadPDF = () => jsPDFLoading ||= new Promise((res, rej) => { if (window.jspdf) return res(window.jspdf.jsPDF); const s = document.createElement("script"); s.src = "/assets/jspdf.umd.min.js"; s.onload = () => res(window.jspdf.jsPDF); s.onerror = rej; document.head.appendChild(s); });
   const hex = c => { let h = c.replace("#", ""); if (h.length === 3 || h.length === 4) h = h.slice(0, 3).split("").map(x => x + x).join(""); h = h.slice(0, 6); return [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16)]; };
   const alphaMix = c => { const h = c.replace("#", ""); if (h.length < 8) return hex(c); const a = parseInt(h.slice(6, 8), 16) / 255; return hex(c).map(v => Math.round(v * a + 255 * (1 - a))); };
-  async function toPDF(pages, w, h, name) {
-    const jsPDF = await loadPDF();
-    const doc = new jsPDF({ unit: "mm", format: [w, h], orientation: w > h ? "landscape" : "portrait", compress: true });
-    doc.setProperties({ title: name, creator: "Printable Joy Lab – printablejoylab.com" });
+  function drawInto(doc, pages, w, h, first = true) {
     pages.forEach((ops, i) => {
-      if (i) doc.addPage([w, h], w > h ? "landscape" : "portrait");
+      if (i || !first) doc.addPage([w, h], w > h ? "landscape" : "portrait");
       for (const o of ops) {
         if (o.t === "line") { doc.setDrawColor(...alphaMix(o.c)); doc.setLineWidth(o.lw); doc.setLineDashPattern(o.dash || [], 0); doc.line(o.x1, o.y1, o.x2, o.y2); doc.setLineDashPattern([], 0); }
         else if (o.t === "rect") { const st = o.fill && o.stroke ? "FD" : o.fill ? "F" : "S"; if (o.fill) doc.setFillColor(...alphaMix(o.fill)); if (o.stroke) { doc.setDrawColor(...alphaMix(o.stroke)); doc.setLineWidth(o.lw); } if (!o.fill && !o.stroke) continue; o.r ? doc.roundedRect(o.x, o.y, o.w, o.h, o.r, o.r, st) : doc.rect(o.x, o.y, o.w, o.h, st); }
@@ -385,6 +382,12 @@
         else if (o.t === "text") { doc.setFont(o.serif ? "times" : "helvetica", o.bold ? (o.italic ? "bolditalic" : "bold") : (o.italic ? "italic" : "normal")); doc.setFontSize(o.size); doc.setTextColor(...hex(o.c)); doc.text(o.txt, o.x, o.y, { align: o.align }); }
       }
     });
+  }
+  async function toPDF(pages, w, h, name) {
+    const jsPDF = await loadPDF();
+    const doc = new jsPDF({ unit: "mm", format: [w, h], orientation: w > h ? "landscape" : "portrait", compress: true });
+    doc.setProperties({ title: name, creator: "Printable Joy Lab – printablejoylab.com" });
+    drawInto(doc, pages, w, h);
     doc.save(name);
   }
 
@@ -461,7 +464,7 @@
     });
   }
 
-  window.PJL = { T, Page, toSVG, PAPER }; // used by tests
+  window.PJL = { T, Page, toSVG, PAPER, drawInto }; // used by tests
   const init = () => { $$("[data-lab]").forEach(initLab); thumbs(); };
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", init) : init();
 })();
