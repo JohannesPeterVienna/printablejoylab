@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="google-adsense-account" content="ca-pub-7811071715414905">
+<title>{{ title }}</title>
+<meta name="description" content="{{ description }}">
+<link rel="canonical" href="{{ site }}{{ path }}">
+<meta name="robots" content="{{ robots or 'index,follow' }}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Printable Joy Lab">
+<meta property="og:title" content="{{ og_title or title }}">
+<meta property="og:description" content="{{ description }}">
+<meta property="og:url" content="{{ site }}{{ path }}">
+<meta name="theme-color" content="#FBF7F0">
+<link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/instrument-serif-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/style.css?v={{ v }}">
+{% for ld in jsonld %}<script type="application/ld+json">{{ ld | tojson }}</script>
+{% endfor %}
+{% if ads %}<script src="/assets/consent.js?v={{ v }}" defer></script>{% endif %}
+<script src="/assets/lab.js?v={{ v }}" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><div class="wrap">
+  <a class="brand" href="/"><img src="/assets/icon.svg" alt="" width="30" height="30"><span>Printable <em>Joy</em> Lab</span></a>
+  <nav class="nav" aria-label="Main">
+    {% for href, label in nav %}<a href="{{ href }}"{% if href == active %} aria-current="page"{% endif %}>{{ label }}</a>{% endfor %}
+  </nav>
+</div></header>
+<main id="main">
+{% block main %}{% endblock %}
+</main>
+<footer class="foot"><div class="wrap">
+  <div class="foot-brand"><strong>Printable Joy Lab</strong><p>Free, customisable printables – planners, calendars, trackers and paper. Made in Vienna. Updated {{ updated }}.</p></div>
+  <nav aria-label="Templates"><strong>Templates</strong>{% for t in tools[:6] %}<a href="/{{ t.slug }}.html">{{ t.name }}</a>{% endfor %}</nav>
+  <nav aria-label="More templates"><strong>&nbsp;</strong>{% for t in tools[6:] %}<a href="/{{ t.slug }}.html">{{ t.name }}</a>{% endfor %}</nav>
+  <nav aria-label="About"><strong>About</strong><a href="/guides.html">Guides</a><a href="/about.html">About us</a><a href="/imprint.html">Imprint</a><a href="/privacy.html">Privacy</a>{% if ads %}<button class="linkbtn" type="button" data-privacy-settings>Privacy settings</button>{% endif %}</nav>
+</div></footer>
+</body>
+</html>

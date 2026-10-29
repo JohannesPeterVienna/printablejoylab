@@ -1,0 +1,17 @@
+{% extends "base.html" %}{% import "macros.html" as m %}
+{% block main %}
+{% if crumbs %}{{ m.crumbs(crumbs) }}{% endif %}
+<div class="wrap layout" style="padding-top:24px">
+  <article class="prose">
+    <h1>{{ h1 }}</h1>
+    {% if lead %}<p class="lead">{{ lead }}</p>{% endif %}
+    {% if ads %}{{ m.ad("billboard") }}{% endif %}
+    {{ body | safe }}
+    {% if related %}<h2>Try it</h2><ul class="cards small">{% for t in related %}{{ m.card(t) }}{% endfor %}</ul>{% endif %}
+  </article>
+  <aside class="side">
+    <div class="box"><h3>Templates</h3><ul>{% for t in tools %}<li><a href="/{{ t.slug }}.html">{{ t.name }}</a></li>{% endfor %}</ul></div>
+    {% if ads %}{{ m.ad("half") }}{% endif %}
+  </aside>
+</div>
+{% endblock %}

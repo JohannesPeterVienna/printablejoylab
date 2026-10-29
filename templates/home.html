@@ -1,0 +1,42 @@
+{% extends "base.html" %}{% import "macros.html" as m %}
+{% block main %}
+<section class="hero"><div class="wrap hero-grid">
+  <div>
+    <p class="kicker">Free · No sign-up · Vector PDF</p>
+    <h1>Printables you can <em>actually</em> make your own.</h1>
+    <p class="lead">Planners, calendars, trackers and paper that you customise in seconds – paper size, colours, dates, your own habits and lists – then download as a crisp PDF or print straight away.</p>
+    <p class="cta"><a class="btn" href="/weekly-planner.html">Make a weekly planner</a> <a class="btn ghost" href="#templates">Browse all templates</a></p>
+  </div>
+  <div class="stack" aria-hidden="true">
+    <span class="sheet-s s1" data-thumb="monthly-calendar" data-accent="tomato"></span>
+    <span class="sheet-s s2" data-thumb="habit-tracker" data-accent="teal"></span>
+    <span class="sheet-s s3" data-thumb="dot-grid" data-accent="plum"></span>
+  </div>
+</div></section>
+<div class="wrap">{{ m.ad("billboard") }}</div>
+<section class="wrap" id="templates">
+  {% for cat, label in cats %}
+  <h2 class="cat">{{ label }}</h2>
+  <ul class="cards">{% for t in tools if t.cat == cat %}{{ m.card(t) }}{% endfor %}</ul>
+  {% endfor %}
+</section>
+<section class="wrap how">
+  <h2>How it works</h2>
+  <ol class="steps">
+    <li><b>1</b><strong>Pick a template</strong><span>Twelve layouts for paper, calendars, planners and trackers.</span></li>
+    <li><b>2</b><strong>Make it yours</strong><span>Paper size, orientation, colours, dates, titles and your own items – the preview updates instantly.</span></li>
+    <li><b>3</b><strong>Print or download</strong><span>Get a vector PDF that stays sharp at any size, or print directly from your browser.</span></li>
+  </ol>
+</section>
+<div class="wrap layout">
+  <div class="prose">
+    <h2>Why Printable Joy Lab?</h2>
+    <p>Most printable sites offer fixed files: one size, one colour, one start day. Here every template is generated on the spot from your settings – A4 or US Letter, Monday or Sunday, landscape or portrait, with your habits, categories and titles printed right on the page. Nothing is uploaded: everything is calculated in your browser.</p>
+    <p>The PDFs are true vector files. Lines stay razor-sharp, grids keep their exact spacing when printed at 100 %, and the files stay small enough to email.</p>
+    {{ m.ad("rect") }}
+    <h2>Guides</h2>
+    <ul class="cards text">{% for a in articles %}<li><a class="card" href="/{{ a.slug }}.html"><strong>{{ a.title }}</strong><span>{{ a.teaser }}</span></a></li>{% endfor %}</ul>
+  </div>
+  <aside class="side">{{ m.ad("half") }}</aside>
+</div>
+{% endblock %}

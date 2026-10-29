@@ -1,0 +1,9 @@
+{% macro ad(kind) -%}
+<div class="ad ad--{{ kind }}" data-ad="{{ kind }}" aria-hidden="true"></div>
+{%- endmacro %}
+{% macro crumbs(items) -%}
+<nav class="crumbs wrap" aria-label="Breadcrumb">{% for href,label in items %}{% if not loop.last %}<a href="{{ href }}">{{ label }}</a> / {% else %}<span>{{ label }}</span>{% endif %}{% endfor %}</nav>
+{%- endmacro %}
+{% macro card(t) -%}
+<li><a class="card" href="/{{ t.slug }}.html"><span class="thumb" data-thumb="{{ t.slug }}" data-accent="{{ t.accent }}" aria-hidden="true"></span><strong>{{ t.name }}</strong><span>{{ t.teaser }}</span></a></li>
+{%- endmacro %}
