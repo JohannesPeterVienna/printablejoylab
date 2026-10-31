@@ -160,3 +160,8 @@ main{overflow-wrap:break-word}main a{overflow-wrap:anywhere}
 .promo img{width:76px;height:auto;border-radius:2px;box-shadow:0 8px 16px -10px rgba(60,40,20,.6);transform:rotate(-4deg)}
 .promo strong{display:block;font-size:1.05rem}.promo span{color:var(--muted);font-size:.92rem}
 @media (max-width:960px){.product{grid-template-columns:minmax(0,1fr)}.buybox{position:static}.gallery{grid-template-columns:repeat(2,1fr)}}
+
+/* Werbeplätze: Superbanner 728×90 (ab Tablet), Wide Skyscraper 160×600 (nur mit Seitenleiste) */
+.ad--superbanner{max-width:728px;min-height:90px}.ad--sky{width:160px;min-height:600px}
+@media (max-width:767px){.ad--superbanner{display:none!important}}
+@media (max-width:960px){.ad--sky{display:none!important}}

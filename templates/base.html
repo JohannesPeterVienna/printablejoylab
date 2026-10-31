@@ -32,6 +32,7 @@
 </div></header>
 <main id="main">
 {% block main %}{% endblock %}
+{% if ads %}<div class="wrap"><div class="ad ad--superbanner" data-ad="superbanner" aria-hidden="true"></div></div>{% endif %}
 </main>
 <footer class="foot"><div class="wrap">
   <div class="foot-brand"><strong>Printable Joy Lab</strong><p>Free, customisable printables – planners, calendars, trackers and paper. Made in Vienna. Updated {{ updated }}.</p></div>

@@ -37,6 +37,6 @@
     <h2>Guides</h2>
     <ul class="cards text">{% for a in articles %}<li><a class="card" href="/{{ a.slug }}.html"><strong>{{ a.title }}</strong><span>{{ a.teaser }}</span></a></li>{% endfor %}</ul>
   </div>
-  <aside class="side">{{ m.ad("half") }}</aside>
+  <aside class="side">{{ m.ad("half") }}{{ m.ad("sky") }}</aside>
 </div>
 {% endblock %}

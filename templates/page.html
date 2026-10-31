@@ -11,7 +11,7 @@
   </article>
   <aside class="side">
     <div class="box"><h3>Templates</h3><ul>{% for t in tools %}<li><a href="/{{ t.slug }}.html">{{ t.name }}</a></li>{% endfor %}</ul></div>
-    {% if ads %}{{ m.ad("half") }}{% endif %}
+    {% if ads %}{{ m.ad("half") }}{{ m.ad("sky") }}{% endif %}
   </aside>
 </div>
 {% endblock %}
