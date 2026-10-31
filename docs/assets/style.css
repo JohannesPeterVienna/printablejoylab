@@ -106,7 +106,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--ink);outline:none}
 details{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin:0 0 10px}
 summary{font-weight:700;cursor:pointer}
 details p{margin:10px 0 0}
-.side{position:sticky;top:84px;display:flex;flex-direction:column;gap:18px}
+.side{display:flex;flex-direction:column;gap:18px}
 .box{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px}
 .box h3{margin-top:0}.box ul{margin:0;padding-left:1.1em}.box li{margin:.2em 0}
 .ad{display:none;margin:28px auto;text-align:center}.ad.on{display:block}
@@ -130,7 +130,7 @@ main{overflow-wrap:break-word}main a{overflow-wrap:anywhere}
   .sheet{max-width:min(100%,420px)}
 }
 @media (max-width:640px){
-  .nav{flex-wrap:nowrap;overflow-x:auto;width:100%;margin:0;padding-bottom:6px;scrollbar-width:none}.nav::-webkit-scrollbar{display:none}.nav a{white-space:nowrap;flex:none}
+  .nav{flex-wrap:wrap;width:100%;margin:0;gap:4px 2px}.nav a{white-space:nowrap;padding:7px 11px;font-size:.88rem}
   .hero{padding-top:30px}
   .preview{padding:16px}
   .foot .wrap{grid-template-columns:1fr}

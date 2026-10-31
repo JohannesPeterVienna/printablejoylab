@@ -10,7 +10,8 @@ OUT = ROOT / "docs"
 SITE = "https://printablejoylab.com"; V = "20261029b"
 BUY_PLANNER = ""   # Lemon Squeezy checkout link – set once the product exists
 UPDATED = "October 2026"
-NAV = [("/", "Templates"), ("/weekly-planner.html", "Planners"), ("/monthly-calendar.html", "Calendars"), ("/habit-tracker.html", "Trackers"), ("/dot-grid.html", "Paper"), ("/guides.html", "Guides"), ("/shop.html", "2027 Planner")]
+SHOP_OPEN = bool(BUY_PLANNER)   # Shop wird erst sichtbar beworben, wenn der Kauf wirklich möglich ist
+NAV = [("/", "Templates"), ("/weekly-planner.html", "Planners"), ("/monthly-calendar.html", "Calendars"), ("/habit-tracker.html", "Trackers"), ("/dot-grid.html", "Paper"), ("/guides.html", "Guides")]
 env = Environment(loader=FileSystemLoader(ROOT / "templates"), autoescape=True, trim_blocks=True, lstrip_blocks=True)
 PAGES = []
 LEGAL_ADDR = "AdStern :: Agentur für digitales Marketing<br>Seilerstätte 8, 1010 Vienna, Austria<br>Email: <a href='mailto:office@adstern.com'>office@adstern.com</a><br>Web: <a href='https://www.adstern.com'>www.adstern.com</a>"
@@ -18,7 +19,7 @@ ORG = {"@type": "Organization", "name": "Printable Joy Lab", "url": SITE + "/"}
 
 
 def write(path, template, **ctx):
-    base = dict(site=SITE, v=V, updated=UPDATED, nav=NAV, active=ctx.get("active", "/" + path), jsonld=[], ads=True,
+    base = dict(site=SITE, v=V, updated=UPDATED, nav=NAV + ([("/shop.html", "2027 Planner")] if SHOP_OPEN else []), shop_open=SHOP_OPEN, active=ctx.get("active", "/" + path), jsonld=[], ads=True,
                 robots=None, og_title=None, tools=TOOLS, cats=CATS, articles=ARTICLES)
     base.update(ctx)
     base["path"] = "/" if path == "index.html" else "/" + path
@@ -81,7 +82,7 @@ def main():
 
     write("imprint.html", "page.html", title="Imprint | Printable Joy Lab", description="Legal notice for Printable Joy Lab.", h1="Imprint", ads=False, robots="noindex,follow", active="",
           body=f"""<h2>Media owner and publisher</h2><p>{LEGAL_ADDR}</p>
-<h2>Company details</h2><p>Business purpose: advertising agency (Werbeagentur)<br>VAT ID: ATU54682507<br>Trade authority: Magistratisches Bezirksamt für den 1. Bezirk, Vienna</p>
+<h2>Company details</h2><p>Business purpose: advertising agency (Werbeagentur)<br>VAT ID: ATU54682507<br>Trade authority: Magistratisches Bezirksamt für den 1. und 8. Bezirk, Vienna<br>Chamber membership: Austrian Economic Chamber Vienna (Wirtschaftskammer Wien), advertising and market communication group<br>Professional title: advertising agency (Werbeagentur), trade licence granted in Austria<br>Applicable regulations: Austrian Trade Regulation Act (Gewerbeordnung), available at <a href="https://www.ris.bka.gv.at" rel="noopener">www.ris.bka.gv.at</a></p>
 <h2>Editorial line</h2><p>Free printable templates and guides on planning, organisation and paper.</p>
 <p class="small muted">Information pursuant to § 5 E-Commerce-Gesetz and § 25 Mediengesetz (Austria).</p>""")
 
@@ -101,7 +102,7 @@ def main():
            '<span class="btn big disabled" aria-disabled="true">Checkout opens shortly</span>')
     write("shop.html", "page.html", title="The 2027 Planner – 111-Page Printable & Digital Planner (PDF) | Printable Joy Lab",
           description="The complete 2027 planner as PDF: year, months, 53 weekly spreads, habit trackers, budget and meal pages – A4 and US Letter, Monday or Sunday start, clickable contents.",
-          h1="The 2027 Planner", lead="Everything from our free templates, ready-made for the whole year in one beautifully consistent PDF – 111 pages.", ads=False, active="/shop.html", priority=0.8,
+          h1="The 2027 Planner", lead="Everything from our free templates, ready-made for the whole year in one beautifully consistent PDF – 111 pages.", ads=False, active="/shop.html", robots=None if SHOP_OPEN else "noindex,follow", priority=0.8,
           jsonld=[{"@context": "https://schema.org", "@type": "Product", "name": "The 2027 Planner (PDF)", "brand": {"@type": "Brand", "name": "Printable Joy Lab"},
                    "description": "111-page printable and digital planner for 2027 in A4 and US Letter, Monday or Sunday start.", "image": SITE + "/assets/shop/planner-p1.webp",
                    **({"offers": {"@type": "Offer", "price": "9.00", "priceCurrency": "EUR", "availability": "https://schema.org/InStock", "url": SITE + "/shop.html"}} if BUY_PLANNER else {})}],
@@ -142,8 +143,8 @@ def main():
 
     write("404.html", "page.html", title="Page not found | Printable Joy Lab", description="This page does not exist.", h1="This page doesn't exist", ads=False, robots="noindex,follow", active="",
           body='<p>The page may have moved. Try one of our <a href="/">free templates</a>.</p>')
-    (OUT / "advertise.html").write_text('<!doctype html><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=/"><link rel="canonical" href="https://printablejoylab.com/"><title>Printable Joy Lab</title>', encoding="utf-8")
-    (OUT / "parents.html").write_text('<!doctype html><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=/"><link rel="canonical" href="https://printablejoylab.com/"><title>Printable Joy Lab</title>', encoding="utf-8")
+    (OUT / "advertise.html").write_text('<!doctype html><meta charset="utf-8"><meta name="robots" content="noindex"><meta http-equiv="refresh" content="0;url=/"><link rel="canonical" href="https://printablejoylab.com/"><title>Printable Joy Lab</title>', encoding="utf-8")
+    (OUT / "parents.html").write_text('<!doctype html><meta charset="utf-8"><meta name="robots" content="noindex"><meta http-equiv="refresh" content="0;url=/"><link rel="canonical" href="https://printablejoylab.com/"><title>Printable Joy Lab</title>', encoding="utf-8")
 
     (OUT / "CNAME").write_text("printablejoylab.com\n")
     (OUT / ".nojekyll").write_text("")
