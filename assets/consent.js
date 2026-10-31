@@ -1,18 +1,21 @@
 /* Ads and analytics – both run through Google's certified consent management (IAB TCF 2.2).
-   Consent Mode v2 defaults (everything denied, wait_for_update 500 ms) are set before any Google script.
-   Google Analytics measures only when the Google CMP reports BOTH
-     – TCF purpose 1 + vendor 755 (Google) consent, and
-     – Consent Mode analytics_storage GRANTED (googlefc.getGoogleConsentModeValues()).
-   UNKNOWN/missing values mean no. Outside GDPR scope (gdprApplies === false) analytics may run unless
-   the CMP reports a refusal. Refusal or withdrawal sends consent "update" denied and sets the
-   ga-disable flag, so no further hits are sent; renewed consent switches measurement back on.
-   Google signals and ad personalisation are disabled in Analytics. */
+   Consent Mode v2 defaults (everything denied, wait_for_update 500 ms, ga-disable on) are set before any
+   Google script. Google Analytics measures only when
+     – GDPR applies: TCF purpose 1 + vendor 755 (Google) consent AND Consent Mode
+       analyticsStoragePurposeConsentStatus GRANTED (1);
+     – GDPR does not apply (gdprApplies === false): the value is GRANTED (1) or NOT_APPLICABLE (3) AND the
+       CMP explicitly reports no U.S. state opt-out (usstatesoptout DOES_NOT_APPLY 1 / NOT_OPTED_OUT 2).
+   Missing, UNKNOWN (0), DENIED (2), NOT_CONFIGURED (4) or any CMP API error mean no. A clear TCF "no"
+   blocks at once, before any other CMP API is called. Refusal or withdrawal sends consent "update" denied
+   and sets the ga-disable flag; renewed consent switches measurement back on.
+   Enum values: developers.google.com/funding-choices/fc-api-docs. Google signals/ad personalisation off. */
 (() => {
   const PUB = "ca-pub-7811071715414905";
   const GA = "G-T00HRG2YVF";
   const GOOGLE_VENDOR = 755;
   const OFF_FLAG = "ga-disable-" + GA;
-  const GRANTED = 1, DENIED = 2;          // googlefc.ConsentModePurposeStatusEnum
+  const GRANTED = 1, NOT_APPLICABLE = 3;   // googlefc.ConsentModePurposeStatusEnum
+  const US_NO_OPT_OUT = [1, 2];           // usstatesoptout: DOES_NOT_APPLY, NOT_OPTED_OUT (0 UNKNOWN, 3 OPTED_OUT block)
 
   window.dataLayer = window.dataLayer || [];
   window.gtag = window.gtag || function gtag(){ window.dataLayer.push(arguments); };
@@ -72,14 +75,24 @@
     };
     const has = (group, id) => Boolean(group && group.consents && group.consents[id]);
 
+    const usOptedOut = () => {
+      try {
+        const u = window.googlefc && window.googlefc.usstatesoptout;
+        return !(u && typeof u.getInitialUsStatesOptOutStatus === "function" && US_NO_OPT_OUT.includes(u.getInitialUsStatesOptOutStatus()));
+      } catch (err) { return true; }
+    };
+
     // returns "allow" | "deny" | "wait"
     const verdict = () => {
-      const cm = cmpAnalyticsStatus();
-      if (gpc || cm === DENIED) return "deny";
+      if (gpc) return "deny";
       if (!lastTc) return "wait";
-      if (lastTc.gdprApplies === false) return "allow";
+      if (lastTc.gdprApplies === false) {
+        const cm = cmpAnalyticsStatus();
+        return (cm === GRANTED || cm === NOT_APPLICABLE) && !usOptedOut() ? "allow" : "deny";
+      }
       if (lastTc.eventStatus !== "tcloaded" && lastTc.eventStatus !== "useractioncomplete") return "wait";
-      return has(lastTc.purpose, 1) && has(lastTc.vendor, GOOGLE_VENDOR) && cm === GRANTED ? "allow" : "deny";
+      if (!has(lastTc.purpose, 1) || !has(lastTc.vendor, GOOGLE_VENDOR)) return "deny";   // no further CMP call
+      return cmpAnalyticsStatus() === GRANTED ? "allow" : "deny";
     };
 
     const enable = () => {
@@ -127,7 +140,7 @@
       setTimeout(analytics.sync, 300);   // Consent Mode values may update just after the TCF event
     });
   }
-  window.googlefc.callbackQueue.push({ CONSENT_MODE_DATA_READY: analytics.sync });
+  window.googlefc.callbackQueue.push({ CONSENT_MODE_DATA_READY: analytics.sync, INITIAL_US_STATES_OPT_OUT_DATA_READY: analytics.sync });
 
   // "Privacy settings" link in the footer reopens the Google consent dialog
   document.addEventListener("click", e => {
