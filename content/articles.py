@@ -38,7 +38,7 @@ ARTICLES = [
 <li><strong>Thinking by writing:</strong> writing slows you down just enough to decide what really matters.</li>
 <li><strong>Flexibility:</strong> arrows, doodles, circles and margin notes need no menus.</li></ul>
 <h2>What the research says</h2>
-<p>Studies on handwriting and note-taking suggest that writing by hand can support memory and understanding compared with typing, possibly because it forces you to summarise rather than transcribe. The effects vary between studies and situations – but if a plan feels more “yours” after writing it down, that is a good enough reason to use paper.</p>
+<p>Studies on handwriting and note-taking suggest that writing by hand can support memory and understanding compared with typing, possibly because it forces you to summarize rather than transcribe. The effects vary between studies and situations – but if a plan feels more “yours” after writing it down, that is a good enough reason to use paper.</p>
 <h2>What apps do better</h2>
 <p>Reminders at a specific time, shared calendars with family or colleagues, recurring events and search across years – that is where digital tools shine.</p>
 <h2>A simple hybrid system</h2>
@@ -81,20 +81,20 @@ ARTICLES = [
 "slug": "choose-the-right-paper",
 "title": "Lined, grid, dot or isometric: which paper for which job?",
 "teaser": "A quick guide to choosing the right printable paper.",
-"description": "Compare lined, graph, dot grid and isometric paper: what each is best for, typical spacings, and quick recommendations for notes, maths, journaling and design.",
+"description": "Compare lined, graph, dot grid and isometric paper: what each is best for, typical spacings, and quick recommendations for notes, math, journaling and design.",
 "body": """
 <p>Paper with lines, squares or dots is not just a matter of taste. Each pattern makes certain tasks easier. Here is a quick guide.</p>
 <h2>Lined paper – for writing</h2>
 <p>Lines guide your handwriting and keep text straight. Choose college ruling (7.1 mm) for everyday notes, wide ruling (8.7 mm) for larger handwriting and narrow ruling (6.35 mm) to fit more on a page. → <a href="/lined-paper.html">Lined paper</a></p>
 <h2>Graph paper – for numbers and plans</h2>
-<p>Squares keep columns aligned, make charts easy and let you draw to scale. 5 mm suits maths and notes, 1 cm suits children and big sketches, and 1/4 inch is the classic US quad-ruled paper. → <a href="/graph-paper.html">Graph paper</a></p>
+<p>Squares keep columns aligned, make charts easy and let you draw to scale. 5 mm suits math and notes, 1 cm suits children and big sketches, and 1/4 inch is the classic US quad-ruled paper. → <a href="/graph-paper.html">Graph paper</a></p>
 <h2>Dot grid – for everything in between</h2>
 <p>Dots give structure for writing, tables and drawings but stay in the background. That is why bullet journalers love it. 5 mm is the standard. → <a href="/dot-grid.html">Dot grid paper</a></p>
 <h2>Isometric – for 3D</h2>
 <p>Triangles at 60° make it easy to draw cubes, rooms and objects in three dimensions without perspective. Great for designers, makers and game maps. → <a href="/isometric-paper.html">Isometric paper</a></p>
 <h2>Quick recommendations</h2>
 <ul><li><strong>Lecture notes:</strong> college-ruled lined paper or 5 mm dot grid.</li>
-<li><strong>Maths homework:</strong> 5 mm graph paper.</li>
+<li><strong>Math homework:</strong> 5 mm graph paper.</li>
 <li><strong>Handwriting practice:</strong> wide-ruled lines or 1 cm squares.</li>
 <li><strong>Journaling and planning:</strong> 5 mm dot grid.</li>
 <li><strong>Floor plans:</strong> 5 mm or 1/4 inch graph paper with bold lines.</li>

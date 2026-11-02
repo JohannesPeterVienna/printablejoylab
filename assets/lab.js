@@ -77,14 +77,16 @@
   const iso = d => d.toISOString().slice(0, 10);
 
   /* ------------------------------------------------------------ common options */
+  // US Letter + Sunday start for visitors from the US and Canada, A4 + Monday elsewhere (saved or linked settings still win)
+  const NA = (() => { try { return /^(en-us|en-ca|es-us|fr-ca)$/i.test((typeof navigator !== "undefined" && navigator.language) || ""); } catch { return false; } })();
   const O = {
-    paper: (def = "a4") => ({ k: "paper", label: "Paper size", type: "select", def, options: [["a4", "A4 (210 × 297 mm)"], ["letter", "US Letter (8.5 × 11 in)"], ["a5", "A5 (148 × 210 mm)"], ["half", "Half Letter (5.5 × 8.5 in)"]] }),
+    paper: (def = NA ? "letter" : "a4") => ({ k: "paper", label: "Paper size", type: "select", def, options: [["a4", "A4 (210 × 297 mm)"], ["letter", "US Letter (8.5 × 11 in)"], ["a5", "A5 (148 × 210 mm)"], ["half", "Half Letter (5.5 × 8.5 in)"]] }),
     orient: (def = "portrait") => ({ k: "orient", label: "Orientation", type: "seg", def, options: [["portrait", "Portrait"], ["landscape", "Landscape"]] }),
     accent: () => ({ k: "accent", label: "Accent colour", type: "swatch", def: "tomato", options: Object.keys(ACCENTS) }),
     lines: (def = "light") => ({ k: "lines", label: "Line colour", type: "seg", def, options: [["light", "Light"], ["medium", "Medium"], ["dark", "Dark"], ["blue", "Blue"], ["accent", "Accent"]] }),
     title: def => ({ k: "title", label: "Title", type: "text", def, max: 40 }),
     font: () => ({ k: "font", label: "Title style", type: "seg", def: "sans", options: [["sans", "Clean"], ["serif", "Classic"]] }),
-    weekstart: () => ({ k: "ws", label: "Week starts on", type: "seg", def: "mon", options: [["mon", "Monday"], ["sun", "Sunday"]] }),
+    weekstart: () => ({ k: "ws", label: "Week starts on", type: "seg", def: NA ? "sun" : "mon", options: [["mon", "Monday"], ["sun", "Sunday"]] }),
     year: (def = thisYear) => ({ k: "year", label: "Year", type: "number", def, min: 1900, max: 2100 }),
     month: (allowAll = true) => ({ k: "month", label: "Month", type: "select", def: String(new Date().getMonth()), options: [...(allowAll ? [["all", "All 12 months (12 pages)"]] : []), ...MONTHS.map((m, i) => [String(i), m])] }),
     brand: () => ({ k: "brand", label: "Small site credit in footer", type: "check", def: true })
@@ -446,7 +448,7 @@
     });
     $("[data-share]", root).addEventListener("click", async e => {
       const o = readOpts(form, tpl), qs = new URLSearchParams();
-      tpl.opts.forEach(d => { const v = o[d.k]; if (String(v) !== String(d.def)) qs.set(d.k, d.type === "check" ? (v ? "1" : "0") : v); });
+      tpl.opts.forEach(d => { const v = o[d.k]; if (String(v) !== String(d.def) || d.k === "paper" || d.k === "ws") qs.set(d.k, d.type === "check" ? (v ? "1" : "0") : v); });
       const url = `${location.origin}${location.pathname}${qs.toString() ? "?" + qs : ""}`;
       try { await navigator.clipboard.writeText(url); e.currentTarget.textContent = "Link copied ✓"; } catch { history.replaceState(null, "", url); e.currentTarget.textContent = "Link is in the address bar"; }
     });
@@ -455,12 +457,17 @@
   }
 
   // Thumbnails on overview pages
+  // Fine patterns vanish at thumbnail size: preview-only coarser spacing, bigger dots, thicker lines.
+  const THUMB = { "dot-grid": { o: { gap: "10", size: "l" }, r: 1.1 }, "isometric-paper": { o: { gap: "10" }, lw: 0.6 } };
   function thumbs() {
     $$("[data-thumb]").forEach(el => {
       const tpl = T[el.dataset.thumb]; if (!tpl) return;
       const o = {}; tpl.opts.forEach(d => o[d.k] = d.def); if (el.dataset.accent) o.accent = el.dataset.accent;
       if (typeof o.lines === "string") o.lines = "dark"; // thumbnails are tiny – make lines visible
-      const P = Page(o); el.innerHTML = toSVG(tpl.pages(o)[0], P.w, P.h);
+      const tw = THUMB[el.dataset.thumb]; if (tw) Object.assign(o, tw.o);
+      let ops = tpl.pages(o)[0];
+      if (tw) ops = ops.map(op => op.t === "circle" && tw.r ? { ...op, r: tw.r } : op.t === "line" && tw.lw ? { ...op, lw: Math.max(op.lw, tw.lw) } : op);
+      const P = Page(o); el.innerHTML = toSVG(ops, P.w, P.h);
     });
   }
 

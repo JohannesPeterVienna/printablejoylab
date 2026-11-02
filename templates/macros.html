@@ -1,5 +1,5 @@
 {% macro ad(kind) -%}
-<div class="ad ad--{{ kind }}" data-ad="{{ kind }}" aria-hidden="true"></div>
+<div class="ad ad--{{ kind }}" data-ad="{{ kind }}" role="complementary" aria-label="Advertisement"></div>
 {%- endmacro %}
 {% macro crumbs(items) -%}
 <nav class="crumbs wrap" aria-label="Breadcrumb">{% for href,label in items %}{% if not loop.last %}<a href="{{ href }}">{{ label }}</a> / {% else %}<span>{{ label }}</span>{% endif %}{% endfor %}</nav>

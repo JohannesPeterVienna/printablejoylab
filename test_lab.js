@@ -6,7 +6,7 @@ global.window = global; global.location = { search: "" };
 eval(fs.readFileSync(__dirname + "/assets/lab.js", "utf8"));
 const { T, Page } = window.PJL;
 let n = 0, bad = 0;
-const variants = [{}, { paper: "letter" }, { paper: "a5" }, { paper: "half" }, { orient: "landscape" }, { orient: "portrait" }, { ws: "sun" }, { month: "all" }, { ruling: "custom", gap: "5" }, { style: "dots" }, { cols: "2" }, { style: "number" }, { half: true }, { meals: "blds" }, { grocery: false }, { notes: false }, { start: "" }, { date: "2027-03-14" }, { year: "2028", month: "1" }];
+const variants = [{}, { paper: "a4" }, { paper: "letter" }, { ws: "mon" }, { paper: "a5" }, { paper: "half" }, { orient: "landscape" }, { orient: "portrait" }, { ws: "sun" }, { month: "all" }, { ruling: "custom", gap: "5" }, { style: "dots" }, { cols: "2" }, { style: "number" }, { half: true }, { meals: "blds" }, { grocery: false }, { notes: false }, { start: "" }, { date: "2027-03-14" }, { year: "2028", month: "1" }];
 for (const [key, tpl] of Object.entries(T)) {
   for (const v of variants) {
     const o = {}; tpl.opts.forEach(d => o[d.k] = d.def); for (const [k, val] of Object.entries(v)) if (k in o) o[k] = val;

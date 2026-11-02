@@ -7,15 +7,25 @@ from content.articles import ARTICLES
 
 ROOT = Path(__file__).parent
 OUT = ROOT / "docs"
-SITE = "https://printablejoylab.com"; V = "20261031c"
+SITE = "https://printablejoylab.com"; V = "20261102a"
 BUY_PLANNER = ""   # Lemon Squeezy checkout link – set once the product exists
 UPDATED = "October 2026"
+REVIEWED = "2026-11-02"; REVIEWED_TEXT = "November 2, 2026"   # last editorial review of all guides
 SHOP_OPEN = bool(BUY_PLANNER)   # Shop wird erst sichtbar beworben, wenn der Kauf wirklich möglich ist
 NAV = [("/", "Templates"), ("/weekly-planner.html", "Planners"), ("/monthly-calendar.html", "Calendars"), ("/habit-tracker.html", "Trackers"), ("/dot-grid.html", "Paper"), ("/guides.html", "Guides")]
 env = Environment(loader=FileSystemLoader(ROOT / "templates"), autoescape=True, trim_blocks=True, lstrip_blocks=True)
 PAGES = []
 LEGAL_ADDR = "AdStern :: Agentur für digitales Marketing<br>Seilerstätte 8, 1010 Vienna, Austria<br>Email: <a href='mailto:office@adstern.com'>office@adstern.com</a><br>Web: <a href='https://www.adstern.com'>www.adstern.com</a>"
 ORG = {"@type": "Organization", "name": "Printable Joy Lab", "url": SITE + "/"}
+
+
+GUIDES_INTRO = """<p>These four guides answer the questions that come up most often once you start printing your own planners and paper. Each one takes only a few minutes to read and links to the templates it talks about. Here is what each guide covers, so you can go straight to the one you need.</p>
+<h2>Which guide should you read?</h2>
+<ul><li><strong>Your grid prints too small, or the bottom of your calendar is cut off?</strong> Start with <a href="/print-at-actual-size.html">How to print at actual size</a>. It explains why A4 and US Letter are different shapes, which scale setting to choose on Windows, on a Mac, in Adobe Acrobat Reader and on phones and tablets, how to check the result with a ruler, and which paper weight suits planners you write on with markers.</li>
+<li><strong>Not sure which paper pattern to print?</strong> <a href="/choose-the-right-paper.html">Lined, grid, dot or isometric</a> compares the four patterns and their common spacings – from college ruling to 5 mm dot grid – and ends with quick recommendations for lecture notes, math homework, handwriting practice, journaling, floor plans and product sketches.</li>
+<li><strong>Curious about bullet journaling?</strong> The <a href="/bullet-journal-starter.html">bullet journal starter kit</a> covers rapid logging with its three basic symbols, the core pages (index, future log, monthly and weekly log, collections), simple trackers, and the pros and cons of printed pages in a ring binder compared with a bound notebook.</li>
+<li><strong>Wondering whether planning on paper still makes sense?</strong> <a href="/paper-vs-digital-planning.html">Paper or app?</a> looks at what paper does well, what studies on handwriting suggest, where apps are the better tool, and a simple routine that combines a digital calendar with a printed weekly page.</li></ul>
+<p>If you are new to printables, read the print guide first: the right scale setting makes the biggest difference to every template on this site.</p>"""
 
 
 def write(path, template, **ctx):
@@ -25,7 +35,7 @@ def write(path, template, **ctx):
     base["path"] = "/" if path == "index.html" else "/" + path
     (OUT / path).write_text(env.get_template(template).render(**base), encoding="utf-8")
     if base.get("robots") is None:
-        PAGES.append((base["path"], ctx.get("priority", 0.6)))
+        PAGES.append((base["path"], ctx.get("priority", 0.6), ctx.get("lastmod", "2026-10-29")))
 
 
 def crumbs_ld(items):
@@ -39,8 +49,8 @@ def main():
     OUT.mkdir(parents=True)
     shutil.copytree(ROOT / "assets", OUT / "assets")
 
-    write("index.html", "home.html", title="Printable Joy Lab – Free Customisable Printables: Planners, Calendars & Paper",
-          description="Free printable planners, calendars, habit trackers, checklists and paper you customise in seconds – A4 or US Letter, your colours and dates – then download as PDF.",
+    write("index.html", "home.html", title="Printable Joy Lab – Free Customizable Printables: Planners, Calendars & Paper",
+          description="Free printable planners, calendars, habit trackers, checklists and paper you customize in seconds – A4 or US Letter, your colors and dates – then download as PDF.",
           active="/", priority=1.0,
           jsonld=[{"@context": "https://schema.org", "@type": "WebSite", "name": "Printable Joy Lab", "url": SITE + "/", "inLanguage": "en"}])
 
@@ -52,31 +62,33 @@ def main():
               {"@context": "https://schema.org", "@type": "WebApplication", "name": f"{t['name']} generator – Printable Joy Lab", "url": f"{SITE}/{t['slug']}.html",
                "applicationCategory": "UtilitiesApplication", "operatingSystem": "Web", "inLanguage": "en", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}},
               {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in t["faq"]]}]
+        cut = t["guide"].find("<h2>", t["guide"].find("<h2>") + 1)   # Werbung erst nach dem ersten Erklärabschnitt
+        guide_first, guide_rest = (t["guide"][:cut], t["guide"][cut:]) if cut > 0 else (t["guide"], "")
         write(t["slug"] + ".html", "tool.html", title=t["title"] + " | Printable Joy Lab", description=t["description"], h1=f"{t['name']}",
-              lead=t["lead"], slug=t["slug"], cat=t["cat"], guide=t["guide"], faq=t["faq"], related=related, crumbs=crumbs, jsonld=ld,
+              lead=t["lead"], slug=t["slug"], cat=t["cat"], guide_first=guide_first, guide_rest=guide_rest, faq=t["faq"], related=related, crumbs=crumbs, jsonld=ld,
               active=next((h for h, l in NAV if h == "/" + t["slug"] + ".html"), ""), priority=0.9)
 
     for a in ARTICLES:
         crumbs = [("/", "Templates"), ("/guides.html", "Guides"), ("/" + a["slug"] + ".html", a["title"])]
         ld = [crumbs_ld(crumbs), {"@context": "https://schema.org", "@type": "Article", "headline": a["title"], "description": a["description"],
-              "inLanguage": "en", "author": ORG, "publisher": ORG, "datePublished": "2026-10-29", "dateModified": "2026-10-29", "mainEntityOfPage": f"{SITE}/{a['slug']}.html"}]
+              "inLanguage": "en", "author": ORG, "publisher": ORG, "datePublished": "2026-10-29", "dateModified": REVIEWED, "mainEntityOfPage": f"{SITE}/{a['slug']}.html"}]
         links = [BY[s] for s in BY if f"/{s}.html" in a["body"]][:4]
         write(a["slug"] + ".html", "page.html", title=a["title"] + " | Printable Joy Lab", description=a["description"], h1=a["title"],
-              lead=a["teaser"], body=a["body"], crumbs=crumbs, related=links, jsonld=ld, active="/guides.html", priority=0.7)
+              lead=a["teaser"], body=a["body"], crumbs=crumbs, related=links, jsonld=ld, active="/guides.html", priority=0.7, reviewed=REVIEWED_TEXT, lastmod=REVIEWED)
 
     guides = "".join(f'<li><a class="card" href="/{a["slug"]}.html"><strong>{a["title"]}</strong><span>{a["teaser"]}</span></a></li>' for a in ARTICLES)
     write("guides.html", "page.html", title="Guides – Printing, Planning & Paper | Printable Joy Lab",
           description="Guides on printing at actual size, choosing the right paper, bullet journaling and planning on paper.",
           h1="Guides", lead="Practical know-how for printing, planning and paper.", active="/guides.html", priority=0.6,
-          body=f'<p>Short, practical guides to get the most out of printable planners and paper – from exact print settings to building a planning routine that lasts.</p><ul class="cards text">{guides}</ul>'
-               '<h2>About our templates</h2><p>Every template on Printable Joy Lab is generated from your settings in your own browser. The guides explain the ideas behind the layouts – why college ruling is 9/32 inch, how ISO week numbers work and why a habit tracker helps.</p>')
+          body=GUIDES_INTRO + f'<h2>All guides</h2><ul class="cards text">{guides}</ul>'
+               '<h2>About our templates</h2><p>Every template on Printable Joy Lab is generated from your settings in your own browser. The text below each template explains the ideas behind its layout – for example why college ruling is 9/32 inch or how ISO week numbers work.</p>')
 
     write("about.html", "page.html", title="About Printable Joy Lab", description="Who makes Printable Joy Lab, how the templates are generated and how we check them.",
-          h1="About Printable Joy Lab", lead="Customisable printables, generated in your browser.", priority=0.3, active="",
+          h1="About Printable Joy Lab", lead="Customizable printables, generated in your browser.", priority=0.3, active="",
           body="""<p>Printable Joy Lab is made by AdStern, a small digital agency in Vienna, Austria. We build free tools that are genuinely useful – and printables were a natural fit: almost everyone needs a planner page, a calendar or a sheet of graph paper now and then, but most downloads come in one fixed size and style.</p>
-<h2>How the templates work</h2><p>Each template is described once as a set of lines, boxes and text positioned in millimetres. From that description your browser draws the live preview and creates the PDF – the same data for both, so what you see is what you print. Paper sizes follow ISO 216 (A4, A5) and the North American standards (US Letter, Half Letter). Calendars use the Gregorian calendar and ISO 8601 week numbers.</p>
+<h2>How the templates work</h2><p>Each template is described once as a set of lines, boxes and text positioned in millimeters. From that description your browser draws the live preview and creates the PDF – the same data for both, so what you see is what you print. Paper sizes follow ISO 216 (A4, A5) and the North American standards (US Letter, Half Letter). Calendars use the Gregorian calendar and ISO 8601 week numbers.</p>
 <h2>How we check them</h2><p>Every time the site is updated, an automated test draws every template with many combinations of settings – all paper sizes, orientations, week starts and options – and checks that every line, box and label lands on the page. If a single check fails, the update is not published. We also print sample pages and measure them with a ruler.</p>
-<h2>Your data</h2><p>Your settings, habits and lists never leave your device: the PDF is created in your browser, and the last settings are remembered in your browser's local storage. Ads and analytics only run with your consent – see the <a href="/privacy.html">privacy policy</a>.</p>
+<h2>Your data</h2><p>Your settings, habits and lists never leave your device: the PDF is created in your browser, and the last settings are remembered in your browser's local storage. Analytics and personalized ads only run with your consent. If you don't consent, Google may still show limited, non-personalized ads that use no advertising cookies; if your browser sends a Global Privacy Control signal, we don't load ads at all. Details are in the <a href="/privacy.html">privacy policy</a>.</p>
 <h2>Using the printables</h2><p>You are welcome to print the pages for yourself, your family, your classroom or your own business. Please don't resell the files or offer them for download on other websites; link to the template page instead.</p>
 <h2>Contact</h2><p>Ideas for a new template or found a mistake? Write to <a href="mailto:office@adstern.com">office@adstern.com</a>.</p>""")
 
@@ -144,15 +156,13 @@ def main():
 
     write("404.html", "page.html", title="Page not found | Printable Joy Lab", description="This page does not exist.", h1="This page doesn't exist", ads=False, robots="noindex,follow", active="",
           body='<p>The page may have moved. Try one of our <a href="/">free templates</a>.</p>')
-    (OUT / "advertise.html").write_text('<!doctype html><meta charset="utf-8"><meta name="robots" content="noindex"><meta http-equiv="refresh" content="0;url=/"><link rel="canonical" href="https://printablejoylab.com/"><title>Printable Joy Lab</title>', encoding="utf-8")
-    (OUT / "parents.html").write_text('<!doctype html><meta charset="utf-8"><meta name="robots" content="noindex"><meta http-equiv="refresh" content="0;url=/"><link rel="canonical" href="https://printablejoylab.com/"><title>Printable Joy Lab</title>', encoding="utf-8")
 
     (OUT / "CNAME").write_text("printablejoylab.com\n")
     (OUT / ".nojekyll").write_text("")
     (OUT / "google9bf1079fd4bf073e.html").write_text("google-site-verification: google9bf1079fd4bf073e.html")
     (OUT / "ads.txt").write_text("google.com, pub-7811071715414905, DIRECT, f08c47fec0942fa0\n")
     (OUT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {SITE}/sitemap.xml\n")
-    urls = "".join(f"<url><loc>{SITE}{p}</loc><lastmod>2026-10-29</lastmod><priority>{pr}</priority></url>" for p, pr in PAGES)
+    urls = "".join(f"<url><loc>{SITE}{p}</loc><lastmod>{lm}</lastmod><priority>{pr}</priority></url>" for p, pr, lm in PAGES)
     (OUT / "sitemap.xml").write_text(f'<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{urls}</urlset>')
     print(f"{len(PAGES)} indexable pages")
 

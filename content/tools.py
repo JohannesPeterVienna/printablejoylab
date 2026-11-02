@@ -9,7 +9,7 @@ TOOLS = [
 "teaser": "Wide, college or narrow ruled – with margin and header line.",
 "title": "Printable Lined Paper – Wide, College & Narrow Ruled (Free PDF)",
 "description": "Make free printable lined paper in A4, US Letter or A5: wide, college or narrow ruled, custom spacing, margin line and header. Instant vector PDF.",
-"lead": "Choose the ruling, paper size and line colour, then download a crisp vector PDF or print straight away.",
+"lead": "Choose the ruling, paper size and line color, then download a crisp vector PDF or print straight away.",
 "guide": """
 <h2>Which ruling should you pick?</h2>
 <p>Lined paper is described by the distance between its lines. The three standard rulings come from US school paper, but they are used everywhere:</p>
@@ -20,7 +20,7 @@ TOOLS = [
 <h2>Margin line and header</h2>
 <p>The red margin line gives you a column for dates, question numbers or notes in the margin – it is the classic look of exercise paper. The optional header adds a <em>Name</em> and <em>Date</em> line at the top, which is handy for worksheets, exam practice and letters.</p>
 <h2>Light lines write better</h2>
-<p>Very dark lines compete with your handwriting. For everyday writing, the light grey setting is usually the most pleasant; choose <em>Blue</em> for the familiar notebook look or <em>Medium</em> if your printer prints faintly. When you scan or photocopy your notes later, light lines also disappear more cleanly.</p>
+<p>Very dark lines compete with your handwriting. For everyday writing, the light gray setting is usually the most pleasant; choose <em>Blue</em> for the familiar notebook look or <em>Medium</em> if your printer prints faintly. When you scan or photocopy your notes later, light lines also disappear more cleanly.</p>
 <h2>Printing tips</h2>
 <p>Select the same paper size here as in your printer, and set scaling to <strong>100 % / Actual size</strong> rather than “Fit to page”. That keeps the spacing exactly as chosen. Our PDFs are vector files, so lines stay razor-sharp on any printer and at any zoom level.</p>
 <p>Printing double-sided for a notebook? Print odd pages first, flip the stack and print again – or just use the same page on both sides, since lined paper has no front or back.</p>
@@ -33,29 +33,29 @@ TOOLS = [
 "teaser": "Metric or imperial grids, with bold lines every few squares.",
 "title": "Printable Graph Paper – 5 mm, 1 cm, 1/4 Inch Grid (Free PDF)",
 "description": "Create free printable graph paper: 4 mm, 5 mm, 1 cm, 1/4 or 1/5 inch grids with optional bold lines, in A4, Letter or A5. Download as vector PDF.",
-"lead": "Square grid paper for maths, sketching, floor plans and pixel art – in metric or imperial sizes.",
+"lead": "Square grid paper for math, sketching, floor plans and pixel art – in metric or imperial sizes.",
 "guide": """
 <h2>Metric or imperial?</h2>
 <p>Graph paper (also called grid or squared paper) comes in two families. <strong>Metric</strong> grids of 5 mm or 1 cm are standard in most of Europe and in science. <strong>Imperial</strong> grids divide each inch into 4 or 5 squares – “4 squares per inch” (1/4 inch) is the classic US quad-ruled paper used in schools and engineering notebooks.</p>
 <h2>Bold lines make counting easy</h2>
-<p>A bold line every 5 or 10 squares turns the grid into a ruler. With 5 mm squares and bold lines every 2, each bold square is exactly one centimetre; with bold lines every 10, each bold square is 5 cm – handy for scale drawings. For quad-ruled imperial paper, bold lines every 4 squares mark whole inches.</p>
+<p>A bold line every 5 or 10 squares turns the grid into a ruler. With 5 mm squares and bold lines every 2, each bold square is exactly one centimeter; with bold lines every 10, each bold square is 5 cm – handy for scale drawings. For quad-ruled imperial paper, bold lines every 4 squares mark whole inches.</p>
 <h2>What graph paper is good for</h2>
-<ul><li><strong>Maths and statistics:</strong> plotting functions, drawing bar charts, keeping columns of numbers aligned.</li>
+<ul><li><strong>Math and statistics:</strong> plotting functions, drawing bar charts, keeping columns of numbers aligned.</li>
 <li><strong>Floor plans and garden layouts:</strong> let one square stand for 10 cm or 1 foot and you can sketch rooms to scale.</li>
 <li><strong>Knitting, cross-stitch and pixel art:</strong> each square is one stitch or pixel.</li>
 <li><strong>Handwriting practice:</strong> squares help keep letters evenly sized, which is why many schools use squared exercise books.</li></ul>
 <h2>Scale drawings in three steps</h2>
 <ol><li>Measure the longest side of the room or object.</li>
-<li>Divide the number of squares that fit across the page by that length – this gives you squares per metre (or foot).</li>
+<li>Divide the number of squares that fit across the page by that length – this gives you squares per meter (or foot).</li>
 <li>Round down to a convenient scale, such as 1 square = 25 cm, and write it in a corner of the page.</li></ol>
 <p>Always print at 100 % scale. If the printer shrinks the page to fit its margins, a “5 mm” grid becomes 4.8 mm and your scale drawing will be slightly off.</p>
 """,
 "faq": [("How many squares fit on an A4 page?", "With a 5 mm grid and our 12 mm margins, the page holds 37 squares across and 53 down in portrait orientation."),
-        ("What is engineering paper?", "Engineering paper is usually a light green 1/5 inch grid printed on the back so it shows through faintly. Choose the 1/5 inch grid and the light line colour for a similar look.")],
+        ("What is engineering paper?", "Engineering paper is usually a light green 1/5 inch grid printed on the back so it shows through faintly. Choose the 1/5 inch grid and the light line color for a similar look.")],
 },
 {
 "slug": "dot-grid", "cat": "paper", "name": "Dot grid paper", "accent": "plum",
-"teaser": "The bullet journal favourite – 5 mm dots and more.",
+"teaser": "The bullet journal favorite – 5 mm dots and more.",
 "title": "Printable Dot Grid Paper – 5 mm Bullet Journal Dots (Free PDF)",
 "description": "Free printable dot grid paper for bullet journals, sketching and lettering: 4 mm, 5 mm, 1/4 inch, 7 mm or 1 cm spacing, fine to bold dots, A4/Letter/A5 PDF.",
 "lead": "Structure without clutter: dots guide your lines, layouts and lettering, then step back so your writing stands out.",
@@ -68,7 +68,7 @@ TOOLS = [
 <li><strong>7 mm or 1 cm</strong> works well for lettering practice, children and large headings.</li>
 <li><strong>1/4 inch</strong> matches US dotted notebooks and planner inserts.</li></ul>
 <h2>Fine, medium or bold dots?</h2>
-<p>If your printer prints lightly or you plan to photocopy the pages, choose medium or bold dots so they don't vanish. For fountain pens and watercolour lettering, fine dots in a light colour are almost invisible once the page is filled.</p>
+<p>If your printer prints lightly or you plan to photocopy the pages, choose medium or bold dots so they don't vanish. For fountain pens and watercolor lettering, fine dots in a light color are almost invisible once the page is filled.</p>
 <h2>Bullet journal layouts to try</h2>
 <ul><li><strong>Future log:</strong> divide a page into six boxes for the next six months.</li>
 <li><strong>Weekly spread:</strong> seven boxes of equal height plus a to-do column.</li>
@@ -79,14 +79,14 @@ TOOLS = [
 <p>Print a stack of pages, fold A4 sheets in half for an A5 booklet, or punch them for a ring binder. Thick 100–120 g/m² paper reduces ghosting when you use markers.</p>
 """,
 "faq": [("What size dots do bullet journals use?", "Most dotted notebooks use a 5 mm grid. That is our default setting."),
-        ("Will the dots show when I scan my notes?", "Light, fine dots usually disappear or turn very faint in scans – one reason dot grid is popular for notes you want to digitise.")],
+        ("Will the dots show when I scan my notes?", "Light, fine dots usually disappear or turn very faint in scans – one reason dot grid is popular for notes you want to digitize.")],
 },
 {
 "slug": "isometric-paper", "cat": "paper", "name": "Isometric paper", "accent": "olive",
 "teaser": "Triangle grid for 3D sketches, game maps and design.",
 "title": "Printable Isometric Graph Paper – Lines or Dots (Free PDF)",
 "description": "Free printable isometric paper with 60° triangle grid or isometric dots for 3D drawings, game maps, architecture and design. A4, Letter, A5 vector PDF.",
-"lead": "A grid of 60° lines that makes three-dimensional sketches easy – for design, architecture, maths and tabletop games.",
+"lead": "A grid of 60° lines that makes three-dimensional sketches easy – for design, architecture, math and tabletop games.",
 "guide": """
 <h2>What is isometric paper?</h2>
 <p>Isometric paper is covered in equilateral triangles. Three sets of lines run vertically and at 30° to either side of horizontal. Because all three axes are drawn at the same scale, cubes and boxes look three-dimensional without any vanishing points – perfect for quick technical sketches.</p>
@@ -123,7 +123,7 @@ TOOLS = [
 <h2>Twelve months in one file</h2>
 <p>Select <em>All 12 months</em> to create a complete year as a 12-page PDF – ready for a ring binder, a clipboard on the fridge or a wall calendar. Print it double-sided and every month will have a blank back for notes.</p>
 <h2>Ideas for using a monthly calendar</h2>
-<ul><li><strong>Family planner:</strong> give each person a colour for appointments, sports and school events.</li>
+<ul><li><strong>Family planner:</strong> give each person a color for appointments, sports and school events.</li>
 <li><strong>Content or project calendar:</strong> plan posts, deadlines and launches at a glance.</li>
 <li><strong>Bill calendar:</strong> mark due dates for rent, subscriptions and insurance.</li>
 <li><strong>Meal theme calendar:</strong> pasta Tuesday, soup Friday – fewer daily decisions.</li></ul>
@@ -139,23 +139,23 @@ TOOLS = [
 "teaser": "All twelve months on one page – year at a glance.",
 "title": "Printable Yearly Calendar 2027 – Year at a Glance on One Page",
 "description": "Free printable year-at-a-glance calendar for 2027 or any year: all 12 months on one page, Monday or Sunday start, weekends shaded. A4, Letter or A5 PDF.",
-"lead": "The whole year on a single sheet – perfect for planning holidays, deadlines and long-term goals.",
+"lead": "The whole year on a single sheet – perfect for planning vacations, deadlines and long-term goals.",
 "guide": """
 <h2>Why a year-at-a-glance page?</h2>
-<p>Monthly and weekly planners are great for the details, but they hide the big picture. A one-page yearly calendar shows how long until a deadline, which weeks are already busy and where a holiday would fit best. Pin it next to your desk or put it at the front of your planner.</p>
+<p>Monthly and weekly planners are great for the details, but they hide the big picture. A one-page yearly calendar shows how long until a deadline, which weeks are already busy and where a vacation would fit best. Pin it next to your desk or put it at the front of your planner.</p>
 <h2>Ways to use it</h2>
 <ul><li><strong>Holiday planning:</strong> mark school breaks and public holidays, then look for long weekends.</li>
-<li><strong>Goal tracking:</strong> colour in each day you exercise, practise or write – the year fills up as a visible streak.</li>
-<li><strong>Year in pixels:</strong> give each day a colour for your mood or energy and see patterns over months.</li>
+<li><strong>Goal tracking:</strong> color in each day you exercise, practice or write – the year fills up as a visible streak.</li>
+<li><strong>Year in pixels:</strong> give each day a color for your mood or energy and see patterns over months.</li>
 <li><strong>Countdowns:</strong> highlight a wedding, move or exam date and cross off the days.</li></ul>
 <h2>Portrait or landscape?</h2>
 <p>Portrait arranges the months in four rows of three, which suits binders and planners. Landscape uses three rows of four and leaves larger numbers – better for walls and noticeboards.</p>
 <h2>Leap years</h2>
 <p>February gets its 29th day automatically in leap years. A year is a leap year when it is divisible by 4 – except for years divisible by 100, unless they are also divisible by 400. So 2028 is a leap year, while 2100 is not.</p>
-<p>For day-by-day planning, create a matching <a href="/monthly-calendar.html">monthly calendar</a> in the same accent colour.</p>
+<p>For day-by-day planning, create a matching <a href="/monthly-calendar.html">monthly calendar</a> in the same accent color.</p>
 """,
 "faq": [("Can I print a calendar for a past year?", "Yes – enter any year between 1900 and 2100, for example to document a past year in a scrapbook."),
-        ("Are weekends highlighted?", "Weekend dates appear in your accent colour and can be shaded; switch the shading off in the settings if you prefer a cleaner look.")],
+        ("Are weekends highlighted?", "Weekend dates appear in your accent color and can be shaded; switch the shading off in the settings if you prefer a cleaner look.")],
 },
 # ------------------------------------------------------------------ PLANNERS
 {
@@ -166,7 +166,7 @@ TOOLS = [
 "lead": "Plan your week on one page: a box for every day, space for notes and a to-do list that keeps your priorities in view.",
 "guide": """
 <h2>Dated or undated?</h2>
-<p>Enter a start date and every box is labelled with the weekday and date – handy if you print week by week. Leave the date empty to get an undated planner that you can print in bulk and use whenever you need it, without wasting pages on weeks you skip.</p>
+<p>Enter a start date and every box is labeled with the weekday and date – handy if you print week by week. Leave the date empty to get an undated planner that you can print in bulk and use whenever you need it, without wasting pages on weeks you skip.</p>
 <h2>A simple weekly planning routine</h2>
 <ol><li><strong>Look back (5 minutes):</strong> what got done last week, what moves forward?</li>
 <li><strong>Fixed appointments first:</strong> enter meetings, classes and family commitments.</li>
@@ -178,7 +178,7 @@ TOOLS = [
 <h2>Weekends included</h2>
 <p>Saturday and Sunday get their own boxes, lightly tinted so the work week stands out. The eighth box is for notes – shopping, ideas, phone numbers or a quote for the week.</p>
 <h2>Combine with other pages</h2>
-<p>Many people use a <a href="/monthly-calendar.html">monthly calendar</a> for the overview, this weekly page for planning and a <a href="/daily-planner.html">daily planner</a> for busy days. All three share the same accent colours, so your printed set looks consistent.</p>
+<p>Many people use a <a href="/monthly-calendar.html">monthly calendar</a> for the overview, this weekly page for planning and a <a href="/daily-planner.html">daily planner</a> for busy days. All three share the same accent colors, so your printed set looks consistent.</p>
 """,
 "faq": [("Can I print several weeks at once?", "Print the undated version as many times as you like, or create dated pages week by week by changing the start date."),
         ("Does the planner work in A5 binders?", "Yes – choose A5 or Half Letter. Portrait orientation usually works best for small binders.")],
@@ -212,14 +212,14 @@ TOOLS = [
 {
 "slug": "habit-tracker", "cat": "trackers", "name": "Habit tracker", "accent": "olive",
 "teaser": "Your habits, every day of the month – tick and keep the streak.",
-"title": "Printable Habit Tracker – Monthly, Customisable (Free PDF)",
+"title": "Printable Habit Tracker – Monthly, Customizable (Free PDF)",
 "description": "Free printable monthly habit tracker: type your own habits, choose month and year, download one month or a whole year as PDF. A4, Letter, A5.",
 "lead": "Type your habits, pick the month and fill in a circle every day you keep your promise to yourself.",
 "guide": """
 <h2>Why tracking works</h2>
 <p>A habit tracker makes progress visible. Every filled circle is a small reward, and an unbroken row – a streak – becomes something you do not want to break. The act of ticking also forces a daily moment of reflection: did I do it today?</p>
 <h2>How long does a habit take?</h2>
-<p>The popular “21 days” rule is a myth. In a well-known study by Phillippa Lally and colleagues at University College London (published 2010), participants needed a median of 66 days before a new behaviour felt automatic – with a wide range from 18 to 254 days. Missing a single day did not significantly harm the process. So track for at least two or three months, and do not give up after a slip.</p>
+<p>The popular “21 days” rule is a myth. In a well-known study by Phillippa Lally and colleagues at University College London (published 2010), participants needed a median of 66 days before a new behavior felt automatic – with a wide range from 18 to 254 days. Missing a single day did not significantly harm the process. So track for at least two or three months, and do not give up after a slip.</p>
 <h2>Tips for a tracker that sticks</h2>
 <ul><li><strong>Start small:</strong> three to five habits are plenty. Too many rows turn the tracker into a guilt list.</li>
 <li><strong>Make habits concrete:</strong> “Read 20 pages” works better than “Read more”.</li>
@@ -228,7 +228,7 @@ TOOLS = [
 <li><strong>Review monthly:</strong> use the “Done” column to count your days and decide what to keep, change or drop.</li></ul>
 <h2>Whole year in one file</h2>
 <p>Choose <em>All 12 months</em> to get a 12-page PDF with your habits already filled in. The extra empty rows leave room to add a habit mid-month.</p>
-<p>Want a bigger picture? Colour one day per square on a <a href="/yearly-calendar.html">yearly calendar</a> to see your whole year of streaks.</p>
+<p>Want a bigger picture? Color one day per square on a <a href="/yearly-calendar.html">yearly calendar</a> to see your whole year of streaks.</p>
 """,
 "faq": [("How many habits can I track?", "Up to 15 named habits plus up to 10 empty rows – but most people do best with three to seven."),
         ("Can I track habits weekly instead of daily?", "Use the checklist template with numbered lines for weekly goals, or mark only certain days on the monthly tracker.")],
@@ -243,7 +243,7 @@ TOOLS = [
 <h2>A checklist for every occasion</h2>
 <p>Checklists are one of the simplest tools for getting things done reliably. Pilots and surgeons use them to avoid forgetting critical steps – at home they save you from leaving the charger behind or missing an item on the moving-day list.</p>
 <h2>Ideas</h2>
-<ul><li><strong>Packing list</strong> for holidays, hospital bags or camping trips.</li>
+<ul><li><strong>Packing list</strong> for vacations, hospital bags or camping trips.</li>
 <li><strong>Moving checklist</strong>: utilities, address changes, keys.</li>
 <li><strong>Cleaning schedule</strong> with weekly and monthly tasks.</li>
 <li><strong>Project steps</strong> for renovations, events or product launches.</li>
@@ -304,7 +304,7 @@ TOOLS = [
 <li><strong>Round up:</strong> exact cents are not important; trends are.</li>
 <li><strong>Plan irregular costs:</strong> divide annual bills such as insurance or gifts by twelve and budget that amount every month.</li>
 <li><strong>Review, don't judge:</strong> an overspent category is information for next month, not a failure.</li></ul>
-<p class="small muted">The planner is an organising tool and not financial advice.</p>
+<p class="small muted">The planner is an organizing tool and not financial advice.</p>
 """,
 "faq": [("Can I use a different currency?", "Choose $, €, £ or no symbol. The summary boxes show the symbol; amounts in the table are written by hand."),
         ("Can I print a whole year?", "Choose “All 12 months” for a 12-page budget binder with your categories on every page.")],
