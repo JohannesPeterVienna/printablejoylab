@@ -7,10 +7,11 @@ from content.articles import ARTICLES
 
 ROOT = Path(__file__).parent
 OUT = ROOT / "docs"
-SITE = "https://printablejoylab.com"; V = "20261103b"
+SITE = "https://printablejoylab.com"; V = "20261103c"
 BUY_PLANNER = ""   # Lemon Squeezy checkout link – set once the product exists
 UPDATED = "October 2026"
-REVIEWED = "2026-11-02"; REVIEWED_TEXT = "November 2, 2026"   # last editorial review of all guides
+REVIEWED = "2026-11-03"; REVIEWED_TEXT = "November 3, 2026"   # last editorial review of all guides
+CONTENT_UPDATED = "2026-11-03"   # last content change of template pages, home and guides hub (sitemap lastmod)
 SHOP_OPEN = bool(BUY_PLANNER)   # Shop wird erst sichtbar beworben, wenn der Kauf wirklich möglich ist
 NAV = [("/", "Templates"), ("/weekly-planner.html", "Planners"), ("/monthly-calendar.html", "Calendars"), ("/habit-tracker.html", "Trackers"), ("/dot-grid.html", "Paper"), ("/guides.html", "Guides")]
 env = Environment(loader=FileSystemLoader(ROOT / "templates"), autoescape=True, trim_blocks=True, lstrip_blocks=True)
@@ -19,12 +20,19 @@ LEGAL_ADDR = "AdStern :: Agentur für digitales Marketing<br>Seilerstätte 8, 10
 ORG = {"@type": "Organization", "name": "Printable Joy Lab", "url": SITE + "/"}
 
 
-GUIDES_INTRO = """<p>These four guides answer the questions that come up most often once you start printing your own planners and paper. Each one takes only a few minutes to read and links to the templates it talks about. Here is what each guide covers, so you can go straight to the one you need.</p>
+GUIDES_INTRO = """<p>These eight guides answer the questions that come up most often once you start printing your own planners, calendars and paper. Each one has concrete measurements, a worked example, a short FAQ and the standards it relies on, and links to the templates it talks about. Here is what each guide covers, so you can go straight to the one you need.</p>
 <h2>Which guide should you read?</h2>
-<ul><li><strong>Your grid prints too small, or the bottom of your calendar is cut off?</strong> Start with <a href="/print-at-actual-size.html">How to print at actual size</a>. It explains why A4 and US Letter are different shapes, which scale setting to choose on Windows, on a Mac, in Adobe Acrobat Reader and on phones and tablets, how to check the result with a ruler, and which paper weight suits planners you write on with markers.</li>
-<li><strong>Not sure which paper pattern to print?</strong> <a href="/choose-the-right-paper.html">Lined, grid, dot or isometric</a> compares the four patterns and their common spacings – from college ruling to 5 mm dot grid – and ends with quick recommendations for lecture notes, math homework, handwriting practice, journaling, floor plans and product sketches.</li>
-<li><strong>Curious about bullet journaling?</strong> The <a href="/bullet-journal-starter.html">bullet journal starter kit</a> covers rapid logging with its three basic symbols, the core pages (index, future log, monthly and weekly log, collections), simple trackers, and the pros and cons of printed pages in a ring binder compared with a bound notebook.</li>
-<li><strong>Wondering whether planning on paper still makes sense?</strong> <a href="/paper-vs-digital-planning.html">Paper or app?</a> looks at what paper does well, what studies on handwriting suggest, where apps are the better tool, and a simple routine that combines a digital calendar with a printed weekly page.</li></ul>
+<h3>Printing and paper</h3>
+<ul><li><strong>Your grid prints too small, or the bottom of your calendar is cut off?</strong> Start with <a href="/print-at-actual-size.html">How to print at actual size</a>. It shows in numbers what “Fit to page” does (an A4 page fitted onto US Letter shrinks to about 94%), where the 100% setting hides in Chrome, Edge, Preview, Acrobat Reader and on phones, and how to check a print with a ruler.</li>
+<li><strong>Not sure which paper pattern or weight to print?</strong> <a href="/choose-the-right-paper.html">Lined, grid, dot or isometric</a> compares the four patterns with line and square counts for A4 and US Letter, converts paper weights between gsm and pounds, and plans a bedroom floor plan on graph paper step by step.</li></ul>
+<h3>Calendars and planning</h3>
+<ul><li><strong>Printing a calendar for next year?</strong> <a href="/printable-calendar-2027.html">Printable calendar 2027</a> explains ISO week numbers (week 1 of 2027 starts on January 4), lists the US federal holidays with their observed dates, and compares yearly, monthly and weekly layouts.</li>
+<li><strong>Want a weekly routine that holds?</strong> <a href="/plan-a-week-on-paper.html">How to plan a week on paper</a> walks through a 25-minute weekly review, a capacity check in hours and a fully filled example page.</li>
+<li><strong>Tired of the daily “What's for dinner?”</strong> <a href="/meal-planning-one-page.html">Meal planning on one page</a> is a timed 20-minute routine with a sorted grocery list and food-safe timing for leftovers.</li>
+<li><strong>Wondering whether planning on paper still makes sense?</strong> <a href="/paper-vs-digital-planning.html">Paper or app?</a> compares both honestly, summarizes what note-taking research does and does not show, and describes a hybrid routine.</li></ul>
+<h3>Habits and journaling</h3>
+<ul><li><strong>Starting a habit tracker?</strong> <a href="/habit-tracker-ideas.html">Habit tracker ideas that actually stick</a> turns vague goals into rows you can tick and shows how to review a finished month.</li>
+<li><strong>Curious about bullet journaling?</strong> The <a href="/bullet-journal-starter.html">bullet journal starter kit</a> covers rapid logging, the core collections, migration and a complete first month, set up page by page.</li></ul>
 <p>If you are new to printables, read the print guide first: the right scale setting makes the biggest difference to every template on this site.</p>"""
 
 
@@ -36,6 +44,13 @@ def write(path, template, **ctx):
     (OUT / path).write_text(env.get_template(template).render(**base), encoding="utf-8")
     if base.get("robots") is None:
         PAGES.append((base["path"], ctx.get("priority", 0.6), ctx.get("lastmod", "2026-10-29")))
+
+
+def split_first_section(html):
+    """Split text after its first <h2> section, so the first ad only follows the first explanatory section."""
+    first = html.find("<h2>")
+    cut = html.find("<h2>", first + 1) if first >= 0 else -1
+    return (html[:cut], html[cut:]) if cut > 0 else (html, "")
 
 
 def crumbs_ld(items):
@@ -52,7 +67,7 @@ def main():
 
     write("index.html", "home.html", title="Printable Joy Lab – Free Customizable Printables: Planners, Calendars & Paper",
           description="Free printable planners, calendars, habit trackers, checklists and paper you customize in seconds – A4 or US Letter, your colors and dates – then download as PDF.",
-          active="/", priority=1.0,
+          active="/", priority=1.0, lastmod=CONTENT_UPDATED,
           jsonld=[{"@context": "https://schema.org", "@type": "WebSite", "name": "Printable Joy Lab", "url": SITE + "/", "inLanguage": "en"}])
 
     for t in TOOLS:
@@ -63,26 +78,25 @@ def main():
               {"@context": "https://schema.org", "@type": "WebApplication", "name": f"{t['name']} generator – Printable Joy Lab", "url": f"{SITE}/{t['slug']}.html",
                "applicationCategory": "UtilitiesApplication", "operatingSystem": "Web", "inLanguage": "en", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}},
               {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in t["faq"]]}]
-        cut = t["guide"].find("<h2>", t["guide"].find("<h2>") + 1)   # Werbung erst nach dem ersten Erklärabschnitt
-        guide_first, guide_rest = (t["guide"][:cut], t["guide"][cut:]) if cut > 0 else (t["guide"], "")
+        guide_first, guide_rest = split_first_section(t["guide"])   # Werbung erst nach dem ersten Erklärabschnitt
         write(t["slug"] + ".html", "tool.html", title=t["title"] + " | Printable Joy Lab", description=t["description"], h1=f"{t['name']}",
               lead=t["lead"], slug=t["slug"], cat=t["cat"], guide_first=guide_first, guide_rest=guide_rest, faq=t["faq"], related=related, crumbs=crumbs, jsonld=ld,
-              active=next((h for h, l in NAV if h == "/" + t["slug"] + ".html"), ""), priority=0.9)
+              active=next((h for h, l in NAV if h == "/" + t["slug"] + ".html"), ""), priority=0.9, lastmod=CONTENT_UPDATED)
 
     for a in ARTICLES:
         crumbs = [("/", "Templates"), ("/guides.html", "Guides"), ("/" + a["slug"] + ".html", a["title"])]
         ld = [crumbs_ld(crumbs), {"@context": "https://schema.org", "@type": "Article", "headline": a["title"], "description": a["description"],
-              "inLanguage": "en", "author": ORG, "publisher": ORG, "datePublished": "2026-10-29", "dateModified": REVIEWED, "mainEntityOfPage": f"{SITE}/{a['slug']}.html"}]
+              "inLanguage": "en", "author": ORG, "publisher": ORG, "datePublished": a["published"], "dateModified": a["modified"], "mainEntityOfPage": f"{SITE}/{a['slug']}.html"}]
         links = [BY[s] for s in BY if f"/{s}.html" in a["body"]][:4]
         write(a["slug"] + ".html", "page.html", title=a["title"] + " | Printable Joy Lab", description=a["description"], h1=a["title"],
-              lead=a["teaser"], body=a["body"], crumbs=crumbs, related=links, jsonld=ld, active="/guides.html", priority=0.7, reviewed=REVIEWED_TEXT, lastmod=REVIEWED)
+              lead=a["teaser"], body_split=split_first_section(a["body"]), crumbs=crumbs, related=links, jsonld=ld, active="/guides.html", priority=0.7, reviewed=REVIEWED_TEXT, lastmod=a["modified"])
 
     guides = "".join(f'<li><a class="card" href="/{a["slug"]}.html"><strong>{a["title"]}</strong><span>{a["teaser"]}</span></a></li>' for a in ARTICLES)
     write("guides.html", "page.html", title="Guides – Printing, Planning & Paper | Printable Joy Lab",
-          description="Guides on printing at actual size, choosing the right paper, bullet journaling and planning on paper.",
-          h1="Guides", lead="Practical know-how for printing, planning and paper.", active="/guides.html", priority=0.6,
-          body=GUIDES_INTRO + f'<h2>All guides</h2><ul class="cards text">{guides}</ul>'
-               '<h2>About our templates</h2><p>Every template on Printable Joy Lab is generated from your settings in your own browser. The text below each template explains the ideas behind its layout – for example why college ruling is 9/32 inch or how ISO week numbers work.</p>')
+          description="Eight practical guides: printing at actual size, paper patterns and weights, a 2027 calendar with ISO week numbers and US holidays, weekly planning, meal planning, habit trackers, bullet journaling and paper vs apps.",
+          h1="Guides", lead="Practical know-how for printing, planning and paper.", active="/guides.html", priority=0.6, lastmod=CONTENT_UPDATED,
+          body_split=split_first_section(GUIDES_INTRO + f'<h2>All guides</h2><ul class="cards text">{guides}</ul>'
+               '<h2>About our templates</h2><p>Every template on Printable Joy Lab is generated from your settings in your own browser. The text below each template explains the ideas behind its layout – for example why college ruling is 9/32 inch or how ISO week numbers work.</p>'))
 
     write("about.html", "page.html", title="About Printable Joy Lab", description="Who makes Printable Joy Lab, how the templates are generated and how we check them.",
           h1="About Printable Joy Lab", lead="Customizable printables, generated in your browser.", priority=0.3, active="",

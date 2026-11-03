@@ -6,8 +6,12 @@
     <h1>{{ h1 }}</h1>
     {% if lead %}<p class="lead">{{ lead }}</p>{% endif %}
     {% if reviewed %}<p class="small muted reviewed">Reviewed {{ reviewed }} · <a href="/about.html">Printable Joy Lab editorial team</a></p>{% endif %}
+    {% if body_split %}
+    {{ body_split[0] | safe }}{% if ads %}{{ m.ad("billboard") }}{% endif %}{{ body_split[1] | safe }}
+    {% else %}
     {% if ads %}{{ m.ad("billboard") }}{% endif %}
     {{ body | safe }}
+    {% endif %}
     {% if related %}<h2>Try it</h2><ul class="cards small">{% for t in related %}{{ m.card(t) }}{% endfor %}</ul>{% endif %}
   </article>
   <aside class="side">
