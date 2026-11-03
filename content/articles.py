@@ -157,8 +157,8 @@ ARTICLES = [
 <h2>FAQ</h2>
 <h3>Is college ruled the same as 7 mm?</h3>
 <p>Nearly: 9/32 in is 7.14 mm. Over a whole page the difference adds up to only a few millimeters.</p>
-<h3>Why does 24 lb paper feel thinner than 65 lb card stock but heavier than 20 lb copy paper?</h3>
-<p>Because the pound figures refer to different basis sizes. Compare gsm values instead: 75, 90 and 176 g/m² put the three papers in a clear order.</p>
+<h3>Why is 65 lb cover heavier than 80 lb text paper?</h3>
+<p>Because the pound figure is the weight of 500 sheets in each grade's own basis size, and those sizes differ: cover is weighed at 20 × 26 in, text at 25 × 38 in and bond at 17 × 22 in. The text sheet is much larger, so the same pounds are spread over more paper. Converted to grams per square meter, 65 lb cover is about 176 g/m², while 80 lb text is only about 118 g/m². When you compare papers of different grades, always look at the gsm value.</p>
 <h3>Which paper stops markers bleeding through?</h3>
 <p>No plain office paper fully stops alcohol-based markers. Heavier paper (105–120 g/m²) reduces show-through for fineliners and water-based markers; for alcohol markers, print on one side only.</p>
 
