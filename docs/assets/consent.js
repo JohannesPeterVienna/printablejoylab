@@ -216,23 +216,26 @@
   // does not say the GDPR applies; UNKNOWN (0) or an EU visitor gets the consent dialog to withdraw consent.
   function openPrivacyChoice(){
     const fc = window.googlefc;
-    const us = fc.usstatesoptout;
-    if (us && typeof us.getInitialUsStatesOptOutStatus === "function") {
-      const E = us.InitialUsStatesOptOutStatusEnum || {};
-      const notOptedOut = E.NOT_OPTED_OUT !== undefined ? E.NOT_OPTED_OUT : 2;
-      const optedOut = E.OPTED_OUT !== undefined ? E.OPTED_OUT : 3;
-      const tc = analytics.tc();
-      const gdpr = !!(tc && tc.gdprApplies === true);
-      const status = us.getInitialUsStatesOptOutStatus();
-      if ((status === notOptedOut || status === optedOut) && !gdpr) {
-        us.openConfirmationDialog(userDidOptOut => {
-          if (userDidOptOut) analytics.usOptOut();
-          else analytics.sync();
-        });
-        return;
+    const revoke = () => { if (fc && typeof fc.showRevocationMessage === "function") fc.showRevocationMessage(); };
+    try {
+      const us = fc.usstatesoptout;
+      if (us && typeof us.getInitialUsStatesOptOutStatus === "function" && typeof us.openConfirmationDialog === "function") {
+        const E = us.InitialUsStatesOptOutStatusEnum || {};
+        const notOptedOut = E.NOT_OPTED_OUT !== undefined ? E.NOT_OPTED_OUT : 2;
+        const optedOut = E.OPTED_OUT !== undefined ? E.OPTED_OUT : 3;
+        const tc = analytics.tc();
+        const gdpr = !!(tc && tc.gdprApplies === true);
+        const status = us.getInitialUsStatesOptOutStatus();
+        if ((status === notOptedOut || status === optedOut) && !gdpr) {
+          us.openConfirmationDialog(userDidOptOut => {
+            if (userDidOptOut) analytics.usOptOut();
+            else analytics.sync();
+          });
+          return;
+        }
       }
-    }
-    if (typeof fc.showRevocationMessage === "function") fc.showRevocationMessage();
+    } catch (err) { /* U.S. opt-out API missing or failing: fall back to the consent dialog */ }
+    revoke();
   }
   document.addEventListener("click", e => {
     if (!e.target.closest("[data-privacy-settings]")) return;

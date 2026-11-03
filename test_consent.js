@@ -109,6 +109,21 @@ test("CMP without the U.S. opt-out API: the consent dialog opens", () => {
   assert.deepEqual(p.calls, ["revocation"]);
 });
 
+test("U.S. opt-out API incomplete or failing: the consent dialog opens instead", () => {
+  const a = page(2);
+  delete a.us.openConfirmationDialog;   // status getter without dialog function
+  a.click(); a.runQueue();
+  assert.deepEqual(a.calls, ["revocation"]);
+  const b = page(2);
+  b.us.getInitialUsStatesOptOutStatus = () => { throw new Error("boom"); };
+  b.click(); b.runQueue();
+  assert.deepEqual(b.calls, ["revocation"]);
+  const c = page(3);
+  c.us.openConfirmationDialog = () => { throw new Error("boom"); };
+  c.click(); c.runQueue();
+  assert.deepEqual(c.calls, ["revocation"]);
+});
+
 // ---------- later U.S. opt-out through the IAB GPP API (stubbed __gpp) ----------
 function gppStub() {
   const g = (cmd, cb) => {
