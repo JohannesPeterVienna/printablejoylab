@@ -64,6 +64,7 @@
     let lastTc = null;
     let mode = "pending";        // "pending" | "measuring" | "blocked"
     let tagInjected = false;
+    let usOptOutConfirmed = false;   // visitor opted out in Google's U.S. dialog during this page view
 
     const cmpAnalyticsStatus = () => {
       try {
@@ -76,6 +77,7 @@
     const has = (group, id) => Boolean(group && group.consents && group.consents[id]);
 
     const usOptedOut = () => {
+      if (usOptOutConfirmed) return true;
       try {
         const u = window.googlefc && window.googlefc.usstatesoptout;
         return !(u && typeof u.getInitialUsStatesOptOutStatus === "function" && US_NO_OPT_OUT.includes(u.getInitialUsStatesOptOutStatus()));
@@ -112,7 +114,7 @@
     const disable = () => {
       window[OFF_FLAG] = true;
       const update = { analytics_storage: "denied" };
-      if (!has(lastTc && lastTc.purpose, 1)) {
+      if (usOptOutConfirmed || !has(lastTc && lastTc.purpose, 1)) {
         update.ad_storage = "denied"; update.ad_user_data = "denied"; update.ad_personalization = "denied";
       }
       gtag("consent", "update", update);
@@ -126,7 +128,10 @@
       else if (v === "wait" && mode === "measuring") disable();   // consent record cleared by revocation
     };
 
-    return { sync, setTc(tc){ lastTc = tc; sync(); } };
+    // after a U.S. opt-out: analytics and ad personalisation denied at once, whatever state we were in
+    const usOptOut = () => { usOptOutConfirmed = true; disable(); };
+
+    return { sync, usOptOut, setTc(tc){ lastTc = tc; sync(); } };
   })();
 
   function watchConsent(tries = 0){
@@ -142,11 +147,28 @@
   }
   window.googlefc.callbackQueue.push({ CONSENT_MODE_DATA_READY: analytics.sync, INITIAL_US_STATES_OPT_OUT_DATA_READY: analytics.sync });
 
-  // "Privacy settings" link in the footer reopens the Google consent dialog
+  // "Privacy settings" link in the footer: where the CMP reports that a U.S. state privacy law applies it
+  // opens Google's U.S. opt-out dialog ("Do Not Sell or Share"), everywhere else it reopens the consent dialog
+  function openPrivacyChoice(){
+    const fc = window.googlefc;
+    const us = fc.usstatesoptout;
+    if (us && typeof us.getInitialUsStatesOptOutStatus === "function") {
+      const E = us.InitialUsStatesOptOutStatusEnum;
+      const doesNotApply = E && E.DOES_NOT_APPLY !== undefined ? E.DOES_NOT_APPLY : 1;
+      if (us.getInitialUsStatesOptOutStatus() !== doesNotApply) {
+        us.openConfirmationDialog(userDidOptOut => {
+          if (userDidOptOut) analytics.usOptOut();
+          else analytics.sync();
+        });
+        return;
+      }
+    }
+    if (typeof fc.showRevocationMessage === "function") fc.showRevocationMessage();
+  }
   document.addEventListener("click", e => {
     if (!e.target.closest("[data-privacy-settings]")) return;
     window.googlefc.callbackQueue.push(() => {
-      if (typeof window.googlefc.showRevocationMessage === "function") window.googlefc.showRevocationMessage();
+      try { openPrivacyChoice(); } catch (err) { /* CMP not available */ }
     });
   });
 
