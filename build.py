@@ -7,7 +7,7 @@ from content.articles import ARTICLES
 
 ROOT = Path(__file__).parent
 OUT = ROOT / "docs"
-SITE = "https://printablejoylab.com"; V = "20261103c"
+SITE = "https://printablejoylab.com"; V = "20261103d"
 BUY_PLANNER = ""   # Lemon Squeezy checkout link – set once the product exists
 UPDATED = "October 2026"
 REVIEWED = "2026-11-03"; REVIEWED_TEXT = "November 3, 2026"   # last editorial review of all guides
