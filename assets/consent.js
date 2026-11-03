@@ -7,7 +7,8 @@
        CMP explicitly reports no U.S. state opt-out (usstatesoptout DOES_NOT_APPLY 1 / NOT_OPTED_OUT 2).
    Missing, UNKNOWN (0), DENIED (2), NOT_CONFIGURED (4) or any CMP API error mean no. A clear TCF "no"
    blocks at once, before any other CMP API is called. Refusal or withdrawal sends consent "update" denied
-   and sets the ga-disable flag; renewed consent switches measurement back on.
+   and sets the ga-disable flag; renewed consent switches measurement back on. A U.S. opt-out made later
+   in the page view is read from the IAB GPP API (__gpp addEventListener) and blocks everything at once.
    Enum values: developers.google.com/funding-choices/fc-api-docs. Google signals/ad personalisation off. */
 (() => {
   const PUB = "ca-pub-7811071715414905";
@@ -86,7 +87,7 @@
 
     // returns "allow" | "deny" | "wait"
     const verdict = () => {
-      if (gpc) return "deny";
+      if (gpc || usOptOutConfirmed) return "deny";
       if (!lastTc) return "wait";
       if (lastTc.gdprApplies === false) {
         const cm = cmpAnalyticsStatus();
@@ -134,18 +135,80 @@
     return { sync, usOptOut, setTc(tc){ lastTc = tc; sync(); } };
   })();
 
+  // IAB GPP (spec v1.1) pingData → U.S. opt-out? Section IDs from 6 up are U.S. (6 uspv1, 7 usnat, 8 usca,
+  // 9 usva …); opt-out fields 0 = not applicable, 1 = opted out, 2 = did not opt out.
+  // true = opted out, or a U.S. section applies but cannot be read (fail closed); false = no U.S. section
+  // or clearly no opt-out; null = CMP not ready. Only true is acted on – this never grants anything.
+  const GPP_FIELDS = ["SaleOptOut", "SharingOptOut", "TargetedAdvertisingOptOut"];
+  const gppSection = sec => {        // "out" | "in" | "unclear"
+    if (typeof sec === "string") return sec.length === 4 ? (sec[2] === "Y" ? "out" : "in") : "unclear";   // uspv1 "1YYN"
+    let seen = false;
+    for (const seg of Array.isArray(sec) ? sec : [sec]) {   // [core, gpc] segments or one object
+      if (!seg || typeof seg !== "object") continue;
+      if (seg.OptOutSale !== undefined) {
+        if (seg.OptOutSale === "Y") return "out";
+        if (seg.OptOutSale !== "N" && seg.OptOutSale !== "-") return "unclear";
+        seen = true;
+      }
+      for (const f of GPP_FIELDS) {
+        const v = seg[f];
+        if (v === undefined) continue;
+        if (v === 1 || v === "1") return "out";
+        if (typeof v !== "number") return "unclear";
+        seen = true;
+      }
+    }
+    return seen ? "in" : "unclear";
+  };
+  const gppUsOptOut = pd => {
+    if (!pd || typeof pd !== "object") return true;
+    if (pd.signalStatus === "not ready") return null;
+    const applies = Array.isArray(pd.applicableSections) ? pd.applicableSections.some(id => typeof id === "number" && id >= 6) : null;
+    if (applies === false) return false;
+    const parsed = pd.parsedSections;
+    if (!parsed || typeof parsed !== "object") return true;
+    const us = Object.keys(parsed).filter(k => k.startsWith("us"));
+    if (!us.length) return true;     // a U.S. section applies (or the list is missing) but none was parsed
+    return us.some(k => gppSection(parsed[k]) !== "in");
+  };
+  let gppWatching = false, gppOut = false;
+  const onGpp = pd => {
+    let out;
+    try { out = gppUsOptOut(pd); } catch (err) { out = true; }
+    if (out === true && !gppOut) { gppOut = true; analytics.usOptOut(); }
+  };
+  // missing GPP API or a failed call: nothing changes (defaults stay denied)
+  function watchGpp(){
+    if (gppWatching || typeof window.__gpp !== "function") return;
+    try {
+      window.__gpp("addEventListener", (evt, ok) => {
+        if (!ok) return;
+        try {
+          if (evt && evt.pingData !== undefined) onGpp(evt.pingData);
+          else window.__gpp("ping", (pd, pok) => { if (pok) onGpp(pd); });
+        } catch (err) { onGpp(null); }
+      });
+      gppWatching = true;
+    } catch (err) { /* GPP API not usable */ }
+  }
+
   function watchConsent(tries = 0){
     if (typeof window.__tcfapi !== "function"){
       if (tries < 40) setTimeout(() => watchConsent(tries + 1), 250);
       return;
     }
+    watchGpp();
     window.__tcfapi("addEventListener", 2, (tc, ok) => {
       if (!ok || !tc) return;
       analytics.setTc(tc);
       setTimeout(analytics.sync, 300);   // Consent Mode values may update just after the TCF event
     });
   }
-  window.googlefc.callbackQueue.push({ CONSENT_MODE_DATA_READY: analytics.sync, INITIAL_US_STATES_OPT_OUT_DATA_READY: analytics.sync });
+  window.googlefc.callbackQueue.push({
+    CONSENT_API_READY: watchGpp,
+    CONSENT_MODE_DATA_READY: analytics.sync,
+    INITIAL_US_STATES_OPT_OUT_DATA_READY: () => { analytics.sync(); watchGpp(); }
+  });
 
   // "Privacy settings" link in the footer: where the CMP reports that a U.S. state privacy law applies it
   // opens Google's U.S. opt-out dialog ("Do Not Sell or Share"), everywhere else it reopens the consent dialog
