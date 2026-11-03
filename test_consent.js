@@ -6,7 +6,7 @@ const fs = require("fs");
 const vm = require("vm");
 const SRC = fs.readFileSync(__dirname + "/assets/consent.js", "utf8");
 
-function page(usStatus, withEnum = true, gpp) {
+function page(usStatus, withEnum = true, gpp, gdprApplies = false) {
   const calls = [], updates = [];
   let onClick = null, tcfListener = null;
   const us = {
@@ -43,7 +43,7 @@ function page(usStatus, withEnum = true, gpp) {
     }
   };
   runQueue();
-  tcfListener({ gdprApplies: false, eventStatus: "tcloaded", purpose: { consents: {} }, vendor: { consents: {} } }, true);
+  tcfListener({ gdprApplies, eventStatus: "tcloaded", purpose: { consents: {} }, vendor: { consents: {} } }, true);
   const click = () => onClick({ target: { closest: sel => (sel === "[data-privacy-settings]" ? {} : null) } });
   return { calls, us, scripts, window, runQueue, click, last: () => updates[updates.length - 1] };
 }
@@ -74,6 +74,31 @@ test("U.S. state law does not apply: the consent (revocation) dialog opens", () 
     const p = page(1, withEnum);
     p.click(); p.runQueue();
     assert.deepEqual(p.calls, ["revocation"]);
+  }
+});
+
+test("EU + status 0 (UNKNOWN) → consent (revocation) dialog, so consent can be withdrawn", () => {
+  for (const withEnum of [true, false]) {
+    const p = page(0, withEnum, undefined, true);
+    p.click(); p.runQueue();
+    assert.deepEqual(p.calls, ["revocation"]);
+  }
+});
+
+test("status 0 (UNKNOWN) outside the GDPR → consent dialog, not the U.S. dialog", () => {
+  const p = page(0);
+  p.click(); p.runQueue();
+  assert.deepEqual(p.calls, ["revocation"]);
+});
+
+test("U.S. status 2 or 3 → U.S. dialog; with gdprApplies → consent dialog", () => {
+  for (const st of [2, 3]) {
+    const p = page(st);
+    p.click(); p.runQueue();
+    assert.deepEqual(p.calls, ["usDialog"]);
+    const q = page(st, true, undefined, true);
+    q.click(); q.runQueue();
+    assert.deepEqual(q.calls, ["revocation"]);
   }
 });
 

@@ -132,7 +132,7 @@
     // after a U.S. opt-out: analytics and ad personalisation denied at once, whatever state we were in
     const usOptOut = () => { usOptOutConfirmed = true; disable(); };
 
-    return { sync, usOptOut, setTc(tc){ lastTc = tc; sync(); } };
+    return { sync, usOptOut, setTc(tc){ lastTc = tc; sync(); }, tc: () => lastTc };
   })();
 
   // IAB GPP (spec v1.1) pingData → U.S. opt-out? Section IDs from 6 up are U.S. (6 uspv1, 7 usnat, 8 usca,
@@ -211,14 +211,20 @@
   });
 
   // "Privacy settings" link in the footer: where the CMP reports that a U.S. state privacy law applies it
-  // opens Google's U.S. opt-out dialog ("Do Not Sell or Share"), everywhere else it reopens the consent dialog
+  // opens Google's U.S. opt-out dialog ("Do Not Sell or Share"), everywhere else it reopens the consent dialog.
+  // The U.S. dialog only for a known status NOT_OPTED_OUT (2) or OPTED_OUT (3) and only when the latest TCF data
+  // does not say the GDPR applies; UNKNOWN (0) or an EU visitor gets the consent dialog to withdraw consent.
   function openPrivacyChoice(){
     const fc = window.googlefc;
     const us = fc.usstatesoptout;
     if (us && typeof us.getInitialUsStatesOptOutStatus === "function") {
-      const E = us.InitialUsStatesOptOutStatusEnum;
-      const doesNotApply = E && E.DOES_NOT_APPLY !== undefined ? E.DOES_NOT_APPLY : 1;
-      if (us.getInitialUsStatesOptOutStatus() !== doesNotApply) {
+      const E = us.InitialUsStatesOptOutStatusEnum || {};
+      const notOptedOut = E.NOT_OPTED_OUT !== undefined ? E.NOT_OPTED_OUT : 2;
+      const optedOut = E.OPTED_OUT !== undefined ? E.OPTED_OUT : 3;
+      const tc = analytics.tc();
+      const gdpr = !!(tc && tc.gdprApplies === true);
+      const status = us.getInitialUsStatesOptOutStatus();
+      if ((status === notOptedOut || status === optedOut) && !gdpr) {
         us.openConfirmationDialog(userDidOptOut => {
           if (userDidOptOut) analytics.usOptOut();
           else analytics.sync();
