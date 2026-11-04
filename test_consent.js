@@ -6,8 +6,8 @@ const fs = require("fs");
 const vm = require("vm");
 const SRC = fs.readFileSync(__dirname + "/assets/consent.js", "utf8");
 
-function page(usStatus, withEnum = true, gpp, gdprApplies = false) {
-  const calls = [], updates = [];
+function page(usStatus, withEnum = true, gpp, gdprApplies = false, env = {}) {
+  const calls = [], updates = [], commands = [];
   let onClick = null, tcfListener = null;
   const us = {
     status: usStatus,
@@ -24,16 +24,23 @@ function page(usStatus, withEnum = true, gpp, gdprApplies = false) {
   const window = {
     document: null, navigator: {}, setTimeout: () => 0, Date,
     googlefc,
-    gtag: (...a) => { if (a[0] === "consent" && a[1] === "update") updates.push(a[2]); },
+    gtag: (...a) => { commands.push(a); if (a[0] === "consent" && a[1] === "update") updates.push(a[2]); },
     __tcfapi: (cmd, v, cb) => { if (cmd === "addEventListener") tcfListener = cb; }
   };
   const document = {
     head: { appendChild: s => scripts.push(s) },
     createElement: () => ({ dataset: {}, style: {} }),
-    querySelectorAll: () => [],
+    // the static loader in <head> (present on real pages) – absent unless env.staticLoader is set
+    querySelector: sel => (env.staticLoader && /adsbygoogle\.js/.test(sel) ? { src: "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7811071715414905" } : null),
+    querySelectorAll: () => env.slots || [],
     addEventListener: (ev, fn) => { if (ev === "click") onClick = fn; }
   };
   if (gpp) window.__gpp = gpp;
+  if (env.gpc) window.navigator.globalPrivacyControl = true;
+  if (env.headDefaults) {   // what the inline script in <head> does before the static loader
+    window.gtag("consent", "default", { ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied", analytics_storage: "denied", wait_for_update: 500 });
+    window["ga-disable-G-T00HRG2YVF"] = true; window.pjlConsentDefaults = true;
+  }
   window.document = document; window.window = window;   // as in a browser, window is the global object
   vm.runInContext(SRC, vm.createContext(window));
   const runQueue = () => {
@@ -45,8 +52,36 @@ function page(usStatus, withEnum = true, gpp, gdprApplies = false) {
   runQueue();
   tcfListener({ gdprApplies, eventStatus: "tcloaded", purpose: { consents: {} }, vendor: { consents: {} } }, true);
   const click = () => onClick({ target: { closest: sel => (sel === "[data-privacy-settings]" ? {} : null) } });
-  return { calls, us, scripts, window, runQueue, click, last: () => updates[updates.length - 1] };
+  return { calls, us, scripts, window, runQueue, click, commands, last: () => updates[updates.length - 1] };
 }
+
+// ---------- static AdSense loader in <head> ----------
+const isLoader = s => /adsbygoogle\.js/.test(s.src || "");
+const defaultsOf = p => p.commands.filter(a => a[0] === "consent" && a[1] === "default");
+
+test("static loader present: consent.js does not add a second copy; defaults are not repeated", () => {
+  const p = page(2, true, undefined, false, { staticLoader: true, headDefaults: true });
+  assert.equal(p.scripts.filter(isLoader).length, 0);
+  assert.equal(defaultsOf(p).length, 1);
+  assert.equal(p.last().analytics_storage, "granted");   // consent logic unchanged
+});
+
+test("no inline defaults (fallback): consent.js sets them once, everything denied", () => {
+  const p = page(0);
+  const d = defaultsOf(p);
+  assert.equal(d.length, 1);
+  for (const k of ["ad_storage", "ad_user_data", "ad_personalization", "analytics_storage"]) assert.equal(d[0][2][k], "denied");
+  assert.equal(p.scripts.filter(isLoader).length, 1);   // loader missing → added exactly once
+});
+
+test("Global Privacy Control: ad requests paused, no slot filled, no analytics", () => {
+  const box = { dataset: { ad: "rect" }, classList: { add() { throw new Error("ad slot filled"); } } };
+  const p = page(2, true, undefined, false, { gpc: true, slots: [box] });
+  assert.equal(p.window.adsbygoogle.pauseAdRequests, 1);
+  assert.equal(p.scripts.filter(isLoader).length, 0);
+  assert.equal(p.window["ga-disable-G-T00HRG2YVF"], true);
+  assert.ok(!p.scripts.some(s => /googletagmanager/.test(s.src || "")));
+});
 
 test("U.S. state law applies: opt-out dialog instead of the consent dialog; opting out denies analytics and ad personalisation", () => {
   const p = page(2);

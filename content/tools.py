@@ -27,13 +27,31 @@ TOOLS = [
 <p>A student prints ten college-ruled A4 pages with margin and header. In the header go the course name and the date written as 2027-02-08, so the pages sort correctly later. During the lecture the main lines hold the notes in short sentences; the margin column is reserved for keywords such as “definition”, “exam!” or a question mark next to anything unclear. After class, the student writes a two-line summary on the last lines of the page. When revising, reading only the margin column and the summaries gives a quick overview of the whole lecture.</p>
 <h2>Light lines write better</h2>
 <p>Very dark lines compete with your handwriting. The light gray setting is the most pleasant for everyday writing; <em>Blue</em> gives the familiar notebook look, and <em>Medium</em> helps if your printer prints faintly. Light lines also fade more cleanly when you scan or photocopy finished notes.</p>
+<h2>Spacing and handwriting size</h2>
+<p>A useful rule of thumb: the body of your lowercase letters – the x-height, the height of an “a” or “n” – should fill a little less than half the gap between two lines. The rest is room for ascenders (b, d, h) and descenders (g, p, y) without touching the neighboring lines. That puts an x-height of about 2.5 mm on narrow ruling, about 3 mm on college ruling and 3.5 mm or more on wide ruling. If your loops keep hitting the line below, switch to the next wider ruling instead of trying to write smaller.</p>
+<h2>How many lines you get on other sizes</h2>
+<div class="table-wrap"><table><thead><tr><th>Page (header on)</th><th>Wide</th><th>College</th><th>Narrow</th></tr></thead><tbody>
+<tr><td>A5 portrait</td><td>20</td><td>24</td><td>27</td></tr>
+<tr><td>Half Letter portrait</td><td>20</td><td>25</td><td>28</td></tr>
+<tr><td>A4 landscape</td><td>–</td><td>23</td><td>–</td></tr>
+<tr><td>US Letter landscape</td><td>–</td><td>24</td><td>–</td></tr></tbody></table></div>
+<p>Switching the header off usually adds one more line. Landscape trades lines for length: each line is about 297 mm long on A4, which suits two-column word lists but is tiring for continuous writing.</p>
+<h2>Paper and printer settings</h2>
+<ul><li><strong>Pick the paper by the pen:</strong> pencil and ballpoint are happy on everyday 75–80 g/m² copy paper. Gel pens and fountain pens show through less on heavier, smoother paper.</li>
+<li><strong>Use normal quality, not draft:</strong> draft and toner-saving modes thin out light lines, and the light gray setting can break up into dots. If that happens, print at normal quality or choose <em>Medium</em>.</li>
+<li><strong>Grayscale is fine:</strong> lines printed in grayscale look almost the same; only the blue and accent colors turn gray, and the red margin line becomes a pale gray line.</li>
+<li><strong>Punching holes:</strong> a standard two-hole punch (ISO 838) places 6 mm holes with their centers 12 mm from the edge, so the holes end about 15 mm in – well clear of the margin line at 32 mm.</li>
+<li><strong>Double-sided:</strong> for portrait pages choose “flip on long edge” so the back is the right way up when you turn the sheet like a book page.</li></ul>
 <h2>Printing tips</h2>
 <p>The lines run all the way across the sheet; your printer simply leaves its own unprintable border white, so nothing important is lost. Keep the print scale at 100% so the spacing stays exactly as chosen – our <a href="/print-at-actual-size.html">guide to printing at actual size</a> shows where that setting hides. Lined paper has no front or back, so for a notebook you can print the same page on both sides of each sheet. For fountain pens, 90–100 g/m² paper reduces show-through; see <a href="/choose-the-right-paper.html">which paper for which job</a> for weights in pounds and gsm.</p>
 """,
 "faq": [("Is college ruled the same as 7 mm lines?", "Almost: college ruling is 9/32 inch, which is 7.14 mm. For most purposes the difference to 7 mm is invisible."),
         ("How do I make handwriting practice sheets?", "Choose wide ruling or a custom spacing of 10–12 mm, switch the header on for the child's name, and use the medium line color so the lines stay visible."),
         ("Why does the margin line go from top to bottom?", "It marks a full-height column, as in classic exercise paper. If you do not need it, untick “Red margin line” and the lines run uninterrupted."),
-        ("Can I use the paper commercially?", "You may print and use the pages for yourself, your family, your classroom or your own business. Please do not resell the files or offer them for download elsewhere.")],
+        ("Can I use the paper commercially?", "You may print and use the pages for yourself, your family, your classroom or your own business. Please do not resell the files or offer them for download elsewhere."),
+        ("Why do my printed lines look broken or dotted?", "Light gray is printed as a fine pattern of tiny dots on most printers, and draft or toner-saving modes thin it further. Print at normal quality, or choose the Medium line color for a solid-looking line."),
+        ("Can I make Cornell-style notes with this paper?", "Yes, with one pencil line. The classic Cornell layout has a cue column about 2.5 inches (63 mm) wide on the left and a summary area of about 2 inches (50 mm) at the bottom. Our margin line sits at 32 mm, so draw the cue line by hand at 63 mm, or simply use the narrower margin column for keywords."),
+        ("Will the pages mix with store-bought college-ruled paper?", "The spacing is the same 9/32 inch, so the lines match. The position of the first line and the margin can differ slightly between brands, so pages side by side in a binder may not line up exactly.")],
 },
 {
 "slug": "graph-paper", "cat": "paper", "name": "Graph paper", "accent": "teal",
@@ -57,13 +75,30 @@ TOOLS = [
 <ul><li><strong>Math and statistics:</strong> plotting functions, bar charts and aligned columns of numbers.</li>
 <li><strong>Knitting, cross-stitch and pixel art:</strong> one square per stitch or pixel; a light line color keeps the chart readable after you fill it in.</li>
 <li><strong>Handwriting:</strong> a 1 cm grid helps children keep letters the same size.</li></ul>
+<h2>How many squares fit on other sizes</h2>
+<div class="table-wrap"><table><thead><tr><th>Grid</th><th>A4 landscape</th><th>Letter landscape</th><th>A5 portrait</th><th>Half Letter portrait</th></tr></thead><tbody>
+<tr><td>4 mm</td><td>68 × 45</td><td>63 × 46</td><td>32 × 46</td><td>30 × 48</td></tr>
+<tr><td>5 mm</td><td>54 × 36</td><td>51 × 37</td><td>26 × 37</td><td>24 × 38</td></tr>
+<tr><td>1/5 inch</td><td>53 × 35</td><td>50 × 36</td><td>25 × 36</td><td>23 × 37</td></tr>
+<tr><td>1/4 inch</td><td>42 × 28</td><td>40 × 29</td><td>20 × 29</td><td>19 × 30</td></tr>
+<tr><td>1 cm</td><td>27 × 18</td><td>25 × 18</td><td>13 × 18</td><td>12 × 19</td></tr></tbody></table></div>
+<p>The first number is the count across, the second down. The bold lines differ from the fine ones by weight, not color: fine lines are 0.16 mm wide, bold lines 0.42 mm, both in the line color you choose. That is why the bold grid stays clear in grayscale prints and on photocopies.</p>
+<h2>A filled example: a cross-stitch chart</h2>
+<p>A stitcher wants a motif of 60 × 40 stitches. On the 4 mm grid in A4 landscape (68 × 45 squares) it fits with a few squares to spare, and bold lines every 10 squares make counting in tens easy. Each filled square is one cross. Stitched on 14-count Aida, which has 14 stitches per inch, the finished motif measures 60 ÷ 14 ≈ 4.3 in by 40 ÷ 14 ≈ 2.9 in – about 10.9 × 7.3 cm. On 18-count fabric the same chart comes out smaller, about 8.5 × 5.6 cm, so the fabric count decides the final size, not the chart.</p>
+<h2>Paper choices for grid work</h2>
+<ul><li><strong>Pencil and eraser:</strong> 90–100 g/m² paper survives repeated erasing better than thin copy paper.</li>
+<li><strong>Coloring squares:</strong> for pixel art with markers, 120 g/m² keeps the colors from bleeding into the next sheet.</li>
+<li><strong>A grid underlay:</strong> print a 5 mm or 1 cm grid with the dark line color and lay it under a sheet of plain paper. On a window or light pad the lines show through and keep handwriting or a sketch straight, while the final sheet stays blank.</li></ul>
 <h2>Printing tips</h2>
 <p>Scale matters more for graph paper than for any other template: if the printer shrinks the page to fit its margins, a 5 mm grid becomes about 4.8 mm and scale drawings drift. Print at 100% and check ten squares with a ruler. For engineering-style sheets, pick the light line color; for photocopying, medium or dark.</p>
 """,
 "faq": [("How many squares fit on an A4 page?", "With a 5 mm grid and our 12 mm margins, the page holds 37 squares across and 53 down in portrait orientation."),
         ("What is engineering paper?", "Engineering paper is usually a light green 1/5 inch grid printed on the back so it shows through faintly. Choose the 1/5 inch grid and the light line color for a similar look."),
         ("Which grid is best for algebra and geometry homework?", "A 5 mm or 1/4 inch grid. It is fine enough to fit a whole graph on half a page and large enough to write numbers inside the squares."),
-        ("Can I get a grid with an exact number of squares?", "Choose a custom grid size in half-millimeter steps. The preview redraws instantly, so you can count the squares along an edge before you print.")],
+        ("Can I get a grid with an exact number of squares?", "Choose a custom grid size in half-millimeter steps. The preview redraws instantly, so you can count the squares along an edge before you print."),
+        ("Why are the bold lines the same color as the fine lines?", "They are drawn thicker instead – 0.42 mm against 0.16 mm. A difference in weight survives grayscale printing and photocopying, whereas two shades of a light color often merge."),
+        ("How do I make a grid I can put under plain paper?", "Choose a 5 mm or 1 cm grid, the dark line color and bold lines every 5 or 10 squares, then print. Place the sheet under the page you write on; with a light behind it, the grid shows through."),
+        ("Which grid matches my cross-stitch fabric?", "Any grid works for the chart, because one square is one stitch. The fabric count sets the finished size: divide the number of stitches by the count to get inches.")],
 },
 {
 "slug": "dot-grid", "cat": "paper", "name": "Dot grid paper", "accent": "plum",
@@ -93,13 +128,27 @@ TOOLS = [
 <li><strong>Tracker grid:</strong> one dot per day across, one row per habit.</li>
 <li><strong>Collections:</strong> books to read, gift ideas, packing lists.</li></ul>
 <p>Prefer ready-made pages? The <a href="/weekly-planner.html">weekly planner</a> and <a href="/habit-tracker.html">habit tracker</a> generate those layouts for you, and the <a href="/bullet-journal-starter.html">bullet journal starter kit</a> explains the method.</p>
+<h2>Dot counts for every spacing</h2>
+<div class="table-wrap"><table><thead><tr><th>Spacing</th><th>A4</th><th>US Letter</th><th>A5</th><th>Half Letter</th></tr></thead><tbody>
+<tr><td>4 mm</td><td>47 × 68</td><td>48 × 63</td><td>33 × 47</td><td>31 × 49</td></tr>
+<tr><td>1/4 inch</td><td>30 × 43</td><td>31 × 40</td><td>21 × 30</td><td>20 × 31</td></tr>
+<tr><td>7 mm</td><td>27 × 39</td><td>28 × 36</td><td>19 × 27</td><td>18 × 28</td></tr>
+<tr><td>1 cm</td><td>19 × 27</td><td>20 × 26</td><td>14 × 19</td><td>13 × 20</td></tr></tbody></table></div>
+<p>All counts are for portrait pages, dots across × dots down; on Half Letter, 5 mm spacing gives 25 × 39. Because the grid is centered, there is always the same white border left and right.</p>
+<h2>Hand lettering on dots</h2>
+<p>Dots make consistent letter heights easy. On a 5 mm grid, a simple lettering layout uses two dot gaps (10 mm) for the x-height and one more gap above and below for ascenders and descenders, so one line of lettering takes four gaps. Mark the baseline with a light pencil stroke from dot to dot, keep the slant constant by aiming at a dot two rows up and one column across, and leave one empty gap between lines of text.</p>
+<h2>Paper, markers and ghosting</h2>
+<p>Two different things happen with markers. <strong>Ghosting</strong> is a shadow of the ink visible from the back; <strong>bleed-through</strong> means the ink actually soaks through the paper. Heavier, more opaque paper of 120 g/m² or more reduces both, and a spare sheet behind the page catches the rest. Test markers on a printed scrap first: some alcohol-based markers can smear inkjet ink, while laser toner is generally unaffected. In draft or toner-saving mode, fine dots may drop out completely, so print dot grid at normal quality.</p>
 <h2>Printing tips</h2>
 <p>To make an A5 booklet, print A5 pages directly, or print A4 pages and cut them in half. Heavier 100–120 g/m² paper reduces ghosting with markers. Keep the scale at 100% so the 5 mm dots really are 5 mm apart – otherwise pages printed on different days will not line up in a binder.</p>
 """,
 "faq": [("What size dots do bullet journals use?", "Most dotted notebooks use a 5 mm grid. That is our default setting."),
         ("Will the dots show when I scan my notes?", "Light, fine dots usually disappear or turn very faint in scans – one reason dot grid is popular for notes you want to digitize."),
         ("Which dot size works with watercolor or brush pens?", "Fine dots in the light color. They are easy to see while you plan the layout and almost invisible once the page is painted or lettered."),
-        ("Can I print dots on both sides?", "Yes. The grid is centered on the page, so on most printers the dots on the front and back line up closely.")],
+        ("Can I print dots on both sides?", "Yes. The grid is centered on the page, so on most printers the dots on the front and back line up closely."),
+        ("What is the difference between ghosting and bleed-through?", "Ghosting is when you can see the writing from the back of the sheet; bleed-through is when the ink passes through and marks the next page. Thicker, more opaque paper helps with both."),
+        ("Why do some dots disappear when I print?", "Fine dots are only about 0.36 mm across. Draft and toner-saving modes, or a nearly empty cartridge, can skip them. Use normal print quality or the medium dot size."),
+        ("Can I use the 1/4 inch spacing for US planner inserts?", "Yes. 1/4 inch matches many US dotted notebooks and inserts; on Half Letter it gives 20 × 31 dots.")],
 },
 {
 "slug": "isometric-paper", "cat": "paper", "name": "Isometric paper", "accent": "olive",
@@ -124,13 +173,24 @@ TOOLS = [
 <li><strong>Makers</strong> planning woodwork, 3D prints or LEGO builds.</li></ul>
 <h2>Lines or dots?</h2>
 <p>Full lines are easiest for beginners. The dot version shows only the points where lines would cross: drawings look cleaner and the grid disappears into the background, which suits finished illustrations. In the dot version the rows run horizontally, offset by half a triangle, so turn the sheet a quarter turn if you want vertical edges to follow a column of dots.</p>
+<h2>How the grid is measured</h2>
+<p>On the line version, the vertical lines are spaced at the height of one triangle, not its side: with 5 mm triangles they sit about 4.33 mm apart, with 1 cm triangles about 8.66 mm. Along any of the three line directions, however, the crossings are exactly one triangle side apart. So you measure an edge by counting steps along the line it follows. A portrait page holds 44 vertical lines on A4 and 45 on US Letter with 5 mm triangles; with 1 cm triangles it is 23 on both.</p>
+<h2>Three views and one isometric drawing</h2>
+<p>Technical drawing classes often pair isometric paper with ordinary graph paper. The front, top and side views of an object go on graph paper, one square per unit; the isometric view goes on this sheet, one triangle side per unit. Building the isometric view from the three flat views is a classic spatial-reasoning exercise: every corner in the flat views becomes a crossing point on the triangle grid. Using the same unit on both sheets lets you check each edge by counting.</p>
+<h2>Isometric games and pixel art</h2>
+<p>Many video games described as “isometric” actually use a 2:1 pixel slope – two pixels across for one up, an angle of about 26.6° – because it gives clean pixel steps. Our grid is true isometric, with lines at 30°. For true isometric sketches, maps and board-game tiles it is exactly right; for planning 2:1 pixel art, use <a href="/graph-paper.html">graph paper</a> and step two squares across for every square up.</p>
+<h2>Paper for shading and tracing</h2>
+<p>For shading the three faces of an object with colored pencils, a smooth 100–120 g/m² paper takes several layers without pilling. The dot version uses dots of about 0.56 mm, larger than the fine dots of our dot grid, so they stay visible after shading. If you use the sheet as a drawing underlay on a light pad, print the lines in the dark color.</p>
 <h2>Choosing the triangle size and printing</h2>
 <p>4–5 mm triangles give lots of detail for small objects; 7 mm or 1 cm triangles are easier to see and suit classroom use, children and large maps. Print at 100% so the 60° angles and the scale stay exact – a page shrunk to fit a different paper size distorts nothing visibly but makes measured drawings slightly off. A light line color keeps your pencil lines readable; use medium if you plan to photocopy the sheet.</p>
 """,
 "faq": [("Is isometric the same as perspective drawing?", "No. In perspective drawing, parallel lines meet in a vanishing point. In isometric drawing they stay parallel, so measurements along each axis remain to scale."),
         ("Can I use the grid for hex maps?", "Yes – groups of six triangles form hexagons, so isometric paper works for simple hex maps too."),
         ("Which triangle size should children use?", "1 cm triangles. They are large enough to count easily and to color in, and simple cube buildings stay clearly readable."),
-        ("Why do circles look like ovals on isometric drawings?", "A circle on the face of a cube is seen at an angle, so in isometric view it becomes an ellipse. Sketch it inside a rhombus of grid lines and round the corners.")],
+        ("Why do circles look like ovals on isometric drawings?", "A circle on the face of a cube is seen at an angle, so in isometric view it becomes an ellipse. Sketch it inside a rhombus of grid lines and round the corners."),
+        ("How do I measure a slanted edge?", "Count the triangle sides along the line the edge follows. With a 5 mm grid, an edge of six steps along a 30° line is 30 mm in the drawing, just like six steps up a vertical line."),
+        ("Is this the same grid video games use?", "Not quite. Many games use a 2:1 pixel slope of about 26.6°. This paper is true isometric with 30° lines, which is what technical drawing and most board-game maps use."),
+        ("Why are the vertical lines closer together than the triangle size?", "Their spacing is the triangle height, which is the side × √3 ÷ 2 – about 4.33 mm for a 5 mm triangle. Measurements along the lines still use the full triangle side.")],
 },
 # ------------------------------------------------------------------ CALENDARS
 {
@@ -156,13 +216,31 @@ TOOLS = [
 <ul><li><strong>Content or project calendar:</strong> plan posts, deadlines and launches with one color per channel or project.</li>
 <li><strong>Bill calendar:</strong> mark due dates for rent, subscriptions and insurance and tick them off when paid.</li>
 <li><strong>Training plan:</strong> write the planned distance in each box and the actual one next to it.</li></ul>
+<h2>How big are the day boxes?</h2>
+<p>A month needs four, five or six rows, depending on the weekday it starts on, its length and your week start. February 2027 is a rare four-row month with a Monday start: February 1 is a Monday and the month has exactly 28 days. With a Sunday start it needs five rows. The table shows the day box size in millimeters (width × height) with week numbers and notes switched on.</p>
+<div class="table-wrap"><table><thead><tr><th>Page</th><th>4 rows</th><th>5 rows</th><th>6 rows</th></tr></thead><tbody>
+<tr><td>A4 landscape</td><td>29.9 × 38.5</td><td>29.9 × 30.8</td><td>29.9 × 25.7</td></tr>
+<tr><td>US Letter landscape</td><td>27.3 × 40.0</td><td>27.3 × 32.0</td><td>27.3 × 26.7</td></tr>
+<tr><td>A4 portrait</td><td>25.6 × 52.8</td><td>25.6 × 42.2</td><td>25.6 × 35.2</td></tr>
+<tr><td>US Letter portrait</td><td>26.4 × 48.3</td><td>26.4 × 38.7</td><td>26.4 × 32.2</td></tr>
+<tr><td>A5 landscape</td><td>18.3 × 24.5</td><td>18.3 × 19.6</td><td>18.3 × 16.3</td></tr></tbody></table></div>
+<p>As a rule, one handwritten entry needs about 6–7 mm of height, so a 26 mm box holds three short lines and a 16 mm box on A5 one or two. If you write a lot into single days, portrait gives the tallest boxes; landscape gives the widest ones and the separate notes column.</p>
+<h2>Printing in black and white</h2>
+<p>The weekday bar is filled with your accent color and carries white lettering. In grayscale, light accents such as sand turn into a pale gray, and the white weekday names lose contrast. For black-and-white printers, choose the ink or mono accent; tomato, teal and plum also stay readable. Weekend boxes are tinted with a very light warm gray that usually survives grayscale printing as a faint shade.</p>
+<h2>More practical setups</h2>
+<ul><li><strong>Chore rotation:</strong> write one person's initials in the corner of each box, so the rota is visible to everyone.</li>
+<li><strong>Reusable month:</strong> slip a printed month into a sheet protector and write with a wet-erase marker; dry-erase markers smudge more easily when you touch the page.</li>
+<li><strong>Shift schedule:</strong> one letter per shift type – E, L, N – in the box, and a legend in the notes column.</li></ul>
 <h2>Printing tips</h2>
 <p>For a wall calendar, print all twelve months double-sided so each month has a blank back, or single-sided on 120 g/m² paper so ink does not show through. Use the paper size that is in your tray – an A4 calendar printed on US Letter loses its bottom row unless the printer shrinks it. Need the whole year on one sheet? Use the <a href="/yearly-calendar.html">yearly calendar</a>.</p>
 """,
 "faq": [("Does the calendar include holidays?", "No – holidays differ between countries and regions, so the day boxes are left free for you to fill in. US federal holidays for 2027 are listed in our 2027 calendar guide."),
         ("Which years can I create?", "Any year from 1900 to 2100. All dates are calculated with the Gregorian calendar."),
         ("Can I print a school year from August to July?", "Yes. Create the months one by one, changing the year when you reach January, and print them in order."),
-        ("Why does my calendar show week 53?", "Some years have 53 ISO weeks. 2026 is one of them, so its last week continues into the first days of January 2027.")],
+        ("Why does my calendar show week 53?", "Some years have 53 ISO weeks. 2026 is one of them, so its last week continues into the first days of January 2027."),
+        ("Why does February 2027 have only four rows?", "February 1, 2027 is a Monday and the month has 28 days, so with a Monday start it fills exactly four weeks. With a Sunday start, February 1 is the second column and the month spills into a fifth row."),
+        ("Which accent color is best for a black-and-white printer?", "Ink or mono. The weekday bar is filled with the accent color behind white text, and dark accents keep that text readable when printed in grayscale."),
+        ("How much can I write in a day box?", "On A4 or US Letter, two or three short entries in most months. Six-row months have the smallest boxes; if a month is busy, print it in portrait for taller boxes.")],
 },
 {
 "slug": "yearly-calendar", "cat": "calendars", "name": "Yearly calendar", "accent": "sand",
@@ -189,13 +267,28 @@ TOOLS = [
 <li><strong>School year:</strong> shade term dates and breaks, then count the teaching weeks left before each exam.</li></ul>
 <h2>Leap years</h2>
 <p>February gets its 29th day automatically in leap years. A year is a leap year when it is divisible by 4, except for years divisible by 100 unless they are also divisible by 400. So 2027 has 365 days, 2028 is a leap year, and 2100 is not. If you print a calendar for 2028, February 29 falls on a Tuesday.</p>
+<h2>How small are the days?</h2>
+<p>Twelve months on one sheet leave little room per day. The generator sets the day numbers at up to 8 pt and shrinks them when the cells get smaller. The table shows the size of one day cell:</p>
+<div class="table-wrap"><table><thead><tr><th>Page</th><th>Day cell</th><th>Day numbers</th></tr></thead><tbody>
+<tr><td>A4 portrait / landscape</td><td>8.3 × 7.8 mm / 9.1 × 6.5 mm</td><td>8 pt</td></tr>
+<tr><td>US Letter portrait / landscape</td><td>8.6 × 7.1 mm / 8.5 × 6.8 mm</td><td>8 pt</td></tr>
+<tr><td>A5 portrait / landscape</td><td>5.6 × 4.4 mm / 6.2 × 3.4 mm</td><td>7.1 pt / 5.4 pt</td></tr>
+<tr><td>Half Letter portrait / landscape</td><td>5.2 × 4.7 mm / 6.4 × 2.9 mm</td><td>7.5 pt / 4.7 pt</td></tr></tbody></table></div>
+<p>On A5 and Half Letter, portrait is clearly the better choice: in landscape the numbers drop below 6 pt, which many people find hard to read. On A4 and Letter, a cell of about 7–8 mm takes a colored dot, a short stroke of a highlighter or a small round sticker of about 6 mm.</p>
+<h2>Making a large wall planner</h2>
+<p>Because the PDF is a vector file, it can be enlarged without blurring. A copy shop can print an A4 page on A3 at 141%, or a US Letter page on Tabloid (11 × 17 in) at about 129%; everything grows in proportion, and A3 cells become about 12 × 11 mm in portrait. Ask for the PDF to be printed at that exact scale rather than “fit to page”, so the margins stay even. On a home printer, the same result needs a poster or tiling option, which glues four sheets together – fiddly, but it works.</p>
+<h2>Paper and pens</h2>
+<p>Highlighters can smear fresh inkjet prints, so let the page dry for a few minutes or test on a corner first. For a planner you mark with dots and stickers all year, 160–200 g/m² card stock stays flat on a wall and survives repeated sticker removal. Fine-liners of 0.3 mm or less fit a short note into a cell; for anything longer, write the details on a <a href="/monthly-calendar.html">monthly calendar</a> and only a dot on the year page.</p>
 <h2>Printing tips</h2>
 <p>Day numbers on a one-page year are small, so this is the page where a sharp printer setting pays off: print at 100% rather than letting the printer shrink the page, and use the dark-gray default text. For a wall version, 120–176 g/m² paper keeps the sheet flat. For day-by-day planning, create a matching <a href="/monthly-calendar.html">monthly calendar</a> in the same accent color.</p>
 """,
 "faq": [("Can I print a calendar for a past year?", "Yes – enter any year between 1900 and 2100, for example to document a past year in a scrapbook."),
         ("Are weekends highlighted?", "Weekend dates appear in your accent color and can be shaded; switch the shading off in the settings if you prefer a cleaner look."),
         ("Does the yearly calendar show week numbers?", "No, there is no room for them on one page. Use the monthly calendar if you need ISO week numbers."),
-        ("Is there space to write on it?", "Only small marks and colors fit into the day cells. For appointments with text, combine it with monthly or weekly pages.")],
+        ("Is there space to write on it?", "Only small marks and colors fit into the day cells. For appointments with text, combine it with monthly or weekly pages."),
+        ("How do I print it as a large wall planner?", "Print the PDF on A3 (from A4) at 141% or on Tabloid (from US Letter) at about 129%, at a copy shop or on a large-format printer. The vector PDF stays sharp at any size."),
+        ("Which paper size is still easy to read?", "A4 and US Letter in either orientation, with 8 pt day numbers. On A5 and Half Letter, choose portrait; landscape makes the numbers very small."),
+        ("Does the yearly calendar show holidays?", "No. Mark them yourself with a colored dot; the US federal holidays for 2027 are listed in our 2027 calendar guide.")],
 },
 # ------------------------------------------------------------------ PLANNERS
 {
@@ -222,6 +315,21 @@ TOOLS = [
 <p>Our step-by-step guide <a href="/plan-a-week-on-paper.html">how to plan a week on paper</a> adds a simple capacity check in hours and a fully filled example.</p>
 <h2>A filled example: a student's exam week</h2>
 <p>A student prints a dated page for an exam week. Exams go into the day boxes first, in red: statistics on Tuesday at 9:00, history on Thursday at 13:00. Revision blocks follow, written as times with the topic (“Mon 14–17: statistics, chapters 4–6”). The to-do column holds the small things – return library books, print the formula sheet, book a bike repair – each with a check box. The Notes box holds room numbers and the professor's office hours. On Friday evening, every finished revision block is ticked, and two topics that did not get enough time go straight onto next week's page. Saturday is deliberately left almost empty: one line says “rest, groceries”.</p>
+<h2>How much room each day gets</h2>
+<div class="table-wrap"><table><thead><tr><th>Page</th><th>Day box (with to-do)</th><th>Writing lines</th><th>To-do lines</th></tr></thead><tbody>
+<tr><td>US Letter landscape</td><td>44.6 × 82.5 mm</td><td>11</td><td>23</td></tr>
+<tr><td>US Letter portrait</td><td>94.0 × 43.6 mm</td><td>5</td><td>4 long lines</td></tr>
+<tr><td>A5 landscape</td><td>28.8 × 51.5 mm</td><td>6</td><td>14</td></tr>
+<tr><td>Half Letter landscape</td><td>30.2 × 47.3 mm</td><td>5</td><td>13</td></tr>
+<tr><td>A5 portrait</td><td>63.0 × 27.8 mm</td><td>2</td><td>4 long lines</td></tr></tbody></table></div>
+<p>Without the to-do column, landscape boxes get wider (60.8 mm on US Letter) and portrait boxes taller, with up to seven lines. On A5 portrait, the to-do strip leaves only two lines per day, so either switch the to-do list off there or use landscape.</p>
+<p>The writing lines inside the day boxes are 6.5 mm apart – slightly tighter than college ruling (about 7.1 mm) and a little wider than narrow ruling (6.35 mm). Most people can write one line of normal handwriting per line; if you write large, switch the lines off and use the box freely.</p>
+<h2>More ways to use the page</h2>
+<ul><li><strong>Hours log:</strong> freelancers write the hours per client in each day box and the weekly total into Notes, which makes invoicing quick at the end of the month.</li>
+<li><strong>Lesson plan:</strong> teachers use one box per school day with the periods as lines; the eighth box holds materials to prepare.</li>
+<li><strong>Shared household week:</strong> one page on the fridge, one color per person, and the to-do column for chores anyone can take.</li></ul>
+<h2>Paper for a planner you write in daily</h2>
+<p>Weekly pages are written, crossed out and carried around for seven days. 90–100 g/m² paper keeps gel pens from showing through and stands up to a ring binder better than thin copy paper. If you print double-sided in portrait, choose “flip on long edge” so the back page is the right way up.</p>
 <h2>Printing tips</h2>
 <p>Landscape fills a clipboard or desk best and gives each day the most writing lines; portrait fits ring binders, especially in A5 or Half Letter. Print several undated pages at once and keep them with your <a href="/monthly-calendar.html">monthly calendar</a>; add a <a href="/daily-planner.html">daily planner</a> for the busiest days. All three share the same accent colors, so a printed set looks consistent.</p>
 """,
@@ -229,7 +337,9 @@ TOOLS = [
         ("Does the planner work in A5 binders?", "Yes – choose A5 or Half Letter. Portrait orientation usually works best for small binders."),
         ("Can the week start on Sunday?", "Yes. Enter a Sunday as the start date and the boxes run Sunday to Saturday with the correct dates. Undated pages start on Monday."),
         ("Can I remove the to-do list?", "Untick “To-do column” and the day boxes use the full width or height of the page."),
-        ("What is the eighth box for?", "It is labeled Notes and holds everything that belongs to the week but not to a day: phone numbers, a shopping item, ideas or a quote for the week.")],
+        ("What is the eighth box for?", "It is labeled Notes and holds everything that belongs to the week but not to a day: phone numbers, a shopping item, ideas or a quote for the week."),
+        ("How many lines are in each day box?", "On A4 landscape ten, on US Letter landscape eleven, and fewer on small or portrait pages – see the table above. The lines are 6.5 mm apart."),
+        ("Which setting gives the most writing room per day?", "US Letter or A4 in landscape with the to-do column switched off: each day box is then about 61–65 mm wide and 80 mm tall.")],
 },
 {
 "slug": "daily-planner", "cat": "planners", "name": "Daily planner", "accent": "tomato",
@@ -255,13 +365,27 @@ TOOLS = [
 <p>The page is dated for a Wednesday with a report due. Priorities: 1. finish the report draft, 2. send it to the team, 3. book the venue for next month. The schedule shows a 9:00 stand-up (30 minutes), the draft blocked from 9:30 to 12:00, lunch, a client call at 14:00, and “email + calls” from 15:00 to 15:45 for the to-do items. At 16:00 the report is sent, at 16:15 the venue is booked. The notes box holds a phone number from the call; the gratitude box says “quiet morning to write”.</p>
 <h2>Adjust the schedule to your day</h2>
 <p>Early riser? Start the schedule as early as 4:00. Night owl? Run it until midnight. The planner divides the available height evenly, so a shorter day gets more room per hour: 8:00 to 18:00 on A4 gives about 22 mm per hour, enough for two lines of text in each slot. Half-hour slots suit days full of short appointments, such as a clinic shift or a day of back-to-back calls.</p>
+<h2>Space per hour on every paper size</h2>
+<div class="table-wrap"><table><thead><tr><th>Page</th><th>6:00–21:00</th><th>8:00–18:00</th><th>To-do lines</th></tr></thead><tbody>
+<tr><td>A4</td><td>15.2 mm</td><td>22.1 mm</td><td>11</td></tr>
+<tr><td>US Letter</td><td>14.1 mm</td><td>20.5 mm</td><td>10</td></tr>
+<tr><td>A5</td><td>10.1 mm</td><td>14.7 mm</td><td>7</td></tr>
+<tr><td>Half Letter</td><td>10.5 mm</td><td>15.3 mm</td><td>7</td></tr></tbody></table></div>
+<p>With half-hour slots, each half hour gets half of that – about 7.8 mm on A4 for 6:00 to 21:00, enough for one short line. Full hours are marked by a solid line with the time; half hours by a thinner dashed line, so the hours stay easy to find in a busy schedule. A handwritten line needs roughly 6–7 mm, so on A5 and Half Letter shorten the schedule to the hours you really use if you want two lines per hour.</p>
+<h2>Schedules that do not fit the default</h2>
+<p>The schedule can start at any full hour from 4:00 to 16:00 and end at any full hour from 13:00 to 24:00. A night shift that runs past midnight therefore does not fit in one block. Two practical options: plan the evening part on today's page and the early hours on tomorrow's, or choose a schedule from 13:00 to 24:00 and write the hours after midnight into the notes area.</p>
+<h2>Paper and pens</h2>
+<p>A daily page is used intensively for one day and then usually filed or thrown away, so everyday 80 g/m² paper is enough for most people. If you color your time blocks with highlighters, test the highlighter on a printed page first – some smear fresh inkjet ink – and let the print dry for a minute. Erasable gel pens work well for schedules that change during the day.</p>
 <h2>Printing tips</h2>
 <p>The page is always portrait. A5 or Half Letter turns it into a pocket-sized day card, though the hours get tighter, so shorten the schedule to the hours you really need. Print a small stack of undated pages for normal days and a dated one for special days such as a move, a trip or an exam. Plan the week first with the <a href="/weekly-planner.html">weekly planner</a>, then use this page only on days that need hour-by-hour detail.</p>
 """,
 "faq": [("Can I make the schedule start earlier?", "Yes – choose any start hour from 4:00 and any end hour up to 24:00."),
         ("Is there a version without the water tracker?", "Untick “Water tracker” and “Gratitude & reflection” and the notes area grows automatically."),
         ("Should I fill in every hour?", "No. Block appointments and priorities, and leave the rest open. A schedule packed from start to finish usually breaks by lunchtime."),
-        ("Does the water tracker set a target?", "It has eight glasses to tick as a simple visual reminder. It is not a medical recommendation; how much you need depends on you.")],
+        ("Does the water tracker set a target?", "It has eight glasses to tick as a simple visual reminder. It is not a medical recommendation; how much you need depends on you."),
+        ("Can I plan a night shift that crosses midnight?", "Not in one schedule block: it ends at 24:00 at the latest. Use two pages, or a 13:00–24:00 schedule plus the notes area for the hours after midnight."),
+        ("Why are some lines in the schedule dashed?", "With half-hour slots switched on, the half hours are thinner dashed lines and the full hours solid lines with the time, so you can find the hours at a glance."),
+        ("How many to-do lines are there?", "Eleven on A4, ten on US Letter and seven on A5 or Half Letter, each with a check box.")],
 },
 # ------------------------------------------------------------------ TRACKERS & LISTS
 {
@@ -288,13 +412,32 @@ TOOLS = [
 <li><strong>Tick at a fixed time:</strong> filling in a week from memory makes the page unreliable.</li>
 <li><strong>Never miss twice:</strong> one missed day is normal; two in a row is the start of a new pattern.</li>
 <li><strong>Review monthly:</strong> use the “Done” column to decide what to keep, change or drop.</li></ul>
+<h2>Row height and circle size</h2>
+<p>Each habit row is up to 10 mm tall; with many rows the generator shrinks them so that everything fits on one page. The circles scale with the space for each day:</p>
+<div class="table-wrap"><table><thead><tr><th>Page (31-day month)</th><th>Circle diameter</th><th>Row height with 24 rows</th></tr></thead><tbody>
+<tr><td>A4 landscape</td><td>about 3.9 mm</td><td>6.4 mm</td></tr>
+<tr><td>US Letter landscape</td><td>about 3.5 mm</td><td>6.6 mm</td></tr>
+<tr><td>A4 portrait</td><td>about 2.3 mm</td><td>10 mm</td></tr>
+<tr><td>A5 or Half Letter landscape</td><td>about 2.4 mm</td><td>3.7–4.0 mm</td></tr></tbody></table></div>
+<p>Shorter months get slightly larger circles; February on A4 landscape has circles of about 4.3 mm. The numbers explain the advice to use landscape: in portrait the circles are barely larger than a pen tip. On A5 and Half Letter, keep the list to about ten rows, so the rows stay tall enough to read the habit names.</p>
+<h2>Ways to fill the circles</h2>
+<ul><li><strong>Full or half:</strong> fill the circle when you did the habit completely and only half of it for a reduced version – ten minutes of reading instead of thirty still counts as showing up.</li>
+<li><strong>Dot for a planned rest day:</strong> a small dot in the middle marks a day you deliberately skipped, so the gap does not look like a failure when you review the month.</li>
+<li><strong>Two colors:</strong> one color for weekdays and another for weekends makes patterns easier to see.</li></ul>
+<h2>Other uses for the grid</h2>
+<p>The layout is simply names down the side and one circle per day, so it works for more than personal habits. As a <strong>chore chart</strong>, each row is one child and one chore, such as “Mia – set the table”. In a <strong>classroom</strong>, each row is a student and a circle is filled when the reading log comes back. For <strong>plant care</strong>, each row is a plant and a filled circle means watered. The “Done” box then gives the monthly count for each row.</p>
+<h2>Paper and printing</h2>
+<p>A tracker hangs in one place for a whole month and gets touched every day. 120 g/m² paper stays flat on a fridge or door and does not crease when you pin it up. The circles are outlined in a light gray, so they print clearly in grayscale and on any home printer.</p>
 <h2>Printing tips</h2>
 <p>Print the whole year in one go and keep the sheets in a folder next to the current page, so a new month is always ready. The circles are drawn in a light gray outline, so any pen color shows; a highlighter fills them quickly. For a yearly view, color one habit day by day on a <a href="/yearly-calendar.html">yearly calendar</a>.</p>
 """,
 "faq": [("How many habits can I track?", "Up to 15 named habits plus empty rows, 24 rows at most – but most people do best with three to seven."),
         ("Can I track habits weekly instead of daily?", "Use the checklist template with numbered lines for weekly goals, or mark only certain days on the monthly tracker."),
         ("Why does the tracker show weekday letters?", "They help you spot patterns, such as habits that are always missed on weekends or on one particular weekday."),
-        ("Can I track numbers, like hours of sleep?", "Yes – write the number inside the circle instead of filling it in. Keep such rows to one or two, as they take longer to fill in.")],
+        ("Can I track numbers, like hours of sleep?", "Yes – write the number inside the circle instead of filling it in. Keep such rows to one or two, as they take longer to fill in."),
+        ("How big are the circles?", "About 3.9 mm on A4 landscape and 3.5 mm on US Letter landscape in a 31-day month. In portrait they shrink to about 2.3 mm, which is why landscape is the better choice for most people."),
+        ("Can I use it as a chore chart for several children?", "Yes. Type one line per child and chore, such as “Ben – feed the cat”. Each row gets its own circles and its own “Done” count for the month."),
+        ("Does the tracker follow a Monday or Sunday week?", "Neither: the columns are simply the days of the month from 1 to 28–31. The weekday letter above each date shows where the weekends fall.")],
 },
 {
 "slug": "checklist", "cat": "trackers", "name": "Checklist & to-do list", "accent": "ink",
@@ -322,13 +465,26 @@ TOOLS = [
 <li><strong>Project steps:</strong> renovations, events or launches, one action per line.</li></ul>
 <h2>Write better list items</h2>
 <p>Start each item with a verb – “Call the plumber”, not “Plumber”. Split anything that takes more than an hour into steps. Keep a single list per purpose instead of one endless list, and print a fresh one when more than half is ticked.</p>
+<h2>Line spacing on each paper size</h2>
+<div class="table-wrap"><table><thead><tr><th>Page</th><th>25 lines, one column</th><th>60 lines, two columns</th><th>Column width (two columns)</th></tr></thead><tbody>
+<tr><td>A4</td><td>9.8 mm</td><td>8.2 mm</td><td>89 mm</td></tr>
+<tr><td>US Letter</td><td>9.1 mm</td><td>7.6 mm</td><td>92 mm</td></tr>
+<tr><td>A5</td><td>6.6 mm</td><td>5.5 mm</td><td>61 mm</td></tr>
+<tr><td>Half Letter</td><td>6.8 mm</td><td>5.7 mm</td><td>57 mm</td></tr></tbody></table></div>
+<p>The spacing never exceeds 10 mm, so short lists do not stretch over the whole page. On A5 and Half Letter, 25 or more lines end up between 5.5 and 7 mm apart – fine for a shopping list, tight for longer items. For pre-filled items in two columns, keep each item to roughly 50 characters on A4 or Letter and about 30 on A5; longer items run into the next column.</p>
+<h2>Read-do or do-confirm?</h2>
+<p>Checklists used in aviation and surgery come in two types, a distinction popularized by the surgeon Atul Gawande in <em>The Checklist Manifesto</em>. A <strong>read-do</strong> list is followed step by step as you work, like a recipe or a setup procedure – the numbered style fits it best. A <strong>do-confirm</strong> list is checked after you have done the work from memory, like a packing list you run through before leaving the house – square boxes fit it best. Gawande recommends keeping each checklist short, at about five to nine items per pause point, and concentrating on the steps that are most often missed rather than listing everything.</p>
+<h2>Paper for lists that get handled</h2>
+<p>A list that lives in a bag or on a clipboard needs more than copy paper: 120 g/m² or more does not wrinkle as quickly. For a reusable list in a sheet protector, print on 160–200 g/m² card stock so it stays stiff, and tick the boxes with a wet-erase marker. A list printed in grayscale loses nothing, because the boxes and lines are gray anyway.</p>
 <h2>Printing tips</h2>
 <p>The page is always portrait. For lists you laminate and reuse with a dry-erase marker, choose large spacing and bold square boxes, and print on heavier paper before laminating. A5 and Half Letter make handy pocket lists for shopping. For a weekly to-do list tied to dates, use the <a href="/weekly-planner.html">weekly planner</a>; for daily routines tracked over a month, the <a href="/habit-tracker.html">habit tracker</a>.</p>
 """,
 "faq": [("How many items fit on one page?", "Up to 60 lines in two columns. With fewer lines, the spacing grows so the page still looks balanced."),
         ("Can I save my pre-filled list?", "Your last settings are remembered in this browser. You can also copy a share link that contains your list."),
         ("Can I print a list with two columns of different topics?", "Choose two columns and pre-fill the items in order: the first half of your lines fills the left column, the rest the right column. Leave empty lines to separate topics."),
-        ("Can I make a numbered list without check boxes?", "Yes. Choose “Numbered” as the checkbox style and every line gets a number instead of a box.")],
+        ("Can I make a numbered list without check boxes?", "Yes. Choose “Numbered” as the checkbox style and every line gets a number instead of a box."),
+        ("Do long pre-filled items fit in two columns?", "Roughly 50 characters fit in a column on A4 or US Letter and about 30 on A5. Longer items run into the next column, so shorten them or use one column."),
+        ("Which checkbox style should I use for step-by-step instructions?", "Numbered. When the order matters – a recipe, a setup, a closing routine – numbers make it easy to see where you stopped.")],
 },
 {
 "slug": "meal-planner", "cat": "planners", "name": "Meal planner", "accent": "olive",
@@ -351,13 +507,26 @@ TOOLS = [
 <p>A couple who both work late plans dinners only, so each cell is tall enough for a recipe name and a page number. Monday: chili, double batch. Tuesday: chili with rice – arrow from Monday. Wednesday: stir-fry with the vegetables bought on Saturday. Thursday: “quick” – pasta with pesto. Friday: pizza night, homemade dough started Thursday. Saturday: eat out. Sunday: roast vegetables and fish. The grocery list reads: <em>Produce</em> peppers, onions, broccoli, carrots, basil; <em>Protein</em> ground beef, kidney beans, salmon; <em>Dairy</em> mozzarella, parmesan; <em>Pantry</em> rice, pasta, flour, canned tomatoes, yeast; <em>Other</em> baking paper.</p>
 <h2>Grocery list by category</h2>
 <p>The five groups – produce, protein, dairy, pantry and other – follow roughly the way many supermarkets are laid out. Writing each item into its group as you plan saves walking back and forth in the store, and an empty group tells you at a glance that you have, for example, planned no vegetables yet. If you shop at two stores, mark the items for the second store with a small letter in front.</p>
+<h2>Cell sizes for each layout</h2>
+<div class="table-wrap"><table><thead><tr><th>Page (landscape, with grocery list)</th><th>3 meals</th><th>4 meals</th><th>2 meals</th><th>Dinner only</th></tr></thead><tbody>
+<tr><td>US Letter</td><td>24.3 × 54.0 mm</td><td>24.3 × 40.5 mm</td><td>24.3 × 81.0 mm</td><td>24.3 × 161.9 mm</td></tr>
+<tr><td>A5</td><td>15.3 × 33.3 mm</td><td>15.3 × 25.0 mm</td><td>15.3 × 50.0 mm</td><td>15.3 × 100 mm</td></tr></tbody></table></div>
+<p>Without the grocery list, the day columns get wider: 33.9 mm on US Letter, 36.4 mm on A4 and 24.9 mm on A5. A column of 15 mm on A5 holds only a word or two per line, so on small paper either switch the list off or plan dinners only.</p>
+<p>The grocery list itself has room for 20 items on A4 landscape (four per group), 25 on US Letter landscape (five per group) and 30 in portrait, where the five groups sit side by side along the bottom of the page. On A5 landscape there are only two lines per group – enough for a top-up shop, not for the big weekly one.</p>
+<h2>A four-week rotation</h2>
+<p>Many households eat a limited set of dinners anyway. Fill in four meal plans once, number them 1 to 4 in the title – “Meal plan 1”, “Meal plan 2” – and print them again whenever the cycle comes round. After a month, cross out the meals nobody liked and replace them. Because the grocery list is on the same page, each rotation week comes with its shopping list already written.</p>
+<h2>Paper and printing</h2>
+<p>A meal plan on the fridge gets splashed and touched for a week; 100–120 g/m² paper holds up better under a magnet than thin copy paper. To reuse a basic plan, put it in a sheet protector and write the changing parts with a wet-erase marker. In grayscale the colored day headers turn gray with white lettering, so choose a dark accent such as ink or mono if you print in black and white.</p>
 <h2>Printing tips</h2>
 <p>A printed plan on the fridge answers the daily “What's for dinner?” question for the whole household; landscape works best there. Portrait suits binders, where you can keep past weeks as a library of meals that worked. If you track food spending, carry the receipt total over to the groceries line of the <a href="/budget-planner.html">budget planner</a>.</p>
 """,
 "faq": [("Can I start the week on Sunday?", "Yes – switch “Week starts on” to Sunday. Enter a start date to have the dates printed above each day."),
         ("Is there a version without the grocery list?", "Untick “Grocery list” and the meal grid uses the full page."),
         ("Can I plan two weeks on one page?", "Not on one page, but you can print two copies and enter the start dates of consecutive weeks."),
-        ("Where do recipes go?", "Write the recipe name and where to find it – a cookbook page or a website name – in the cell. Dinner-only plans leave the most room.")],
+        ("Where do recipes go?", "Write the recipe name and where to find it – a cookbook page or a website name – in the cell. Dinner-only plans leave the most room."),
+        ("How many grocery items fit on the list?", "Twenty on A4 landscape, 25 on US Letter landscape, 30 in portrait and ten on A5 or Half Letter landscape, spread across the five groups."),
+        ("Which layout works for an A5 planner?", "Dinner only, or switch the grocery list off. With three meals and the list, each day column on A5 is only about 15 mm wide."),
+        ("Can I reuse the same plan every month?", "Yes. Fill in up to four plans with titles like “Meal plan 1”, keep them as a rotation and print them again when the cycle comes round.")],
 },
 {
 "slug": "budget-planner", "cat": "trackers", "name": "Budget planner", "accent": "sand",
@@ -384,6 +553,19 @@ TOOLS = [
 <ul><li><strong>Update weekly:</strong> ten minutes with your bank statement on a fixed day is easier than reconstructing a whole month.</li>
 <li><strong>Round to whole amounts:</strong> trends matter more than cents.</li>
 <li><strong>Review, don't judge:</strong> an overspent category is information for next month.</li></ul>
+<h2>How many categories fit?</h2>
+<div class="table-wrap"><table><thead><tr><th>Page</th><th>8 categories</th><th>13 categories</th><th>18 categories</th></tr></thead><tbody>
+<tr><td>A4</td><td>16.4 mm</td><td>10.6 mm</td><td>7.8 mm</td></tr>
+<tr><td>US Letter</td><td>14.5 mm</td><td>9.3 mm</td><td>6.9 mm</td></tr>
+<tr><td>A5</td><td>7.4 mm</td><td>4.8 mm</td><td>3.5 mm</td></tr>
+<tr><td>Half Letter</td><td>8.1 mm</td><td>5.2 mm</td><td>3.8 mm</td></tr></tbody></table></div>
+<p>The values are the height of one expense row. Handwritten amounts need about 6 mm, so on A5 and Half Letter keep the list to about eight categories – group small ones, for example “Phone, internet & subscriptions”. On A4 and US Letter the full 18 categories still work.</p>
+<h2>Which way round is the difference?</h2>
+<p>The page leaves the sign to you, so decide once and write it into the notes. A common convention is <strong>planned minus actual</strong> for expenses, so a positive difference means you stayed under budget – as in the example above, where groceries came out at −$55. For income it is the other way round, <strong>actual minus planned</strong>, so a positive number is again good news. With that rule every plus is a reason to smile and every minus a line to look at.</p>
+<h2>Zero-based planning and irregular income</h2>
+<p>In <strong>zero-based budgeting</strong>, you fill the Planned column until planned expenses, including savings, equal your planned income – every dollar gets a job before the month starts. If your income varies, plan with the income of a lean month and treat anything above it as extra: write it into “Other” in the income table and decide in the notes where it goes, for instance into savings or a fund for irregular bills.</p>
+<h2>Paper and pens</h2>
+<p>Write the Planned column in pencil if you expect to adjust it mid-month, and the Actual column in pen. Everyday 80 g/m² paper is enough for a page you update weekly; a year of pages fits in a slim binder behind a <a href="/yearly-calendar.html">yearly calendar</a> on which you mark paydays and due dates.</p>
 <h2>Printing tips</h2>
 <p>The page is always portrait and works on A4, US Letter, A5 or Half Letter; the larger sizes leave more room for amounts. Print a year at once and file each month behind the last, so you can compare the same category across months.</p>
 <p class="small muted">The planner is an organizing tool and not financial advice.</p>
@@ -391,7 +573,9 @@ TOOLS = [
 "faq": [("Can I use a different currency?", "Choose $, €, £ or no symbol. The summary boxes show the symbol; amounts in the table are written by hand."),
         ("Can I print a whole year?", "Choose “All 12 months” for a 12-page budget binder with your categories on every page."),
         ("Can I rename the income rows?", "The income rows are fixed (salary, side income, other, total), but you can cross one out and write your own label; the expense categories are fully editable."),
-        ("What goes into “Saved” and “Left over”?", "Saved is what you moved to savings this month (it also appears as a category). Left over is total income minus total expenses, savings included – money still available or carried into next month.")],
+        ("What goes into “Saved” and “Left over”?", "Saved is what you moved to savings this month (it also appears as a category). Left over is total income minus total expenses, savings included – money still available or carried into next month."),
+        ("How many categories fit on A5?", "About eight, if you want rows tall enough for handwritten amounts. With 13 categories, A5 rows shrink to about 5 mm."),
+        ("Should the difference be positive or negative?", "That is up to you. A common rule is planned minus actual for expenses and actual minus planned for income, so a positive difference is always the good direction.")],
 },
 ]
 

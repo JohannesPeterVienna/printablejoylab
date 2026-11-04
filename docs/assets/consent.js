@@ -1,6 +1,6 @@
 /* Ads and analytics – both run through Google's certified consent management (IAB TCF 2.2).
    Consent Mode v2 defaults (everything denied, wait_for_update 500 ms, ga-disable on) are set before any
-   Google script. Google Analytics measures only when
+   Google script – by an inline script in <head> directly before the static AdSense loader (fallback: here). Google Analytics measures only when
      – GDPR applies: TCF purpose 1 + vendor 755 (Google) consent AND Consent Mode
        analyticsStoragePurposeConsentStatus GRANTED (1);
      – GDPR does not apply (gdprApplies === false): the value is GRANTED (1) or NOT_APPLICABLE (3) AND the
@@ -21,10 +21,15 @@
   window.dataLayer = window.dataLayer || [];
   window.gtag = window.gtag || function gtag(){ window.dataLayer.push(arguments); };
   window[OFF_FLAG] = true;
-  window.gtag("consent", "default", {
-    ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied",
-    analytics_storage: "denied", wait_for_update: 500
-  });
+  // The defaults are normally already set by the inline script in <head>, right before the static AdSense
+  // loader; they are only set here as a fallback (e.g. a cached page without that script), never twice.
+  if (!window.pjlConsentDefaults) {
+    window.gtag("consent", "default", {
+      ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied",
+      analytics_storage: "denied", wait_for_update: 500
+    });
+    window.pjlConsentDefaults = true;
+  }
   window.googlefc = window.googlefc || {};
   window.googlefc.callbackQueue = window.googlefc.callbackQueue || [];
 
@@ -37,11 +42,14 @@
   const gpc = navigator.globalPrivacyControl === true;
 
   function loadAds(){
-    if (gpc) return;
-    const s = document.createElement("script");
-    s.async = true; s.crossOrigin = "anonymous";
-    s.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${PUB}`;
-    document.head.appendChild(s);
+    if (gpc) { (window.adsbygoogle = window.adsbygoogle || []).pauseAdRequests = 1; return; }   // no ad requests at all
+    // The loader is in <head> as a static tag; it is only added here if it is missing – never a second copy.
+    if (!document.querySelector('script[src*="pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"]')) {
+      const s = document.createElement("script");
+      s.async = true; s.crossOrigin = "anonymous";
+      s.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${PUB}`;
+      document.head.appendChild(s);
+    }
     document.querySelectorAll(".ad[data-ad]").forEach(box => {
       const id = SLOTS[box.dataset.ad];
       if (!id) return;
