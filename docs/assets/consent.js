@@ -36,10 +36,12 @@
   window.dataLayer = window.dataLayer || [];
   window.gtag = window.gtag || function gtag(){ window.dataLayer.push(arguments); };
   window[OFF_FLAG] = true;
+  // every call goes through tag(): never a ReferenceError, even if the stub above was replaced by something odd
+  const tag = (...args) => { try { if (typeof window.gtag === "function") window.gtag(...args); else (function(){ window.dataLayer.push(arguments); }).apply(null, args); } catch (err) { /* ignore */ } };
   // The defaults are normally already set by the inline script in <head>, right before the static AdSense
   // loader; they are only set here as a fallback (e.g. a cached page without that script), never twice.
   if (!window.pjlConsentDefaults) {
-    window.gtag("consent", "default", {
+    tag("consent", "default", {
       ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied",
       analytics_storage: "denied", wait_for_update: 500
     });
@@ -78,7 +80,8 @@
     return rec;
   }
   // Has Google's CMP spoken? A real TCF decision, its own message on screen, or GDPR clearly not applicable.
-  const cmpSpoke = tc => !!tc && (tc.gdprApplies === false || tc.eventStatus === "useractioncomplete" || tc.eventStatus === "cmpuishown" ||
+  const cmpSpoke = tc => !!tc && (tc.gdprApplies === false || tc.eventStatus === "useractioncomplete" ||
+    (tc.eventStatus === "cmpuishown" && tc.displayStatus !== "hidden" && tc.displayStatus !== "disabled") ||
     tc.displayStatus === "visible" || (tc.eventStatus === "tcloaded" && typeof tc.tcString === "string" && tc.tcString !== ""));
   const cmpDecided = tc => !!tc && (tc.eventStatus === "useractioncomplete" ||
     (tc.eventStatus === "tcloaded" && typeof tc.tcString === "string" && tc.tcString !== ""));
@@ -153,15 +156,15 @@
 
     const enable = () => {
       window[OFF_FLAG] = false;
-      gtag("consent", "update", { analytics_storage: "granted" });
+      tag("consent", "update", { analytics_storage: "granted" });
       if (!tagInjected) {
         tagInjected = true;
-        gtag("js", new Date());
+        tag("js", new Date());
         const s = document.createElement("script"); s.async = true;
         s.src = `https://www.googletagmanager.com/gtag/js?id=${GA}`;
         document.head.appendChild(s);
       }
-      gtag("config", GA, { allow_google_signals: false, allow_ad_personalization_signals: false });
+      tag("config", GA, { allow_google_signals: false, allow_ad_personalization_signals: false });
       mode = "measuring";
     };
 
@@ -172,7 +175,7 @@
       if (usOptOutConfirmed || (tally.phase !== "active" && !has(lastTc && lastTc.purpose, 1))) {
         update.ad_storage = "denied"; update.ad_user_data = "denied"; update.ad_personalization = "denied";
       }
-      gtag("consent", "update", update);
+      tag("consent", "update", update);
       mode = "blocked";
     };
 
@@ -331,6 +334,7 @@
     if (cmpSpoke(analytics.tc())) { retireTally(); return; }
     tally.phase = "active";
     tally.pick = readTally();
+    if (tally.pick && tally.pick.choice === "denied") eraseGaCookies();   // declined earlier: no GA cookie may linger
     analytics.sync();
     if (!tally.pick && !gpc) openSlip(null);         // GPC: statistics stay off, nothing is pushed
   }
@@ -353,7 +357,7 @@
     tally.pick = saveTally(choice);
     if (choice === "denied") {
       window[OFF_FLAG] = true;
-      gtag("consent", "update", { analytics_storage: "denied" });
+      tag("consent", "update", { analytics_storage: "denied" });
       eraseGaCookies();
     }
     if (tally.phase === "active") analytics.sync();
@@ -442,7 +446,11 @@
     slipOpener = null;
   }
 
-  if (settingsOnly) return;   // page without ads: no ad code, no CMP, no analytics – only the settings slip
+  if (settingsOnly) {         // page without ads: no ad code, no CMP, no analytics – only the settings slip
+    const rec = readTally();
+    if (rec && rec.choice === "denied") eraseGaCookies();
+    return;
+  }
   loadAds();
   watchConsent();
   setTimeout(startTally, TALLY_WAIT);

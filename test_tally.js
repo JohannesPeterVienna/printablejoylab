@@ -24,7 +24,7 @@ function el(tag) {
   return e;
 }
 
-function site({ tcf = "none", tc = null, stored, gpc = false, scope, cookies = [] } = {}) {
+function site({ tcf = "none", tc = null, stored, gpc = false, scope, cookies = [], noGtag = false } = {}) {
   const timers = []; let clock = 0;
   const commands = [], updates = [], scripts = [], cookieWrites = [];
   const store = new Map(stored === undefined ? [] : [[KEY, typeof stored === "string" ? stored : JSON.stringify(stored)]]);
@@ -52,6 +52,7 @@ function site({ tcf = "none", tc = null, stored, gpc = false, scope, cookies = [
     setTimeout: (fn, ms) => { timers.push({ at: clock + (ms || 0), fn }); return timers.length; },
     gtag: (...a) => { commands.push(a); if (a[0] === "consent" && a[1] === "update") updates.push(a[2]); }
   };
+  if (noGtag) delete window.gtag;
   if (tcf !== "none") window.__tcfapi = (cmd, v, cb) => { if (cmd === "addEventListener") { tcfListener = cb; if (tc) cb(tc, true); } };
   window.window = window;
   vm.runInContext(SRC, vm.createContext(window));
@@ -317,4 +318,41 @@ test("× closes without deciding: nothing stored, nothing measured, asked again 
   const q = site();
   q.advance(3000);
   assert.equal(shown(q), true);
+});
+
+test("cmpuishown with displayStatus hidden/disabled is not the CMP showing: the slip still appears", () => {
+  for (const displayStatus of ["hidden", "disabled"]) {
+    const p = site({ tcf: "stub", tc: { ...hiddenTc, eventStatus: "cmpuishown", displayStatus } });
+    p.advance(3000);
+    assert.equal(shown(p), true, displayStatus);
+  }
+  const q = site({ tcf: "stub", tc: { ...hiddenTc, eventStatus: "cmpuishown", displayStatus: "visible" } });
+  q.advance(3000);
+  assert.equal(shown(q), false, "visible: Google's own message has priority");
+});
+
+test("stored Decline on page load: leftover _ga/_ga_* cookies are deleted (ad pages and pages without ads)", () => {
+  for (const scope of [undefined, "settings"]) {
+    const p = site({ scope, stored: { v: 1, choice: "denied", at: Date.now() - DAY }, cookies: ["_ga=GA1.1.1", "_ga_T00HRG2YVF=GS1", "pjl=1"] });
+    p.advance(3000);
+    assert.deepEqual(p.jar(), ["pjl=1"], String(scope));
+    assert.equal(shown(p), false);
+    assert.equal(p.gtm().length, 0);
+  }
+  const q = site({ stored: { v: 1, choice: "granted", at: Date.now() - DAY }, cookies: ["_ga=GA1.1.1"] });
+  q.advance(3000);
+  assert.deepEqual(q.jar(), ["_ga=GA1.1.1"], "stored Accept keeps them");
+});
+
+test("page without ads and no gtag defined: Decline/withdrawal never throws, update lands in dataLayer", () => {
+  const p = site({ scope: "settings", noGtag: true, cookies: ["_ga=GA1.1.1"] });
+  p.clickSettings();
+  assert.doesNotThrow(() => p.pick("denied"));
+  const dl = p.window.dataLayer.map(a => Array.from(a));
+  assert.ok(dl.some(a => a[0] === "consent" && a[1] === "update" && a[2].analytics_storage === "denied"));
+  assert.deepEqual(p.jar(), []);
+  p.window.gtag = "broken";                       // even a non-function gtag does no harm
+  p.clickSettings();
+  assert.doesNotThrow(() => p.pick("denied"));
+  assert.equal(p.window[OFF], true);
 });
