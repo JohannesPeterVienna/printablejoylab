@@ -7,7 +7,7 @@ from content.articles import ARTICLES
 
 ROOT = Path(__file__).parent
 OUT = ROOT / "docs"
-SITE = "https://printablejoylab.com"; V = "20261105d"
+SITE = "https://printablejoylab.com"; V = "20261105e"
 BUY_PLANNER = ""   # Lemon Squeezy checkout link – set once the product exists
 UPDATED = "October 2026"
 REVIEWED = "2026-11-03"; REVIEWED_TEXT = "November 3, 2026"   # last editorial review of all guides
@@ -124,6 +124,7 @@ def main():
           body=f"""<h2>Media owner and publisher</h2><p>{LEGAL_ADDR}</p>
 <h2>Company details</h2><p>Business purpose: advertising agency (Werbeagentur)<br>VAT ID: ATU54682507<br>Trade authority: Magistratisches Bezirksamt für den 1. und 8. Bezirk, Vienna<br>Chamber membership: Austrian Economic Chamber Vienna (Wirtschaftskammer Wien), advertising and market communication group<br>Professional title: advertising agency (Werbeagentur), trade licence granted in Austria<br>Applicable regulations: Austrian Trade Regulation Act (Gewerbeordnung), available at <a href="https://www.ris.bka.gv.at" rel="noopener">www.ris.bka.gv.at</a></p>
 <h2>Editorial line</h2><p>Free printable templates and guides on planning, organisation and paper.</p>
+<h2 id="contact">Contact</h2><p>Questions, ideas for a new template or found a mistake? Write to <a href="mailto:office@adstern.com">office@adstern.com</a>. We read every message and reply as soon as we can.</p>
 <p class="small muted">Information pursuant to § 5 E-Commerce-Gesetz and § 25 Mediengesetz (Austria).</p>""")
 
     write("privacy.html", "page.html", title="Privacy Policy | Printable Joy Lab", description="Privacy policy of Printable Joy Lab.", h1="Privacy policy",
