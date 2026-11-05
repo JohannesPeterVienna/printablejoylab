@@ -117,11 +117,11 @@
     });
   }
 
-  // Fallback for browsers without :has(): the slot only gets .ad--served (and becomes visible via style.css)
-  // once Google sets data-ad-status="filled" on its <ins>. "unfilled" or no answer keeps it collapsed.
+  // Fallback for browsers without :has(): the slot only gets .ad--served (label, min-height and margins via
+  // style.css) once Google sets data-ad-status="filled" or "unfill-optimized". The <ins> itself is never hidden.
   function revealWhenFilled(box, ins){
     if (!(window.CSS && CSS.supports && CSS.supports("selector(:has(a))"))) document.documentElement.classList.add("no-has");
-    const sync = () => box.classList.toggle("ad--served", ins.getAttribute("data-ad-status") === "filled");
+    const sync = () => box.classList.toggle("ad--served", ["filled", "unfill-optimized"].includes(ins.getAttribute("data-ad-status")));
     sync();
     if (typeof MutationObserver === "function") new MutationObserver(sync).observe(ins, { attributes: true, attributeFilter: ["data-ad-status"] });
   }

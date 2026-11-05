@@ -186,13 +186,17 @@ article.prose > .ad--rect{margin-top:150px;margin-bottom:120px}
 /* 320 px Banner nur, wenn er samt Seitenrand Platz hat (sonst seitliches Scrollen auf 320-px-Geräten) */
 .ad--mbanner{max-width:100%}
 @media (max-width:359px){.ad--mbanner{display:none!important}}
-/* Unfilled ad slots take no room: no height, no min-height, no margins and no “Advertisement” label until Google
-   marks the ins with data-ad-status="filled". The width stays so AdSense can still size the slot.
-   :has() does the work; browsers without it get html.no-has and .ad--served from consent.js (MutationObserver). */
-.ad.on:not(:has(ins.adsbygoogle[data-ad-status="filled"])){height:0!important;min-height:0!important;margin-top:0!important;margin-bottom:0!important;padding:0!important;border:0!important;overflow:hidden!important}
-.no-has .ad.on:not(.ad--served){height:0!important;min-height:0!important;margin-top:0!important;margin-bottom:0!important;padding:0!important;border:0!important;overflow:hidden!important}
-.ad.on:not(:has(ins.adsbygoogle[data-ad-status="filled"]))::before{display:none}
+/* Ad slots before Google answers: the <ins class="adsbygoogle"> always stays visible and unclipped
+   (AdSense help 10762946: don't load ad units as initially hidden). Only the extras – label, min-height,
+   border, background, padding, margins – appear once data-ad-status is "filled" or "unfill-optimized".
+   Responsive units are 0 px tall on their own until then; fixed sizes keep their size.
+   :has() first; fallback without :has(): .no-has .ad.on:not(.ad--served) (class set by a MutationObserver) in separate rules. */
+.ad.on:not(:has(ins.adsbygoogle[data-ad-status="filled"])):not(:has(ins.adsbygoogle[data-ad-status="unfill-optimized"])){min-height:0!important;margin-top:0!important;margin-bottom:0!important;padding:0!important;border:0!important;background:none!important;box-shadow:none!important}
+.no-has .ad.on:not(.ad--served){min-height:0!important;margin-top:0!important;margin-bottom:0!important;padding:0!important;border:0!important;background:none!important;box-shadow:none!important}
+.ad.on:not(:has(ins.adsbygoogle[data-ad-status="filled"])):not(:has(ins.adsbygoogle[data-ad-status="unfill-optimized"]))::before{display:none}
 .no-has .ad.on:not(.ad--served)::before{display:none}
+/* Google's pattern for unfilled ad units (AdSense help 10762946) */
+ins.adsbygoogle[data-ad-status="unfilled"]{display:none!important}
 /* Visitor tally – interim consent slip for statistics only (no ads); a torn-off paper slip pinned to the bottom edge.
    Accept and Decline share one class: same size, same weight, no preselection. */
 .tally{position:fixed;left:0;right:0;bottom:0;z-index:20;padding:0 12px 12px;pointer-events:none}
