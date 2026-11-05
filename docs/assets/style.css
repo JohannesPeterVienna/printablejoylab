@@ -189,9 +189,9 @@ article.prose > .ad--rect{margin-top:150px;margin-bottom:120px}
 /* Unfilled ad slots take no room: no height, no min-height, no margins and no “Advertisement” label until Google
    marks the ins with data-ad-status="filled". The width stays so AdSense can still size the slot.
    :has() does the work; browsers without it get html.no-has and .ad--served from consent.js (MutationObserver). */
-.ad.on:not(:has(ins.adsbygoogle[data-ad-status="filled"])),
+.ad.on:not(:has(ins.adsbygoogle[data-ad-status="filled"])){height:0!important;min-height:0!important;margin-top:0!important;margin-bottom:0!important;padding:0!important;border:0!important;overflow:hidden!important}
 .no-has .ad.on:not(.ad--served){height:0!important;min-height:0!important;margin-top:0!important;margin-bottom:0!important;padding:0!important;border:0!important;overflow:hidden!important}
-.ad.on:not(:has(ins.adsbygoogle[data-ad-status="filled"]))::before,
+.ad.on:not(:has(ins.adsbygoogle[data-ad-status="filled"]))::before{display:none}
 .no-has .ad.on:not(.ad--served)::before{display:none}
 /* Visitor tally – interim consent slip for statistics only (no ads); a torn-off paper slip pinned to the bottom edge.
    Accept and Decline share one class: same size, same weight, no preselection. */
