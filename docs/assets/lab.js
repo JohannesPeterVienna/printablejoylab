@@ -435,7 +435,7 @@
     info.addEventListener("click", e => { if (e.target.closest("[data-prev]")) { page = (page - 1 + pages.length) % pages.length; render(); } if (e.target.closest("[data-next]")) { page = (page + 1) % pages.length; render(); } });
     $("[data-pdf]", root).addEventListener("click", async e => {
       const b = e.currentTarget, t = b.textContent; b.disabled = true; b.textContent = "Creating PDF …";
-      try { await toPDF(pages, dims[0], dims[1], `${key}-${readOpts(form, tpl).paper}.pdf`); if (window.gtag) gtag("event", "pdf_download", { template: key }); }
+      try { await toPDF(pages, dims[0], dims[1], `${key}-${readOpts(form, tpl).paper}.pdf`); if (window.gtag && window["ga-disable-G-T00HRG2YVF"] === false) gtag("event", "pdf_download", { template: key }); }
       catch (err) { console.error(err); info.insertAdjacentHTML("beforeend", ` <span class="err">PDF could not be created – please try again or use Print.</span>`); }
       b.disabled = false; b.textContent = t;
     });

@@ -183,3 +183,6 @@ article.prose > .ad--rect{margin-top:150px;margin-bottom:120px}
 .vorteile span{color:var(--muted);font-size:.93rem}
 .ad--mbanner{width:320px;min-height:100px;margin-bottom:120px}
 @media (min-width:768px){.ad--mbanner{display:none!important}}
+/* 320 px Banner nur, wenn er samt Seitenrand Platz hat (sonst seitliches Scrollen auf 320-px-Geräten) */
+.ad--mbanner{max-width:100%}
+@media (max-width:359px){.ad--mbanner{display:none!important}}
