@@ -34,10 +34,11 @@
   window.googlefc.callbackQueue = window.googlefc.callbackQueue || [];
 
   // Ad unit IDs are added here after AdSense approval.
-  const SLOTS = { billboard: "", rect: "", half: "", superbanner: "", sky: "" };
+  // Shared AdSense units “Themen-Websites – …” (account pub-7811071715414905, created 17 Oct and 5 Nov 2026)
+  const SLOTS = { billboard: "7497607759", rect: "1292301217", half: "1292301217", superbanner: "5774811012", sky: "5064364572", mbanner: "5396758258" };
   // Feste IAB-Formate: Superbanner 728×90, Wide Skyscraper 160×600. Die übrigen Plätze sind responsiv
   // (Billboard 970×250 / Leaderboard 728×90 / Mobile 320×100, Half Page 300×600, Medium Rectangle 300×250).
-  const FIXED = { superbanner: [728, 90], sky: [160, 600] };
+  const FIXED = { superbanner: [728, 90], sky: [160, 600], mbanner: [320, 100] };
 
   const gpc = navigator.globalPrivacyControl === true;
 
