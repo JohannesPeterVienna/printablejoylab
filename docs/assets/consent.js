@@ -112,8 +112,18 @@
         ins.dataset.fullWidthResponsive = "true";
       }
       box.appendChild(ins);
+      revealWhenFilled(box, ins);
       (window.adsbygoogle = window.adsbygoogle || []).push({});
     });
+  }
+
+  // Fallback for browsers without :has(): the slot only gets .ad--served (and becomes visible via style.css)
+  // once Google sets data-ad-status="filled" on its <ins>. "unfilled" or no answer keeps it collapsed.
+  function revealWhenFilled(box, ins){
+    if (!(window.CSS && CSS.supports && CSS.supports("selector(:has(a))"))) document.documentElement.classList.add("no-has");
+    const sync = () => box.classList.toggle("ad--served", ins.getAttribute("data-ad-status") === "filled");
+    sync();
+    if (typeof MutationObserver === "function") new MutationObserver(sync).observe(ins, { attributes: true, attributeFilter: ["data-ad-status"] });
   }
 
   const analytics = (() => {
