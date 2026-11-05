@@ -134,18 +134,18 @@ def main():
 
     pics = [("1", "Cover"), ("2", "Clickable contents"), ("3", "Year at a glance"), ("5", "Monthly calendar"), ("17", "Weekly planner"), ("70", "Habit tracker"), ("82", "Monthly budget"), ("94", "Meal planner")]
     gallery = "".join(f'<figure><img src="/assets/shop/planner-p{n}.webp" alt="{c} page of the 2027 planner" width="497" height="702" loading="lazy"><figcaption>{c}</figcaption></figure>' for n, c in pics)
-    buy = (f'<a class="btn big" href="{BUY_PLANNER}" rel="noopener">Buy the 2027 Planner – €9</a>' if BUY_PLANNER else
+    buy = (f'<a class="btn big" href="{BUY_PLANNER}" rel="noopener">Buy the 2027 Planner – €4.90</a>' if BUY_PLANNER else
            '<span class="btn big disabled" aria-disabled="true">Checkout opens shortly</span>')
     write("shop.html", "page.html", title="The 2027 Planner – 111-Page Printable & Digital Planner (PDF) | Printable Joy Lab",
           description="The complete 2027 planner as PDF: year, months, 53 weekly spreads, habit trackers, budget and meal pages – A4 and US Letter, Monday or Sunday start, clickable contents.",
           h1="The 2027 Planner", lead="Everything from our free templates, ready-made for the whole year in one beautifully consistent PDF – 111 pages.", ads=False, active="/shop.html", robots=None if SHOP_OPEN else "noindex,follow", priority=0.8,
           jsonld=[{"@context": "https://schema.org", "@type": "Product", "name": "The 2027 Planner (PDF)", "brand": {"@type": "Brand", "name": "Printable Joy Lab"},
                    "description": "111-page printable and digital planner for 2027 in A4 and US Letter, Monday or Sunday start.", "image": SITE + "/assets/shop/planner-p1.webp",
-                   **({"offers": {"@type": "Offer", "price": "9.00", "priceCurrency": "EUR", "availability": "https://schema.org/InStock", "url": SITE + "/shop.html"}} if BUY_PLANNER else {})}],
+                   **({"offers": {"@type": "Offer", "price": "4.90", "priceCurrency": "EUR", "availability": "https://schema.org/InStock", "url": SITE + "/shop.html"}} if BUY_PLANNER else {})}],
           body=f"""<div class="product">
 <div class="gallery">{gallery}</div>
 <div class="buybox">
-  <p class="price">€9 <span class="small muted">incl. VAT · instant download</span></p>
+  <p class="price">€4.90 <span class="small muted">incl. VAT · instant download</span></p>
   {buy}
   <ul class="ticks"><li>111 pages, crisp vector PDF</li><li>A4 and US Letter – both included</li><li>Week starts Monday or Sunday – both included</li><li>Clickable contents for tablets (GoodNotes, Notability, Xodo …)</li><li>Print as often as you like for personal use</li></ul>
   <p class="small muted">Secure checkout by Lemon Squeezy, our merchant of record. You receive the download link by email right after payment. <a href="/refunds.html">Refund policy</a></p>
