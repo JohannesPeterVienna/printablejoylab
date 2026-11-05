@@ -7,7 +7,7 @@ from content.articles import ARTICLES
 
 ROOT = Path(__file__).parent
 OUT = ROOT / "docs"
-SITE = "https://printablejoylab.com"; V = "20261104b"
+SITE = "https://printablejoylab.com"; V = "20261105a"
 BUY_PLANNER = ""   # Lemon Squeezy checkout link – set once the product exists
 UPDATED = "October 2026"
 REVIEWED = "2026-11-03"; REVIEWED_TEXT = "November 3, 2026"   # last editorial review of all guides
@@ -68,7 +68,7 @@ def main():
     OUT.mkdir(parents=True)
     shutil.copytree(ROOT / "assets", OUT / "assets")
 
-    write("index.html", "home.html", title="Printable Joy Lab – Free Customizable Printables: Planners, Calendars & Paper",
+    write("index.html", "home.html", title="Printable Joy Lab: Free Customizable Planners, Calendars & Paper",
           description="Free printable planners, calendars, habit trackers, checklists and paper you customize in seconds – A4 or US Letter, your colors and dates – then download as PDF.",
           active="/", priority=1.0, lastmod=CONTENT_UPDATED,
           jsonld=[{"@context": "https://schema.org", "@type": "WebSite", "name": "Printable Joy Lab", "url": SITE + "/", "inLanguage": "en"}])
@@ -82,7 +82,7 @@ def main():
                "applicationCategory": "UtilitiesApplication", "operatingSystem": "Web", "inLanguage": "en", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}},
               {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in t["faq"]]}]
         guide_first, guide_rest = split_first_section(t["guide"])   # Werbung erst nach dem ersten Erklärabschnitt
-        write(t["slug"] + ".html", "tool.html", title=t["title"] + " | Printable Joy Lab", description=t["description"], h1=f"{t['name']}",
+        write(t["slug"] + ".html", "tool.html", title=(t["title"] + " | Printable Joy Lab" if len(t["title"]) < 46 else t["title"]), description=t["description"], h1=f"{t['name']}",
               lead=t["lead"], slug=t["slug"], cat=t["cat"], guide_first=guide_first, guide_rest=guide_rest, faq=t["faq"], related=related, crumbs=crumbs, jsonld=ld,
               active=next((h for h, l in NAV if h == "/" + t["slug"] + ".html"), ""), priority=0.9, lastmod=CONTENT_UPDATED)
 
@@ -91,7 +91,7 @@ def main():
         ld = [crumbs_ld(crumbs), {"@context": "https://schema.org", "@type": "Article", "headline": a["title"], "description": a["description"],
               "inLanguage": "en", "author": AUTHOR, "publisher": ORG, "datePublished": a["published"], "dateModified": a["modified"], "mainEntityOfPage": f"{SITE}/{a['slug']}.html"}]
         links = [BY[s] for s in BY if f"/{s}.html" in a["body"]][:4]
-        write(a["slug"] + ".html", "page.html", title=a["title"] + " | Printable Joy Lab", description=a["description"], h1=a["title"],
+        write(a["slug"] + ".html", "page.html", title=(a["title"] + " | Printable Joy Lab" if len(a["title"]) < 46 else a["title"]), description=a["description"], h1=a["title"],
               lead=a["teaser"], body_split=split_first_section(a["body"]), crumbs=crumbs, related=links, jsonld=ld, active="/guides.html", priority=0.7, reviewed=REVIEWED_TEXT, lastmod=a["modified"])
 
     guides = "".join(f'<li><a class="card" href="/{a["slug"]}.html"><strong>{a["title"]}</strong><span>{a["teaser"]}</span></a></li>' for a in ARTICLES)
