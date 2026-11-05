@@ -186,3 +186,31 @@ article.prose > .ad--rect{margin-top:150px;margin-bottom:120px}
 /* 320 px Banner nur, wenn er samt Seitenrand Platz hat (sonst seitliches Scrollen auf 320-px-Geräten) */
 .ad--mbanner{max-width:100%}
 @media (max-width:359px){.ad--mbanner{display:none!important}}
+/* Visitor tally – interim consent slip for statistics only (no ads); a torn-off paper slip pinned to the bottom edge.
+   Accept and Decline share one class: same size, same weight, no preselection. */
+.tally{position:fixed;left:0;right:0;bottom:0;z-index:20;padding:0 12px 12px;pointer-events:none}
+.tally[hidden],.tally [hidden]{display:none!important}
+.tally-sheet{pointer-events:auto;position:relative;max-width:700px;margin:0 auto;display:grid;grid-template-columns:auto minmax(0,1fr);gap:0 16px;
+  background:var(--card);color:var(--ink);border:1px solid var(--line);border-top:0;border-radius:0 0 var(--r) var(--r);
+  box-shadow:0 -10px 34px -12px rgba(31,36,48,.35);padding:20px 20px 16px}
+.tally-sheet::before{content:"";position:absolute;left:-1px;right:-1px;top:-7px;height:8px;
+  background:radial-gradient(circle at 7px 8px,transparent 3.5px,var(--card) 4px) 0 0/14px 8px repeat-x}
+.tally-marks{margin-top:4px;fill:none;stroke:var(--tomato);stroke-width:3;stroke-linecap:round}
+.tally-kicker{margin:0 0 2px;font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.tally-title{font:400 1.7rem/1.1 var(--serif);margin:0 0 .35em}
+.tally-title:focus{outline:none}.tally-title:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.tally-text,.tally-now{font-size:.92rem;line-height:1.55;margin:0 0 .6em}
+.tally-text a{color:var(--ink);font-weight:700}
+.tally-now{color:var(--muted)}.tally-now:empty{display:none}
+.tally-picks{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px}
+.tally-picks--one{grid-template-columns:minmax(0,220px)}
+.tally-pick{font:700 .98rem var(--sans);min-height:46px;padding:10px 16px;border:0;border-radius:999px;cursor:pointer;
+  background:var(--soft);color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--ink)}
+.tally-pick:hover{background:var(--tomato-soft)}
+.tally-shut{position:absolute;top:8px;right:8px;width:36px;height:36px;display:grid;place-items:center;padding:0;border:0;border-radius:50%;
+  background:transparent;color:var(--muted);cursor:pointer}
+.tally-shut svg{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round}
+.tally-shut:hover{background:var(--soft);color:var(--ink)}
+.tally-title{padding-right:28px}
+body.tally-open{padding-bottom:var(--tally-room,0)}
+@media (max-width:480px){.tally{padding:0 8px 8px}.tally-sheet{grid-template-columns:minmax(0,1fr);padding:14px 14px 12px}.tally-marks,.tally-kicker{display:none}.tally-title{font-size:1.4rem}.tally-text,.tally-now{font-size:.88rem;line-height:1.5}.tally-pick{min-height:44px}}
