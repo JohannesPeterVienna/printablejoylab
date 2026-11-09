@@ -22,7 +22,7 @@ SHOP_OPEN = SHOP_ENABLED and bool(BUY_PLANNER)
 NAV = [("/", "Templates"), ("/weekly-planner.html", "Planners"), ("/monthly-calendar.html", "Calendars"), ("/habit-tracker.html", "Trackers"), ("/dot-grid.html", "Paper"), ("/guides.html", "Guides")]
 env = Environment(loader=FileSystemLoader(ROOT / "templates"), autoescape=True, trim_blocks=True, lstrip_blocks=True)
 PAGES = []
-LEGAL_ADDR = "AdStern – Agentur für digitales Marketing<br>Seilerstätte 8/8, 1010 Vienna, Austria<br>Email: <a href='mailto:office@adstern.com'>office@adstern.com</a><br>Web: <a href='https://www.adstern.com'>www.adstern.com</a>"
+LEGAL_ADDR = "AdStern – Agentur für digitales Marketing<br>Seilerstätte 8/8, 1010 Wien, Österreich<br>Email: <a href='mailto:office@adstern.com'>office@adstern.com</a><br>Web: <a href='https://www.adstern.com'>www.adstern.com</a>"
 ORG = {"@type": "Organization", "name": "Printable Joy Lab", "url": SITE + "/"}
 AUTHOR = {"@type": "Organization", "name": "AdStern – Agentur für digitales Marketing", "url": SITE + "/about.html"}
 
@@ -109,7 +109,7 @@ def main():
     write("about.html", "page.html", title="About Printable Joy Lab", description="Who makes Printable Joy Lab, how the templates are generated and how we check them.",
           h1="About Printable Joy Lab", lead="Customizable printables, generated in your browser.", priority=0.3, active="", lastmod=CONTENT_UPDATED,
           body="""<p>Printable Joy Lab is made by AdStern, a small digital agency in Vienna, Austria. We build free tools that are genuinely useful – and printables were a natural fit: almost everyone needs a planner page, a calendar or a sheet of graph paper now and then, but most downloads come in one fixed size and style.</p>
-<h2>Who is behind it</h2><p>AdStern – Agentur für digitales Marketing, based at Seilerstätte 8/8 in 1010 Vienna, develops the generator, writes the guides and is responsible for everything on the site; the full legal details are in the <a href="/imprint.html">imprint</a>. There are no accounts to create, and what you type into a template stays in your browser.</p>
+<h2>Who is behind it</h2><p>AdStern – Agentur für digitales Marketing, based at Seilerstätte 8/8, 1010 Wien, Österreich, develops the generator, writes the guides and is responsible for everything on the site; the full legal details are in the <a href="/imprint.html">imprint</a>. There are no accounts to create, and what you type into a template stays in your browser.</p>
 <h2>What you will find here</h2><p>Twelve generators in four groups – paper (lined, graph, dot grid, isometric), calendars (monthly and yearly), planners (weekly, daily, meal) and trackers and lists (habit tracker, checklist, budget planner) – and a set of practical <a href="/guides.html">guides</a>. The guides cover printing at actual size, choosing paper patterns and weights, a 2027 calendar with ISO week numbers and US holidays, weekly and meal planning, habit tracking, bullet journaling, and an honest comparison of paper and apps.</p>
 <h2>How the templates work</h2><p>Each template is described once as a set of lines, boxes and text positioned in millimeters. From that description your browser draws the live preview and creates the PDF – the same data for both, so what you see is what you print. Paper sizes follow ISO 216 (A4, A5) and the North American standards (US Letter, Half Letter). Calendars use the Gregorian calendar and ISO 8601 week numbers.</p>
 <h2>How we check them</h2><p>Every time the site is updated, an automated test draws every template with many combinations of settings – all paper sizes, orientations, week starts and options – and checks that every line, box and label lands on the page. If a single check fails, the update is not published.</p>
@@ -184,7 +184,7 @@ def main():
     <h2>Right of withdrawal for digital content</h2><p>If you are a consumer in the EU or UK, you normally have a 14-day right of withdrawal. For digital content delivered immediately, this right ends once the download is provided, provided you agreed at checkout to immediate delivery and acknowledged that you thereby lose your right of withdrawal.</p>
     <h2>Our promise</h2><p>If a file is damaged, incomplete or not as described, write to <a href="mailto:office@adstern.com">office@adstern.com</a> within 30 days of purchase with your order number. We will send a corrected file or refund your purchase in full. If you bought the wrong paper size or week start, don't worry – every download already contains all versions.</p>
     <h2>How refunds are paid</h2><p>Refunds are issued by Lemon Squeezy to the original payment method. Depending on your bank, it can take 5–10 business days to appear.</p>
-    <h2>Contact</h2><p>AdStern – Agentur für digitales Marketing, Seilerstätte 8/8, 1010 Vienna, Austria · <a href="mailto:office@adstern.com">office@adstern.com</a></p>""")
+    <h2>Contact</h2><p>AdStern – Agentur für digitales Marketing, Seilerstätte 8/8, 1010 Wien, Österreich · <a href="mailto:office@adstern.com">office@adstern.com</a></p>""")
 
     write("404.html", "page.html", title="Page not found | Printable Joy Lab", description="This page does not exist.", h1="This page doesn't exist", ads=False, robots="noindex,follow", active="",
           body='<p>The page may have moved. Try one of our <a href="/">free templates</a>.</p>')
