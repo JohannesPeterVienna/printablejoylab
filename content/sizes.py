@@ -1,7 +1,8 @@
 """Paper size reference – one data source for the table on /paper-sizes.html and the print scale calculator.
 
-Every row is the self-describing media name from PWG 5101.1-2013 (Printer Working Group, "PWG Media Standardized
-Names 2.0", tables 3–6), read in full on 2026-11-18. Width and height are parsed from that name, never typed twice.
+Every row is a self-describing media name from PWG 5101.1 (Printer Working Group, "PWG Media Standardized Names"):
+tables 3–6 of the 2013 edition (v2.0) were read in full on 2026-11-18, and each name was then matched letter for letter
+against the text of the current 2023 edition (v2.1), which the page cites. Width and height are parsed from the name.
 "css" is the page-size keyword from W3C CSS Paged Media Module Level 3 (Working Draft, 14 September 2023), if one exists.
 """
 import math, re

@@ -12,7 +12,8 @@
      actual: 100%.  fit: as large as fits into the printable area (up or down).  shrink: like fit, but never above 100%.
      custom: the percentage given. Same orientation for page and sheet; the page is centred. */
   function printScale(doc, sheet, border, mode, percent) {
-    const availW = Math.max(1, sheet[0] - 2 * border), availH = Math.max(1, sheet[1] - 2 * border);
+    if (sheet[0] - 2 * border <= 0 || sheet[1] - 2 * border <= 0) return { impossible: true };   // the border swallows the whole sheet
+    const availW = sheet[0] - 2 * border, availH = sheet[1] - 2 * border;
     const fit = Math.min(availW / doc[0], availH / doc[1]);
     const scale = mode === "fit" ? fit : mode === "shrink" ? Math.min(1, fit) : mode === "custom" ? percent / 100 : 1;
     const w = doc[0] * scale, h = doc[1] * scale;
@@ -29,7 +30,7 @@
     const sx = across / nominal, sy = down / nominal, s = (sx + sy) / 2;
     const out = { sx, sy, scale: s, kind: "", matches: [], border: null };
     if (Math.abs(across - down) > 1) { out.kind = "uneven"; return out; }
-    if (Math.abs(s - 1) <= 0.005) { out.kind = "ok"; return out; }
+    if (Math.abs(across - nominal) <= 0.5 && Math.abs(down - nominal) <= 0.5) { out.kind = "ok"; return out; }   // each direction on its own
     out.kind = s < 1 ? "small" : "large";
     for (const [dk, d] of Object.entries(OURS)) for (const [sk, sh] of Object.entries(OURS)) {
       if (dk === sk) continue;
@@ -37,7 +38,7 @@
       if (Math.abs(f - s) <= 0.006) out.matches.push({ doc: dk, sheet: sk, docName: d[0], sheetName: sh[0], scale: f });
     }
     // same paper, fitted into the printable area: which border on each side gives this scale?
-    if (s < 1) out.border = { a4: Math.max((1 - s) * 210 / 2, (1 - s) * 297 / 2), letter: Math.max((1 - s) * 215.9 / 2, (1 - s) * 279.4 / 2) };
+    if (s < 1) out.border = { a4: (1 - s) * 210 / 2, letter: (1 - s) * 215.9 / 2 };   // the short side decides: (W − 2b) ÷ W is the smaller ratio
     return out;
   }
 
@@ -89,6 +90,10 @@
       const s = state(), d = by[s.doc], p = by[s.sheet];
       $("[data-percent]", root).hidden = s.mode !== "custom";
       const r = printScale([d.w, d.h], [p.w, p.h], s.border, s.mode, s.percent);
+      if (r.impossible) {
+        fill(out, [el("p", `A blank border of ${s.border} mm on each side is wider than half of ${p.name} (${round(p.w, 1)} × ${round(p.h, 1)} mm), so no printable area is left. Enter a smaller border or choose a larger paper.`, "err")]);
+        fig.replaceChildren(); summary = ""; return;
+      }
       const lost = r.lostW > 0.05 || r.lostH > 0.05, exact = Math.abs(r.scale - 1) < 0.0005;
       const head = el("p", null, "calc-big"); head.append(el("strong", pct(r.scale)), document.createTextNode(` · the ${d.name} page prints ${round(r.w, 1)} × ${round(r.h, 1)} mm on ${p.name}`));
       const facts = el("ul");
@@ -113,7 +118,7 @@
     }
     form.addEventListener("input", render); form.addEventListener("change", render);
     $$("[data-example]", root).forEach(b => b.addEventListener("click", () => apply(Object.fromEntries(new URLSearchParams(b.dataset.example)))));
-    $("[data-copy]", root).addEventListener("click", e => copy(e.currentTarget, summary, "Result copied ✓"));
+    $("[data-copy]", root).addEventListener("click", e => summary && copy(e.currentTarget, summary, "Result copied ✓"));
     $("[data-share]", root).addEventListener("click", e => copy(e.currentTarget, shareURL(), "Link copied ✓"));
     const q = new URLSearchParams(location.search);
     apply(q.has("doc") || q.has("sheet") || q.has("mode") ? Object.fromEntries(q) : {});
@@ -136,7 +141,7 @@
         head.append(el("strong", pct(r.scale)), document.createTextNode(" · true to size"));
         parts.push(head, el("p", "Both directions are within half a millimeter of 100 mm. A 5 mm grid prints as 5 mm. Next step: print your pages with exactly these settings."));
       } else {
-        head.append(el("strong", pct(r.scale)), document.createTextNode(r.kind === "small" ? " · the print is reduced" : " · the print is enlarged"));
+        head.append(el("strong", pct(r.scale)), document.createTextNode(`${r.kind === "small" ? " · the print is reduced" : " · the print is enlarged"} (${pct(r.sx)} across, ${pct(r.sy)} down)`));
         parts.push(head, el("p", `A 5 mm grid prints as ${round(5 * r.scale, 2)} mm, a 7.1 mm ruling as ${round(7.1 * r.scale, 2)} mm.`));
         const ul = el("ul");
         r.matches.forEach(m => ul.append(el("li", `${pct(m.scale)} is what “Fit” produces when a ${m.docName} page is printed on ${m.sheetName} paper. If that is your paper, make the page in ${m.sheetName} instead.`)));

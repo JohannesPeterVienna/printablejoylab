@@ -141,12 +141,16 @@ const expect = (cond, label) => { results.push({ ok: !!cond, label }); };
       await page.click(`[data-scalecalc] [data-example] >> nth=${i}`);
       expect(want.test(await out()), `${width}px calculator: example ${i + 1} → ${want}`);
     }
+    await page.selectOption("[data-scalecalc] select[name=sheet]", "iso_a10_26x37mm");
+    await page.fill("[data-scalecalc] input[name=border]", "20");
+    expect(/no printable area is left/.test(await out()) && !/NaN|Infinity/.test(await out()), `${width}px calculator: border wider than the sheet gives a clear message`);
+    await page.selectOption("[data-scalecalc] select[name=sheet]", "iso_a4_210x297mm"); await page.fill("[data-scalecalc] input[name=border]", "0");
     await page.selectOption("[data-scalecalc] select[name=mode]", "custom");
     await page.fill("[data-scalecalc] input[name=percent]", "50");
     expect(/50%/.test(await out()), `${width}px calculator: custom 50%`);
     for (const junk of ["", "abc", "-999", "1e99", evil]) {
       for (const name of ["border", "feature", "percent"]) await page.$eval(`[data-scalecalc] input[name=${name}]`, (el, v) => { el.type = "text"; el.value = v; el.dispatchEvent(new Event("input", { bubbles: true })); }, junk);
-      expect(/%/.test(await out()) && !/NaN|Infinity|undefined/.test(await out()), `${width}px calculator: nonsense "${junk.slice(0, 12)}" still gives a finite result`);
+      expect(/%|no printable area/.test(await out()) && !/NaN|Infinity|undefined/.test(await out()), `${width}px calculator: nonsense "${junk.slice(0, 12)}" still gives a finite result`);
     }
     expect(await page.$eval("[data-scalecalc] [data-fig] svg", s => s.querySelectorAll("rect").length === 3), `${width}px calculator: drawing with sheet, printable area and page`);
     // size table
@@ -175,6 +179,32 @@ const expect = (cond, label) => { results.push({ ok: !!cond, label }); };
     await context.close();
   }
 
+  // ads keep their distance from the calculators: every ad slot, shown as filled, is at least 250 px away from any control
+  for (const width of [390, 1366]) for (const url of ["/print-test-page.html", "/paper-sizes.html"]) {
+    const { context, page } = await open(width, url);
+    await page.waitForFunction(() => document.querySelector(".ad.on ins.adsbygoogle"));
+    await page.$$eval(".ad.on ins.adsbygoogle", list => list.forEach(i => i.setAttribute("data-ad-status", "filled")));
+    const r = await page.evaluate(() => {
+      const ads = [...document.querySelectorAll(".ad")].filter(a => getComputedStyle(a).display !== "none"), all = [];
+      const controls = [...document.querySelectorAll(".calc button, .calc input, .calc select, .filter input, .filter select, .filter-actions button")].filter(c => c.getClientRects().length);
+      for (const a of ads) for (const c of controls) {
+        const A = a.getBoundingClientRect(), C = c.getBoundingClientRect();
+        all.push({ gap: Math.hypot(Math.max(0, A.left - C.right, C.left - A.right), Math.max(0, A.top - C.bottom, C.top - A.bottom)), ad: a.dataset.ad, control: c.name || c.textContent.trim().slice(0, 20) });
+      }
+      all.sort((x, y) => x.gap - y.gap);
+      return { ads: ads.length, controls: controls.length, nearest: all[0] };
+    });
+    expect(r.ads >= 2 && r.controls >= 4 && r.nearest.gap >= 250, `${width}px ${url}: nearest ad is ${Math.round(r.nearest.gap)} px from a calculator control (${r.nearest.ad} ↔ ${r.nearest.control}), ${r.ads} slots`);
+    await context.close();
+  }
+  // every guide shows the date of its last change as review date
+  for (const url of urls) {
+    const html = fs.readFileSync(path.join(DOCS, url === "/" ? "index.html" : url), "utf8"), mod = /"dateModified": ?"(\d{4})-(\d\d)-(\d\d)"/.exec(html), rev = /Reviewed (\w+) (\d+), (\d{4})/.exec(html);
+    if (!mod || !rev) continue;
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    expect(rev[1] === months[+mod[2] - 1] && +rev[2] === +mod[3] && rev[3] === mod[1], `${url}: review date matches dateModified (${mod[0].slice(-11, -1)})`);
+  }
+
   // ruler check on the test page
   {
     const { context, page, errors } = await open(390, "/print-test-page.html");
@@ -182,6 +212,8 @@ const expect = (cond, label) => { results.push({ ok: !!cond, label }); };
     const type = async (a, d) => { await page.fill("[data-measure] input[name=across]", a); await page.fill("[data-measure] input[name=down]", d); };
     await type("100", "100"); expect(/true to size/.test(await out()), "ruler check: 100 × 100 is true to size");
     await type("94", "94,2"); expect(/94\.1%/.test(await out()) && /A4 page is printed on US Letter/.test(await out()), "ruler check: 94 × 94,2 (decimal comma) → 94.1%, A4 on US Letter");
+    await type("96", "96"); expect(/about 4\.2 mm on A4 or 4\.3 mm on US Letter/.test(await out()), "ruler check: 96 × 96 names a border of 4.2 mm (A4) / 4.3 mm (US Letter)");
+    await type("101", "100"); expect(!/true to size/.test(await out()) && /101% across, 100% down/.test(await out()), "ruler check: 101 × 100 is not called true to size");
     await type("94", "100"); expect(/differ by more than 1 mm/.test(await out()), "ruler check: uneven result is explained");
     await type("3.9", "3.9"); expect(/not inches/.test(await out()), "ruler check: inch values are caught");
     await type(evil, "abc"); expect(/Enter both measurements/.test(await out()) && !(await page.evaluate(() => window.__xss)), "ruler check: nonsense asks for numbers");

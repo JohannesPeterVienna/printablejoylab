@@ -60,7 +60,7 @@ def _table():
 
 
 def page():
-    """Returns (first part, second part) for page.html – the first ad sits between the two."""
+    """Returns (first part, second part) for page.html – the first ad sits between the two, away from all controls."""
     c = check()
     r = {x["label"]: x for x in rows()}
     ratio = lambda k: f'{r[k]["hmm"] / r[k]["wmm"]:.3f}'
@@ -69,7 +69,7 @@ def page():
 {CALC}
 <p><strong>How it is calculated.</strong> At 100% the page keeps its size; whatever is wider or taller than the area the printer can reach is lost. With a “Fit” setting the program divides the reachable width by the page width and the reachable height by the page height and uses the smaller of the two numbers as the scale. “Shrink oversized pages” does the same but never goes above 100%. The reachable area is the sheet minus the printer's blank border on each side.</p>
 <p><strong>What it assumes.</strong> Page and sheet have the same orientation, the page is centered, and the border is the same on all four sides. Real printers often have a wider border on one side. You can measure yours with the edge rulers on the <a href="/print-test-page.html">print test page</a> and enter the largest value.</p>"""
-    second = f"""<h2 id="table">{c["count"]} paper sizes in millimeters, inches and points</h2>
+    table = f"""<h2 id="table">{c["count"]} paper sizes in millimeters, inches and points</h2>
 <p>The table lists the sheet sizes of the ISO A, B and C series, the North American office, engineering and architectural sizes, the Japanese JIS B series and the RA and SRA press sheets. Every row carries the standardized media name that printers and print systems use for that size, so you can check each value against the source yourself.</p>
 {_table()}
 <h2>How to read the columns</h2>
@@ -79,7 +79,8 @@ def page():
 <li><strong>PWG name.</strong> The self-describing media name from PWG 5101.1. It contains the size itself, for example <code>{r["A4"]["pwg"]}</code>.</li>
 <li><strong>CSS keyword.</strong> Ten sizes have a keyword for the CSS <code>size</code> property, as in <code>@page {{ size: A4 }}</code>. All other sizes have to be written as lengths.</li>
 <li><strong>Our generators.</strong> The four sizes in which every template on this site can be made. The link opens graph paper in that size.</li></ul>
-<h2>What the numbers show</h2>
+"""
+    second = f"""<h2>What the numbers show</h2>
 <p>These statements are recalculated from the table every time the site is built; if one stopped being true, the build would fail.</p>
 <ul><li><strong>Halving.</strong> In the A, B, C, JIS B, RA and SRA rows, each size is the next larger one cut in half across its long side, with half millimeters rounded down. A4 (210 × 297) halves to A5 (148 × 210), because 297 ÷ 2 = 148.5.</li>
 <li><strong>A0 is one square meter, almost.</strong> 841 × 1189 mm is {c["a0_area"]:.6f} m². B0 is exactly 1000 mm wide.</li>
@@ -92,4 +93,4 @@ def page():
 <li><strong>ISO 32000-1:2008, “Document management – Portable document format – Part 1: PDF 1.7”</strong>, copy published by Adobe: <a href="https://opensource.adobe.com/dc-acrobat-sdk-docs/pdfstandards/PDF32000_2008.pdf" rel="noopener">opensource.adobe.com/dc-acrobat-sdk-docs/pdfstandards/PDF32000_2008.pdf</a>. Source of the unit 1/72 inch (default user space, section 8.3.2.3 and the UserUnit entry of the page object). Those passages read. Accessed {ACCESSED}.</li>
 <li><strong>NIST, Office of Weights and Measures, “SI Units – Length”</strong>: <a href="https://www.nist.gov/pml/owm/si-units-length" rel="noopener">nist.gov/pml/owm/si-units-length</a>. Source of 1 inch = 25.4 mm exactly (in force since 1 July 1959). Passage read. Accessed {ACCESSED}.</li></ul>
 <p class="small muted">What we did not read: ISO 216 (the standard behind the A and B series) and the ASME drawing-sheet standards are sold by their publishers and were not available to us. The table therefore quotes the Printer Working Group list, which reproduces these sizes, and does not quote the standards themselves. Print scales are arithmetic on the listed sizes; they are not measurements of a printer.</p>"""
-    return first, second
+    return first + table, second   # the ad follows the column notes, far from the calculator and the table filter

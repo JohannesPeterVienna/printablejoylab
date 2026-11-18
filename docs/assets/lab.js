@@ -25,31 +25,31 @@
     en: { name: "English", m: MONTHS, d: DOWL, s: DOW, notes: "Notes", year: "Year at a glance", todo: "To do this week", weekof: "Week of", habit: "Habit tracker", done: "Done" },
     de: { name: "Deutsch", m: ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"],
       d: ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"], s: ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"],
-      day: (d, m) => `${d}. ${m}`, notes: "Notizen", year: "Jahresübersicht", todo: "Aufgaben der Woche", weekof: "Woche vom", habit: "Gewohnheiten", done: "Summe" },
+      day: (d, m) => `${d}. ${m}`, notes: "Notizen", year: "Jahresübersicht", todo: "Aufgaben der Woche", weekof: "Woche vom", habit: "Gewohnheiten", done: "Erledigt" },
     fr: { name: "Français", m: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"],
       d: ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"], s: ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"],
-      day: (d, m) => `${d === 1 ? "1er" : d} ${m.toLowerCase()}`, notes: "Notes", year: "Aperçu de l'année", todo: "À faire cette semaine", weekof: "Semaine du", habit: "Suivi des habitudes", done: "Total" },
+      day: (d, m) => `${d === 1 ? "1er" : d} ${m.toLowerCase()}`, notes: "Notes", year: "Aperçu de l'année", todo: "À faire cette semaine", weekof: "Semaine du", habit: "Suivi des habitudes", done: "Fait" },
     es: { name: "Español", m: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
       d: ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"], s: ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"],
-      day: (d, m) => `${d} de ${m.toLowerCase()}`, notes: "Notas", year: "Vista anual", todo: "Tareas de la semana", weekof: "Semana del", habit: "Registro de hábitos", done: "Total" },
+      day: (d, m) => `${d} de ${m.toLowerCase()}`, notes: "Notas", year: "Vista anual", todo: "Tareas de la semana", weekof: "Semana del", habit: "Registro de hábitos", done: "Hecho" },
     it: { name: "Italiano", m: ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"],
       d: ["Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato", "Domenica"], s: ["Lun", "Mar", "Mer", "Gio", "Ven", "Sab", "Dom"],
-      day: (d, m) => `${d} ${m.toLowerCase()}`, notes: "Note", year: "Panoramica dell'anno", todo: "Da fare questa settimana", weekof: "Settimana del", habit: "Abitudini", done: "Totale" },
+      day: (d, m) => `${d} ${m.toLowerCase()}`, notes: "Note", year: "Panoramica dell'anno", todo: "Da fare questa settimana", weekof: "Settimana del", habit: "Abitudini", done: "Fatto" },
     pt: { name: "Português", m: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
       d: ["Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado", "Domingo"], s: ["Seg", "Ter", "Qua", "Qui", "Sex", "Sáb", "Dom"],
-      day: (d, m) => `${d} de ${m.toLowerCase()}`, notes: "Notas", year: "Visão anual", todo: "Tarefas da semana", weekof: "Semana de", habit: "Hábitos", done: "Total" },
+      day: (d, m) => `${d} de ${m.toLowerCase()}`, notes: "Notas", year: "Visão anual", todo: "Tarefas da semana", weekof: "Semana de", habit: "Hábitos", done: "Feito" },
     nl: { name: "Nederlands", m: ["Januari", "Februari", "Maart", "April", "Mei", "Juni", "Juli", "Augustus", "September", "Oktober", "November", "December"],
       d: ["Maandag", "Dinsdag", "Woensdag", "Donderdag", "Vrijdag", "Zaterdag", "Zondag"], s: ["Ma", "Di", "Wo", "Do", "Vr", "Za", "Zo"],
-      day: (d, m) => `${d} ${m.toLowerCase()}`, notes: "Notities", year: "Jaaroverzicht", todo: "Te doen deze week", weekof: "Week van", habit: "Gewoontes", done: "Totaal" },
+      day: (d, m) => `${d} ${m.toLowerCase()}`, notes: "Notities", year: "Jaaroverzicht", todo: "Te doen deze week", weekof: "Week van", habit: "Gewoontes", done: "Gedaan" },
     sv: { name: "Svenska", m: ["Januari", "Februari", "Mars", "April", "Maj", "Juni", "Juli", "Augusti", "September", "Oktober", "November", "December"],
       d: ["Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag", "Söndag"], s: ["Mån", "Tis", "Ons", "Tors", "Fre", "Lör", "Sön"],
-      day: (d, m) => `${d} ${m.toLowerCase()}`, notes: "Anteckningar", year: "Årsöversikt", todo: "Att göra denna vecka", weekof: "Vecka från", habit: "Vanor", done: "Totalt" },
+      day: (d, m) => `${d} ${m.toLowerCase()}`, notes: "Anteckningar", year: "Årsöversikt", todo: "Att göra den här veckan", weekof: "Vecka", habit: "Vanor", done: "Klart" },
     da: { name: "Dansk", m: ["Januar", "Februar", "Marts", "April", "Maj", "Juni", "Juli", "August", "September", "Oktober", "November", "December"],
       d: ["Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag", "Lørdag", "Søndag"], s: ["Man", "Tirs", "Ons", "Tors", "Fre", "Lør", "Søn"],
-      day: (d, m) => `${d}. ${m.toLowerCase()}`, notes: "Noter", year: "Årsoversigt", todo: "Opgaver denne uge", weekof: "Uge fra", habit: "Vaner", done: "I alt" },
+      day: (d, m) => `${d}. ${m.toLowerCase()}`, notes: "Noter", year: "Årsoversigt", todo: "Opgaver denne uge", weekof: "Uge", habit: "Vaner", done: "Udført" },
     nb: { name: "Norsk bokmål", m: ["Januar", "Februar", "Mars", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Desember"],
       d: ["Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag", "Lørdag", "Søndag"], s: ["Man", "Tir", "Ons", "Tor", "Fre", "Lør", "Søn"],
-      day: (d, m) => `${d}. ${m.toLowerCase()}`, notes: "Notater", year: "Årsoversikt", todo: "Gjøremål denne uken", weekof: "Uke fra", habit: "Vaner", done: "Totalt" }
+      day: (d, m) => `${d}. ${m.toLowerCase()}`, notes: "Notater", year: "Årsoversikt", todo: "Gjøremål denne uken", weekof: "Uke", habit: "Vaner", done: "Utført" }
   };
   const L = o => LANG[o && o.lang] || LANG.en;
 
@@ -124,7 +124,7 @@
     weekstart: () => ({ k: "ws", label: "Week starts on", type: "seg", def: NA ? "sun" : "mon", options: [["mon", "Monday"], ["sun", "Sunday"]] }),
     year: (def = thisYear) => ({ k: "year", label: "Year", type: "number", def, min: 1900, max: 2100 }),
     month: (allowAll = true) => ({ k: "month", label: "Month", type: "select", def: String(new Date().getMonth()), options: [...(allowAll ? [["all", "All 12 months (12 pages)"]] : []), ...MONTHS.map((m, i) => [String(i), m])] }),
-    lang: () => ({ k: "lang", label: "Language of months and weekdays", type: "select", def: navLang, options: Object.keys(LANG).map(k => [k, LANG[k].name]) }),
+    lang: () => ({ k: "lang", label: "Language of months and weekdays", type: "select", def: "en", options: Object.keys(LANG).map(k => [k, LANG[k].name + (k === navLang && k !== "en" ? " – your browser language" : "")]) }),
     brand: () => ({ k: "brand", label: "Small site credit in footer", type: "check", def: true })
   };
 
@@ -304,7 +304,7 @@
         const nameW = Math.min(62, (P.x1 - P.x0) * 0.3), cw = (P.x1 - P.x0 - nameW - 12) / days, rh = Math.min(10, (P.y1 - top - 10) / Math.max(n, 1));
         for (let d = 1; d <= days; d++) { const dt = D(y, mi, d), we = dt.getUTCDay() % 6 === 0, x = P.x0 + nameW + (d - 1) * cw;
           P.text(x + cw / 2, top + 3, lg.s[(dt.getUTCDay() + 6) % 7][0], { size: 6, c: "#9AA3AF", align: "center" }); P.text(x + cw / 2, top + 7.5, d, { size: 7, c: we ? P.accent : "#2B2B2B", align: "center", bold: true }); }
-        P.text(P.x1 - 5, top + 7.5, lg.done.toUpperCase(), { size: 5.5, c: P.accent, align: "center", bold: true });
+        P.text(P.x1 - 5.5, top + 7.5, lg.done.toUpperCase(), { size: lg.done.length > 5 ? 4.2 : 5.5, c: P.accent, align: "center", bold: true });
         for (let r = 0; r < n; r++) {
           const yy = top + 10 + r * rh;
           P.rect(P.x0, yy, P.x1 - P.x0, rh, { stroke: P.lineC, lw: 0.2, fill: r % 2 ? "#FAF8F5" : null });
@@ -531,7 +531,7 @@
     });
     $("[data-share]", root).addEventListener("click", async e => {
       const o = readOpts(form, tpl), qs = new URLSearchParams(), b = e.currentTarget;   // currentTarget is gone after the first await
-      tpl.opts.forEach(d => { const v = o[d.k]; if (String(v) !== String(d.def) || d.k === "paper" || d.k === "ws" || d.k === "lang") qs.set(d.k, d.type === "check" ? (v ? "1" : "0") : v); });
+      tpl.opts.forEach(d => { const v = o[d.k]; if (String(v) !== String(d.def) || d.k === "paper" || d.k === "ws") qs.set(d.k, d.type === "check" ? (v ? "1" : "0") : v); });
       const url = `${location.origin}${location.pathname}${qs.toString() ? "?" + qs : ""}`;
       try { await navigator.clipboard.writeText(url); b.textContent = "Link copied ✓"; } catch { history.replaceState(null, "", url); b.textContent = "Link is in the address bar"; }
     });

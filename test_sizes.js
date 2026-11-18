@@ -26,14 +26,21 @@ test("fit enlarges a small page, shrink never does", () => {
 });
 test("custom percentage and absurd borders stay finite", () => {
   assert.equal(printScale(A4, A4, 0, "custom", 50).w, 105);
-  const r = printScale(A4, A4, 500, "fit"); assert.ok(Number.isFinite(r.scale) && r.scale > 0);
+  assert.equal(printScale(A4, A4, 500, "fit").impossible, true);
+  assert.equal(printScale([26, 37], [26, 37], 13, "fit").impossible, true);
+  assert.ok(printScale([26, 37], [26, 37], 12.5, "fit").scale > 0);
 });
 test("ruler check: fine, reduced, enlarged, uneven", () => {
   assert.equal(diagnose(100, 100).kind, "ok");
   assert.equal(diagnose(99.6, 100.3).kind, "ok");
+  assert.equal(diagnose(101, 100).kind, "large");   // one direction off by 1 mm is not "true to size"
+  assert.equal(diagnose(100, 99.4).kind, "small");
   const a = diagnose(94, 94); assert.equal(a.kind, "small");
   assert.deepEqual(a.matches.map(m => m.doc + ">" + m.sheet), ["a4>letter", "a5>half"]);   // 279.4 ÷ 297 = 0.941, 139.7 ÷ 148 = 0.944
-  near(a.border.a4, 0.06 * 297 / 2, 1e-9);
+  near(a.border.a4, 0.06 * 210 / 2, 1e-9); near(a.border.letter, 0.06 * 215.9 / 2, 1e-9);
+  // the border the check names must reproduce the measured scale when it is put back into the calculator
+  for (const m of [96, 94, 98.5, 90]) { const d = diagnose(m, m); near(printScale(A4, A4, d.border.a4, "fit").scale, m / 100, 1e-9); near(printScale(LETTER, LETTER, d.border.letter, "fit").scale, m / 100, 1e-9); }
+  near(diagnose(96, 96).border.a4, 4.2, 1e-9); near(diagnose(96, 96).border.letter, 4.318, 1e-9);
   const b = diagnose(97.3, 97.3); assert.deepEqual(b.matches.map(m => m.doc + ">" + m.sheet), ["letter>a4", "half>a5"]);
   assert.equal(diagnose(141.4, 141.4).kind, "large");
   assert.ok(diagnose(141.4, 141.4).matches.some(m => m.doc === "a5" && m.sheet === "a4"));

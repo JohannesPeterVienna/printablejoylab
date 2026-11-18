@@ -1,5 +1,5 @@
 """Printable Joy Lab – statische Seiten bauen (GitHub Pages aus docs/)."""
-import json, shutil, subprocess
+import json, re, shutil, subprocess
 from pathlib import Path
 from jinja2 import Environment, FileSystemLoader
 from content.tools import TOOLS, CATS, BY
@@ -8,15 +8,14 @@ from content import reference
 
 ROOT = Path(__file__).parent
 OUT = ROOT / "docs"
-SITE = "https://printablejoylab.com"; V = "20261118a"
+SITE = "https://printablejoylab.com"; V = "20261118b"
 BUY_PLANNER = ""   # Lemon Squeezy checkout link – set once the product exists
 UPDATED = "November 2026"
-REVIEWED = "2026-11-03"; REVIEWED_TEXT = "November 3, 2026"   # last editorial review of all guides
 CONTENT_UPDATED = "2026-11-04"   # last content change of template pages, home and about (sitemap lastmod)
 GUIDES_UPDATED = "2026-11-18"    # last content change of the guides hub
 EIGENWERT = "2026-11-18"; EIGENWERT_TEXT = "November 18, 2026"   # home, about, paper size reference, changed templates (tool["updated"])
 # Merged or removed guides: the old address stays as a noindex page that forwards to its new home (not in the sitemap).
-MOVED = {"habit-tracker-ideas": ("/habit-tracker.html", "Habit tracker"), "paper-vs-digital-planning": ("/plan-a-week-on-paper.html", "How to plan a week on paper")}
+MOVED = {"habit-tracker-ideas": ("/habit-tracker.html", "Habit tracker"), "paper-vs-digital-planning": ("/guides.html", "Guides")}
 LOADER = '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7811071715414905" crossorigin="anonymous"></script>'
 # Shop-Schalter: Solange False, werden shop.html und refunds.html gar nicht gebaut (404), es gibt keinen Link und
 # keinen Eintrag in der Sitemap (AdSense-Prüfung 5.11.2026: keine Seite ohne funktionierenden Kauf). Erst auf True
@@ -44,12 +43,12 @@ GUIDES_INTRO = """<p>Six guides and one reference answer the questions that come
 <li><strong>Tired of the daily “What's for dinner?”</strong> <a href="/meal-planning-one-page.html">Meal planning on one page</a> is a timed 20-minute routine with a sorted grocery list and food-safe timing for leftovers.</li></ul>
 <h3>Journaling</h3>
 <ul><li><strong>Curious about bullet journaling?</strong> The <a href="/bullet-journal-starter.html">bullet journal starter kit</a> covers rapid logging, the core collections, migration and a complete first month, set up page by page.</li></ul>
-<p>Two earlier guides were folded into other pages in November 2026: the habit tracker ideas now sit directly under the <a href="/habit-tracker.html">habit tracker</a>, and the comparison of paper and apps was removed.</p>"""
+<p>Two earlier guides were folded into other pages in November 2026: the habit tracker ideas now sit directly under the <a href="/habit-tracker.html">habit tracker</a>, and the comparison of paper and apps was removed; its old address now leads to this page.</p>"""
 
 
 def write(path, template, **ctx):
     base = dict(site=SITE, v=V, updated=UPDATED, nav=NAV + ([("/shop.html", "2027 Planner")] if SHOP_OPEN else []), shop_open=SHOP_OPEN, active=ctx.get("active", "/" + path), jsonld=[], ads=True,
-                robots=None, og_title=None, tools=TOOLS, cats=CATS, articles=ARTICLES, sizes_js=False)
+                robots=None, og_title=None, tools=TOOLS, cats=CATS, articles=ARTICLES, sizes_js=False, side_ads=True)
     base.update(ctx)
     base["path"] = "/" if path == "index.html" else "/" + path
     (OUT / path).write_text(env.get_template(template).render(**base), encoding="utf-8")
@@ -57,11 +56,15 @@ def write(path, template, **ctx):
         PAGES.append((base["path"], ctx.get("priority", 0.6), ctx.get("lastmod", "2026-10-29")))
 
 
-def split_first_section(html):
-    """Split text after its first <h2> section, so the first ad only follows the first explanatory section."""
-    first = html.find("<h2>")
-    cut = html.find("<h2>", first + 1) if first >= 0 else -1
-    return (html[:cut], html[cut:]) if cut > 0 else (html, "")
+def split_first_section(html, sections=1):
+    """Split text after its first <h2> section(s), so the first ad only follows explanatory text. Headings may carry an id."""
+    starts = [m.start() for m in re.finditer(r"<h2[ >]", html)]
+    return (html[:starts[sections]], html[starts[sections]:]) if len(starts) > sections else (html, "")
+
+
+def long_date(iso):
+    y, m, d = (int(x) for x in iso.split("-"))
+    return f"{['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][m - 1]} {d}, {y}"
 
 
 def crumbs_ld(items):
@@ -91,10 +94,11 @@ def main():
               {"@context": "https://schema.org", "@type": "WebApplication", "name": f"{t['name']} generator – Printable Joy Lab", "url": f"{SITE}/{t['slug']}.html",
                "applicationCategory": "UtilitiesApplication", "operatingSystem": "Web", "inLanguage": "en", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}},
               {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in t["faq"]]}]
-        guide_first, guide_rest = split_first_section(t["guide"])   # Werbung erst nach dem ersten Erklärabschnitt
+        guide_first, guide_rest = split_first_section(t["guide"], t.get("ad_after", 1))   # Werbung erst nach dem ersten Erklärabschnitt
         write(t["slug"] + ".html", "tool.html", title=(t["title"] + " | Printable Joy Lab" if len(t["title"]) < 46 else t["title"]), description=t["description"], h1=f"{t['name']}",
               lead=t["lead"], slug=t["slug"], cat=t["cat"], guide_first=guide_first, guide_rest=guide_rest, faq=t["faq"], related=related, crumbs=crumbs, jsonld=ld,
-              active=next((h for h, l in NAV if h == "/" + t["slug"] + ".html"), ""), priority=0.9, lastmod=t.get("updated", CONTENT_UPDATED), sizes_js=t.get("sizes_js", False))
+              active=next((h for h, l in NAV if h == "/" + t["slug"] + ".html"), ""), priority=0.9, lastmod=t.get("updated", CONTENT_UPDATED), sizes_js=t.get("sizes_js", False),
+              side_ads=not t.get("sizes_js", False))   # no ad column next to a calculator inside the text
 
     for a in ARTICLES:
         crumbs = [("/", "Templates"), ("/guides.html", "Guides"), ("/" + a["slug"] + ".html", a["title"])]
@@ -102,7 +106,7 @@ def main():
               "inLanguage": "en", "author": AUTHOR, "publisher": ORG, "datePublished": a["published"], "dateModified": a["modified"], "mainEntityOfPage": f"{SITE}/{a['slug']}.html"}]
         links = [BY[s] for s in BY if f"/{s}.html" in a["body"]][:4]
         write(a["slug"] + ".html", "page.html", title=(a["title"] + " | Printable Joy Lab" if len(a["title"]) < 46 else a["title"]), description=a["description"], h1=a["title"],
-              lead=a["teaser"], body_split=split_first_section(a["body"]), crumbs=crumbs, related=links, jsonld=ld, active="/guides.html", priority=0.7, reviewed=REVIEWED_TEXT, lastmod=a["modified"])
+              lead=a["teaser"], body_split=split_first_section(a["body"]), crumbs=crumbs, related=links, jsonld=ld, active="/guides.html", priority=0.7, reviewed=long_date(a["modified"]), lastmod=a["modified"])   # review date per guide = date of its last change
 
     guides = "".join(f'<li><a class="card" href="/{a["slug"]}.html"><strong>{a["title"]}</strong><span>{a["teaser"]}</span></a></li>' for a in ARTICLES)
     write("guides.html", "page.html", title="Guides – Printing, Planning & Paper | Printable Joy Lab",
@@ -117,7 +121,7 @@ def main():
     ref_desc = "81 paper sizes (ISO A, B, C, US Letter, Legal, Ledger, JIS B and more) in millimeters, inches and PDF points with sources, plus a calculator for what “Fit” and 100% do to a printed page."
     write("paper-sizes.html", "page.html", title="Paper Sizes in mm, Inches & Points + Print Scale Calculator", description=ref_desc, h1="Paper sizes and print scale",
           lead="Look up a sheet size, or calculate what a print setting does to your page.", body_split=(ref_first, ref_rest), crumbs=ref_crumbs, active="/paper-sizes.html", priority=0.8,
-          reviewed=EIGENWERT_TEXT, lastmod=EIGENWERT, sizes_js=True, related=[BY["print-test-page"], BY["graph-paper"], BY["lined-paper"], BY["dot-grid"]],
+          reviewed=EIGENWERT_TEXT, lastmod=EIGENWERT, sizes_js=True, side_ads=False, related=[BY["print-test-page"], BY["graph-paper"], BY["lined-paper"], BY["dot-grid"]],
           jsonld=[crumbs_ld(ref_crumbs), {"@context": "https://schema.org", "@type": "Article", "headline": "Paper sizes and print scale", "description": ref_desc, "inLanguage": "en", "author": AUTHOR, "publisher": ORG,
                                           "datePublished": EIGENWERT, "dateModified": EIGENWERT, "mainEntityOfPage": f"{SITE}/paper-sizes.html"}])
 
@@ -130,11 +134,11 @@ def main():
           h1="About Printable Joy Lab", lead="Customizable printables, generated in your browser.", priority=0.3, active="", lastmod=EIGENWERT,
           body="""<p>Printable Joy Lab is made by AdStern, a small digital agency in Vienna, Austria. We build free tools that are genuinely useful – and printables were a natural fit: almost everyone needs a planner page, a calendar or a sheet of graph paper now and then, but most downloads come in one fixed size and style.</p>
 <h2>Who is behind it</h2><p>AdStern – Agentur für digitales Marketing, based at Seilerstätte 8/8, 1010 Wien, Österreich, develops the generator, writes the guides and is responsible for everything on the site; the full legal details are in the <a href="/imprint.html">imprint</a>. There are no accounts to create, and what you type into a template stays in your browser.</p>
-<h2>What you will find here</h2><p>Thirteen generators in four groups – paper (lined, graph, dot grid, isometric and a print test page), calendars (monthly and yearly), planners (weekly, daily, meal) and trackers and lists (habit tracker, checklist, budget planner). The dated pages print month and weekday names in ten languages. A <a href="/paper-sizes.html">paper size reference</a> lists 81 sheet sizes with their source and calculates print scales, and six <a href="/guides.html">guides</a> cover printing at actual size, choosing paper patterns and weights, a 2027 calendar with ISO week numbers and US holidays, weekly and meal planning, and bullet journaling.</p>
-<h2>How the templates work</h2><p>Each template is described once as a set of lines, boxes and text positioned in millimeters. From that description your browser draws the live preview and creates the PDF – the same data for both, so what you see is what you print. Paper sizes follow ISO 216 (A4, A5) and the North American standards (US Letter, Half Letter). Calendars use the Gregorian calendar and ISO 8601 week numbers.</p>
+<h2>What you will find here</h2><p>Thirteen generators in four groups – paper (lined, graph, dot grid, isometric and a print test page), calendars (monthly and yearly), planners (weekly, daily, meal) and trackers and lists (habit tracker, checklist, budget planner). Four of them – the monthly calendar, the yearly calendar, the weekly planner and the habit tracker – can print month and weekday names in ten languages; the other templates are English only. A <a href="/paper-sizes.html">paper size reference</a> lists 81 sheet sizes with their source and calculates print scales, and six <a href="/guides.html">guides</a> cover printing at actual size, choosing paper patterns and weights, a 2027 calendar with ISO week numbers and US holidays, weekly and meal planning, and bullet journaling.</p>
+<h2>How the templates work</h2><p>Each template is described once as a set of lines, boxes and text positioned in millimeters. From that description your browser draws the live preview and creates the PDF – the same data for both, so what you see is what you print. The four paper sizes are A4, A5, US Letter and Half Letter. Calendars use the Gregorian calendar and ISO 8601 week numbers.</p>
 <h2>How we check them</h2><p>Every time the site is updated, an automated test draws every template with many combinations of settings – all paper sizes, orientations, week starts and options – and checks that every line, box and label lands on the page. If a single check fails, the update is not published.</p>
-<h2>Standards we follow</h2><p>Paper sizes are taken from their standards: A4 (210 × 297 mm) and A5 (148 × 210 mm) from ISO 216, US Letter (8.5 × 11 in) and Half Letter (5.5 × 8.5 in) from the North American sizes. The three line rulings are the US school rulings – 11/32, 9/32 and 1/4 inch. Week numbers follow ISO 8601: weeks start on Monday, and week 1 is the week with the year's first Thursday. Dates are calculated with the Gregorian calendar for every year from 1900 to 2100.</p>
-<h2>How the guides are written</h2><p>The texts are written with the help of AI tools. Every template is covered by automated tests, and every text goes through a separate review against the linked sources before it is published. There is no editorial team; AdStern is responsible for all content. The measurements in the guides – how many lines fit on a page, how big a calendar box is, how many squares a grid has – are calculated from the same layout code that draws the templates, so the text and the PDF agree. Each guide shows the date of its last review, and where a guide relies on a standard, a study or an official source, it names it. Where we could read the source ourselves, the page links to it and gives the date we accessed it; where we could not – some standards are only sold – the page says so.</p><h2>Corrections</h2><p>If you find a mistake in a template, a number or a text, write to <a href="mailto:office@adstern.com">office@adstern.com</a> and tell us the page. We check the point against the source, correct the page and update its date. Month and weekday names in the ten languages are compared automatically with the Unicode language data that ships with our test software; the few fixed labels on those pages (such as “Notes”) were translated with AI support and have not been checked by native speakers, so corrections there are especially welcome.</p>
+<h2>Standards we follow</h2><p>A4 (210 × 297 mm) and A5 (148 × 210 mm) are defined in ISO 216; US Letter (8.5 × 11 in) and Half Letter (5.5 × 8.5 in) are the North American sizes. We quote all four from the media list of the Printer Working Group (PWG 5101.1), which is linked on the <a href="/paper-sizes.html">paper size page</a>; ISO 216 itself is only sold and we have not read it. The three line rulings are the US school rulings – 11/32, 9/32 and 1/4 inch. Week numbers follow ISO 8601: weeks start on Monday, and week 1 is the week with the year's first Thursday. Dates are calculated with the Gregorian calendar for every year from 1900 to 2100.</p>
+<h2>How the guides are written</h2><p>The texts are written with the help of AI tools. Every template is covered by automated tests, and every text goes through a separate review against the linked sources before it is published. There is no editorial team; AdStern is responsible for all content. The measurements in the guides – how many lines fit on a page, how big a calendar box is, how many squares a grid has – are calculated from the same layout code that draws the templates, so the text and the PDF agree. Each guide shows the date of its last review, and where a guide relies on a standard, a study or an official source, it names it. Where we could read the source ourselves, the page links to it and gives the date we accessed it; where we could not – some standards are only sold – the page says so.</p><h2>Corrections</h2><p>If you find a mistake in a template, a number or a text, write to <a href="mailto:office@adstern.com">office@adstern.com</a> and tell us the page. We check the point against the source, correct the page and update its date. Month and weekday names in the ten languages of the calendars, the weekly planner and the habit tracker are compared automatically with the Unicode language data that ships with our test software; the few fixed labels on those pages (such as “Notes”) were translated with AI support and have not been checked by native speakers, so corrections there are especially welcome.</p>
 <h2>Ads on this site</h2><p>The site is free and financed by ads from Google. Ad spaces are labeled “Advertisement”. Our own ad slots never appear inside a generator – not between the settings, the preview and the download buttons – so that nobody taps an ad by accident while making a page; Google may also place ads automatically on content pages. The generators work the same whether or not you consent to ads.</p>
 <h2>Your data</h2><p>Your settings, habits and lists never leave your device: the PDF is created in your browser, and the last settings are remembered in your browser's local storage. Analytics and personalized ads only run with your consent. If you don't consent, Google may still show limited, non-personalized ads that use no advertising cookies; if your browser sends a Global Privacy Control signal, we pause all ad requests and fill no ad slots. Details are in the <a href="/privacy.html">privacy policy</a>.</p>
 <h2>Using the printables</h2><p>You are welcome to print the pages for yourself, your family, your classroom or your own business. Please don't resell the files or offer them for download on other websites; link to the template page instead.</p>

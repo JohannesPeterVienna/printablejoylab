@@ -194,7 +194,7 @@ TOOLS = [
         ("Why are the vertical lines closer together than the triangle size?", "Their spacing is the triangle height, which is the side × √3 ÷ 2 – about 4.33 mm for a 5 mm triangle. Measurements along the lines still use the full triangle side.")],
 },
 {
-"slug": "print-test-page", "cat": "paper", "name": "Print test page", "accent": "ink", "updated": "2026-11-18", "sizes_js": True,
+"slug": "print-test-page", "cat": "paper", "name": "Print test page", "accent": "ink", "updated": "2026-11-18", "sizes_js": True, "ad_after": 3,   # first ad only after the third section: the ruler check must not sit next to an ad
 "teaser": "A 100 mm square and edge rulers that show your real print scale.",
 "title": "Print Test Page – Check Scale and Printer Margins (Free PDF)",
 "description": "Print one page with a 100 mm square, millimeter and inch rulers and edge rulers. Measure it, enter the result and see your real print scale and your printer's blank border.",
@@ -283,7 +283,7 @@ TOOLS = [
         ("Why does February 2027 have only four rows?", "February 1, 2027 is a Monday and the month has 28 days, so with a Monday start it fills exactly four weeks. With a Sunday start, February 1 is the second column and the month spills into a fifth row."),
         ("Which accent color is best for a black-and-white printer?", "Ink or mono. The weekday bar is filled with the accent color behind white text, and dark accents keep that text readable when printed in grayscale."),
         ("How much can I write in a day box?", "On A4 or US Letter, two or three short entries in most months. Six-row months have the smallest boxes; if a month is busy, print it in portrait for taller boxes."),
-        ("Can I print it in another language?", "Yes. “Language of months and weekdays” offers English, German, French, Spanish, Italian, Portuguese, Dutch, Swedish, Danish and Norwegian. The month name, the weekday bar and the “Notes” label change.")],
+        ("Can I print the calendar in another language?", "Yes. “Language of months and weekdays” offers English, German, French, Spanish, Italian, Portuguese, Dutch, Swedish, Danish and Norwegian; English is preselected. The month name, the weekday bar and the “Notes” label change. The same setting exists in the yearly calendar, the weekly planner and the habit tracker; the other templates are English only.")],
 },
 {
 "slug": "yearly-calendar", "updated": "2026-11-18", "cat": "calendars", "name": "Yearly calendar", "accent": "sand",
@@ -331,8 +331,7 @@ TOOLS = [
         ("Is there space to write on it?", "Only small marks and colors fit into the day cells. For appointments with text, combine it with monthly or weekly pages."),
         ("How do I print it as a large wall planner?", "Print the PDF on A3 (from A4) at 141% or on Tabloid (from US Letter) at about 129%, at a copy shop or on a large-format printer. The vector PDF stays sharp at any size."),
         ("Which paper size is still easy to read?", "A4 and US Letter in either orientation, with 8 pt day numbers. On A5 and Half Letter, choose portrait; landscape makes the numbers very small."),
-        ("Does the yearly calendar show holidays?", "No. Mark them yourself with a colored dot; the US federal holidays for 2027 are listed in our 2027 calendar guide."),
-        ("Can I print it in another language?", "Yes. “Language of months and weekdays” offers English, German, French, Spanish, Italian, Portuguese, Dutch, Swedish, Danish and Norwegian. The twelve month names, the weekday initials and the “Year at a glance” line change.")],
+        ("Does the yearly calendar show holidays?", "No. Mark them yourself with a colored dot; the US federal holidays for 2027 are listed in our 2027 calendar guide.")],
 },
 # ------------------------------------------------------------------ PLANNERS
 {
@@ -383,8 +382,7 @@ TOOLS = [
         ("Can I remove the to-do list?", "Untick “To-do column” and the day boxes use the full width or height of the page."),
         ("What is the eighth box for?", "It is labeled Notes and holds everything that belongs to the week but not to a day: phone numbers, a shopping item, ideas or a quote for the week."),
         ("How many lines are in each day box?", "On A4 landscape ten, on US Letter landscape eleven, and fewer on small or portrait pages – see the table above. The lines are 6.5 mm apart."),
-        ("Which setting gives the most writing room per day?", "US Letter or A4 in landscape with the to-do column switched off: each day box is then about 61–65 mm wide and 80 mm tall."),
-        ("Can I print it in another language?", "Yes. “Language of months and weekdays” offers English, German, French, Spanish, Italian, Portuguese, Dutch, Swedish, Danish and Norwegian. The weekday names, the date range and the labels of the notes box and the to-do list change; a title you typed yourself stays as it is.")],
+        ("Which setting gives the most writing room per day?", "US Letter or A4 in landscape with the to-do column switched off: each day box is then about 61–65 mm wide and 80 mm tall.")],
 },
 {
 "slug": "daily-planner", "cat": "planners", "name": "Daily planner", "accent": "tomato",
@@ -491,8 +489,7 @@ TOOLS = [
         ("Can I track numbers, like hours of sleep?", "Yes – write the number inside the circle instead of filling it in. Keep such rows to one or two, as they take longer to fill in."),
         ("How big are the circles?", "About 3.9 mm on A4 landscape and 3.5 mm on US Letter landscape in a 31-day month. In portrait they shrink to about 2.3 mm, which is why landscape is the better choice for most people."),
         ("Can I use it as a chore chart for several children?", "Yes. Type one line per child and chore, such as “Ben – feed the cat”. Each row gets its own circles and its own “Done” count for the month."),
-        ("Does the tracker follow a Monday or Sunday week?", "Neither: the columns are simply the days of the month from 1 to 28–31. The weekday letter above each date shows where the weekends fall."),
-        ("Can I print it in another language?", "Yes. “Language of months and weekdays” offers English, German, French, Spanish, Italian, Portuguese, Dutch, Swedish, Danish and Norwegian. The page title, the month name, the weekday initials and the total column change; your own habit names are printed exactly as you typed them.")],
+        ("Does the tracker follow a Monday or Sunday week?", "Neither: the columns are simply the days of the month from 1 to 28–31. The weekday letter above each date shows where the weekends fall.")],
 },
 {
 "slug": "checklist", "cat": "trackers", "name": "Checklist & to-do list", "accent": "ink",
