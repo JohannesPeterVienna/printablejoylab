@@ -2,19 +2,7 @@
 {% block main %}
 {{ m.crumbs(crumbs) }}
 <section class="wrap tool-head"><h1>{{ h1 }}</h1><p class="lead">{{ lead }}</p></section>
-<section class="wrap lab" data-lab="{{ slug }}">
-  <form class="controls" data-controls onsubmit="return false" aria-label="Settings"><noscript><p>The generator needs JavaScript. You can still read the guide below.</p></noscript></form>
-  <div class="preview">
-    <div class="stage" data-stage aria-live="polite"></div>
-    <p class="info small" data-info></p>
-    <div class="actions">
-      <button class="btn" type="button" data-pdf>Download PDF</button>
-      <button class="btn ghost" type="button" data-print>Print</button>
-      <button class="linkbtn" type="button" data-share>Copy link to these settings</button>
-      <button class="linkbtn" type="button" data-reset>Reset</button>
-    </div>
-  </div>
-</section>
+{{ m.lab(slug) }}
 <div class="wrap layout">
   <article class="prose">
     {{ guide_first | safe }}

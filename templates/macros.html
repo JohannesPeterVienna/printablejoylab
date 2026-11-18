@@ -4,6 +4,21 @@
 {% macro crumbs(items) -%}
 <nav class="crumbs wrap" aria-label="Breadcrumb">{% for href,label in items %}{% if not loop.last %}<a href="{{ href }}">{{ label }}</a> / {% else %}<span>{{ label }}</span>{% endif %}{% endfor %}</nav>
 {%- endmacro %}
+{% macro lab(slug) -%}
+<section class="wrap lab" data-lab="{{ slug }}">
+  <form class="controls" data-controls onsubmit="return false" aria-label="Settings"><noscript><p>The generator needs JavaScript. You can still read the guide below.</p></noscript></form>
+  <div class="preview">
+    <div class="stage" data-stage aria-live="polite"></div>
+    <p class="info small" data-info></p>
+    <div class="actions">
+      <button class="btn" type="button" data-pdf>Download PDF</button>
+      <button class="btn ghost" type="button" data-print>Print</button>
+      <button class="linkbtn" type="button" data-share>Copy link to these settings</button>
+      <button class="linkbtn" type="button" data-reset>Reset</button>
+    </div>
+  </div>
+</section>
+{%- endmacro %}
 {% macro card(t) -%}
 <li><a class="card" href="/{{ t.slug }}.html"><span class="thumb" data-thumb="{{ t.slug }}" data-accent="{{ t.accent }}" aria-hidden="true"></span><strong>{{ t.name }}</strong><span>{{ t.teaser }}</span></a></li>
 {%- endmacro %}

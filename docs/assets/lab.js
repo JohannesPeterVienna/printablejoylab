@@ -18,6 +18,40 @@
   const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   const DOW = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
   const DOWL = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+  /* Month and weekday names for dated pages. Only languages whose letters exist in the PDF standard fonts (WinAnsi),
+     so preview, print and PDF show the same text. m = months, d = weekdays Monday–Sunday, s = short weekdays,
+     day = "day + month" inside a sentence, plus the few fixed labels of the dated templates. */
+  const LANG = {
+    en: { name: "English", m: MONTHS, d: DOWL, s: DOW, notes: "Notes", year: "Year at a glance", todo: "To do this week", weekof: "Week of", habit: "Habit tracker", done: "Done" },
+    de: { name: "Deutsch", m: ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"],
+      d: ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"], s: ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"],
+      day: (d, m) => `${d}. ${m}`, notes: "Notizen", year: "Jahresübersicht", todo: "Aufgaben der Woche", weekof: "Woche vom", habit: "Gewohnheiten", done: "Summe" },
+    fr: { name: "Français", m: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"],
+      d: ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"], s: ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"],
+      day: (d, m) => `${d === 1 ? "1er" : d} ${m.toLowerCase()}`, notes: "Notes", year: "Aperçu de l'année", todo: "À faire cette semaine", weekof: "Semaine du", habit: "Suivi des habitudes", done: "Total" },
+    es: { name: "Español", m: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+      d: ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"], s: ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"],
+      day: (d, m) => `${d} de ${m.toLowerCase()}`, notes: "Notas", year: "Vista anual", todo: "Tareas de la semana", weekof: "Semana del", habit: "Registro de hábitos", done: "Total" },
+    it: { name: "Italiano", m: ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"],
+      d: ["Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato", "Domenica"], s: ["Lun", "Mar", "Mer", "Gio", "Ven", "Sab", "Dom"],
+      day: (d, m) => `${d} ${m.toLowerCase()}`, notes: "Note", year: "Panoramica dell'anno", todo: "Da fare questa settimana", weekof: "Settimana del", habit: "Abitudini", done: "Totale" },
+    pt: { name: "Português", m: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
+      d: ["Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado", "Domingo"], s: ["Seg", "Ter", "Qua", "Qui", "Sex", "Sáb", "Dom"],
+      day: (d, m) => `${d} de ${m.toLowerCase()}`, notes: "Notas", year: "Visão anual", todo: "Tarefas da semana", weekof: "Semana de", habit: "Hábitos", done: "Total" },
+    nl: { name: "Nederlands", m: ["Januari", "Februari", "Maart", "April", "Mei", "Juni", "Juli", "Augustus", "September", "Oktober", "November", "December"],
+      d: ["Maandag", "Dinsdag", "Woensdag", "Donderdag", "Vrijdag", "Zaterdag", "Zondag"], s: ["Ma", "Di", "Wo", "Do", "Vr", "Za", "Zo"],
+      day: (d, m) => `${d} ${m.toLowerCase()}`, notes: "Notities", year: "Jaaroverzicht", todo: "Te doen deze week", weekof: "Week van", habit: "Gewoontes", done: "Totaal" },
+    sv: { name: "Svenska", m: ["Januari", "Februari", "Mars", "April", "Maj", "Juni", "Juli", "Augusti", "September", "Oktober", "November", "December"],
+      d: ["Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag", "Söndag"], s: ["Mån", "Tis", "Ons", "Tors", "Fre", "Lör", "Sön"],
+      day: (d, m) => `${d} ${m.toLowerCase()}`, notes: "Anteckningar", year: "Årsöversikt", todo: "Att göra denna vecka", weekof: "Vecka från", habit: "Vanor", done: "Totalt" },
+    da: { name: "Dansk", m: ["Januar", "Februar", "Marts", "April", "Maj", "Juni", "Juli", "August", "September", "Oktober", "November", "December"],
+      d: ["Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag", "Lørdag", "Søndag"], s: ["Man", "Tirs", "Ons", "Tors", "Fre", "Lør", "Søn"],
+      day: (d, m) => `${d}. ${m.toLowerCase()}`, notes: "Noter", year: "Årsoversigt", todo: "Opgaver denne uge", weekof: "Uge fra", habit: "Vaner", done: "I alt" },
+    nb: { name: "Norsk bokmål", m: ["Januar", "Februar", "Mars", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Desember"],
+      d: ["Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag", "Lørdag", "Søndag"], s: ["Man", "Tir", "Ons", "Tor", "Fre", "Lør", "Søn"],
+      day: (d, m) => `${d}. ${m.toLowerCase()}`, notes: "Notater", year: "Årsoversikt", todo: "Gjøremål denne uken", weekof: "Uke fra", habit: "Vaner", done: "Totalt" }
+  };
+  const L = o => LANG[o && o.lang] || LANG.en;
 
   /* ------------------------------------------------------------ drawing helpers */
   function Page(o) {
@@ -69,7 +103,7 @@
   const addDays = (d, n) => new Date(d.getTime() + n * 864e5);
   const dowIdx = (d, ws) => (d.getUTCDay() + 7 - (ws === "sun" ? 0 : 1)) % 7; // 0 = first column
   const isoWeek = d => { const t = D(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()); const day = (t.getUTCDay() + 6) % 7; t.setUTCDate(t.getUTCDate() - day + 3); const f = D(t.getUTCFullYear(), 0, 4); return 1 + Math.round(((t - f) / 864e5 - 3 + ((f.getUTCDay() + 6) % 7)) / 7); };
-  const dowNames = ws => ws === "sun" ? [DOW[6], ...DOW.slice(0, 6)] : DOW;
+  const dowNames = (ws, s = DOW) => ws === "sun" ? [s[6], ...s.slice(0, 6)] : s;
   const parseDate = s => { const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s || ""); return m ? D(+m[1], +m[2] - 1, +m[3]) : null; };
   const fmtDay = d => `${DOWL[(d.getUTCDay() + 6) % 7]}, ${MONTHS[d.getUTCMonth()]} ${d.getUTCDate()}, ${d.getUTCFullYear()}`;
   const thisYear = new Date().getFullYear();
@@ -78,6 +112,7 @@
 
   /* ------------------------------------------------------------ common options */
   // US Letter + Sunday start for visitors from the US and Canada, A4 + Monday elsewhere (saved or linked settings still win)
+  const navLang = (() => { try { const c = String((typeof navigator !== "undefined" && navigator.language) || "").slice(0, 2).toLowerCase(); return c === "no" ? "nb" : (LANG[c] ? c : "en"); } catch { return "en"; } })();
   const NA = (() => { try { return /^(en-us|en-ca|es-us|fr-ca)$/i.test((typeof navigator !== "undefined" && navigator.language) || ""); } catch { return false; } })();
   const O = {
     paper: (def = NA ? "letter" : "a4") => ({ k: "paper", label: "Paper size", type: "select", def, options: [["a4", "A4 (210 × 297 mm)"], ["letter", "US Letter (8.5 × 11 in)"], ["a5", "A5 (148 × 210 mm)"], ["half", "Half Letter (5.5 × 8.5 in)"]] }),
@@ -89,6 +124,7 @@
     weekstart: () => ({ k: "ws", label: "Week starts on", type: "seg", def: NA ? "sun" : "mon", options: [["mon", "Monday"], ["sun", "Sunday"]] }),
     year: (def = thisYear) => ({ k: "year", label: "Year", type: "number", def, min: 1900, max: 2100 }),
     month: (allowAll = true) => ({ k: "month", label: "Month", type: "select", def: String(new Date().getMonth()), options: [...(allowAll ? [["all", "All 12 months (12 pages)"]] : []), ...MONTHS.map((m, i) => [String(i), m])] }),
+    lang: () => ({ k: "lang", label: "Language of months and weekdays", type: "select", def: navLang, options: Object.keys(LANG).map(k => [k, LANG[k].name]) }),
     brand: () => ({ k: "brand", label: "Small site credit in footer", type: "check", def: true })
   };
 
@@ -156,17 +192,17 @@
   };
 
   T["monthly-calendar"] = {
-    opts: [O.year(), O.month(true), O.weekstart(), O.paper(), O.orient("landscape"), { k: "weeks", label: "Show week numbers", type: "check", def: true },
+    opts: [O.year(), O.month(true), O.weekstart(), O.paper(), O.orient("landscape"), O.lang(), { k: "weeks", label: "Show week numbers", type: "check", def: true },
       { k: "notes", label: "Notes column", type: "check", def: true }, O.accent(), O.font(), O.brand()],
     pages(o) {
       const months = o.month === "all" ? [...Array(12).keys()] : [+o.month || 0], y = +o.year || thisYear;
       return months.map(mi => {
-        const P = Page(o), top = P.title(MONTHS[mi], String(y));
+        const P = Page(o), lg = L(o), top = P.title(lg.m[mi], String(y));
         const notesW = o.notes ? (P.w > P.h ? 52 : 0) : 0;
         const gx = P.x0 + (o.weeks ? 7 : 0), gw = P.x1 - gx - (notesW ? notesW + 5 : 0);
         const first = D(y, mi, 1), lead = dowIdx(first, o.ws), days = new Date(Date.UTC(y, mi + 1, 0)).getUTCDate();
         const rowsN = Math.ceil((lead + days) / 7), hy = top + 2, cw = gw / 7, rh = (P.y1 - hy - 7 - (o.notes && !notesW ? 30 : 0)) / rowsN;
-        dowNames(o.ws).forEach((n, i) => { P.rect(gx + i * cw, hy, cw, 6, { fill: P.accent, stroke: P.accent, lw: 0.1 }); P.text(gx + i * cw + cw / 2, hy + 4.2, n.toUpperCase(), { size: 7.5, c: "#fff", bold: true, align: "center" }); });
+        dowNames(o.ws, lg.s).forEach((n, i) => { P.rect(gx + i * cw, hy, cw, 6, { fill: P.accent, stroke: P.accent, lw: 0.1 }); P.text(gx + i * cw + cw / 2, hy + 4.2, n.toUpperCase(), { size: 7.5, c: "#fff", bold: true, align: "center" }); });
         for (let r = 0; r < rowsN; r++) for (let c = 0; c < 7; c++) {
           const idx = r * 7 + c - lead + 1, x = gx + c * cw, yy = hy + 6 + r * rh;
           const we = (o.ws === "sun" ? (c === 0 || c === 6) : c >= 5);
@@ -174,22 +210,22 @@
           if (idx >= 1 && idx <= days) P.text(x + 2, yy + 5, idx, { size: 10, bold: true, c: we ? P.accent : "#2B2B2B" });
           if (o.weeks && c === 0) { const rowStart = addDays(first, r * 7 - lead); P.text(P.x0 + 2.5, yy + 5, isoWeek(addDays(rowStart, o.ws === "sun" ? 1 : 0)), { size: 6.5, c: "#A0A6AF", align: "center" }); }
         }
-        if (notesW) { const nx = P.x1 - notesW; P.box(nx, hy, notesW, P.y1 - hy - 1, "Notes"); P.rules(nx + 3, hy + 6, notesW - 6, P.y1 - 4, 7); }
-        else if (o.notes) { const ny = hy + 6 + rowsN * rh + 4; P.box(P.x0, ny, P.x1 - P.x0, P.y1 - ny - 1, "Notes"); P.rules(P.x0 + 3, ny + 6, P.x1 - P.x0 - 6, P.y1 - 4, 7); }
+        if (notesW) { const nx = P.x1 - notesW; P.box(nx, hy, notesW, P.y1 - hy - 1, lg.notes); P.rules(nx + 3, hy + 6, notesW - 6, P.y1 - 4, 7); }
+        else if (o.notes) { const ny = hy + 6 + rowsN * rh + 4; P.box(P.x0, ny, P.x1 - P.x0, P.y1 - ny - 1, lg.notes); P.rules(P.x0 + 3, ny + 6, P.x1 - P.x0 - 6, P.y1 - 4, 7); }
         P.footer(); return P.ops;
       });
     }
   };
 
   T["yearly-calendar"] = {
-    opts: [O.year(new Date().getMonth() >= 9 ? thisYear + 1 : thisYear), O.weekstart(), O.paper(), O.orient("portrait"), { k: "fill", label: "Shade weekends", type: "check", def: true }, O.accent(), O.font(), O.brand()],
+    opts: [O.year(new Date().getMonth() >= 9 ? thisYear + 1 : thisYear), O.weekstart(), O.paper(), O.orient("portrait"), O.lang(), { k: "fill", label: "Shade weekends", type: "check", def: true }, O.accent(), O.font(), O.brand()],
     pages(o) {
-      const P = Page(o), y = +o.year || thisYear, top = P.title(String(y), "Year at a glance");
+      const P = Page(o), lg = L(o), y = +o.year || thisYear, top = P.title(String(y), lg.year);
       const cols = P.w > P.h ? 4 : 3, rows = 12 / cols, gapX = 6, gapY = 5;
-      const bw = (P.x1 - P.x0 - gapX * (cols - 1)) / cols, bh = (P.y1 - top - gapY * (rows - 1)) / rows, names = dowNames(o.ws);
+      const bw = (P.x1 - P.x0 - gapX * (cols - 1)) / cols, bh = (P.y1 - top - gapY * (rows - 1)) / rows, names = dowNames(o.ws, lg.s);
       for (let mi = 0; mi < 12; mi++) {
         const bx = P.x0 + (mi % cols) * (bw + gapX), by = top + Math.floor(mi / cols) * (bh + gapY), cw = bw / 7, ch = (bh - 12) / 6;
-        P.text(bx, by + 4.5, MONTHS[mi].toUpperCase(), { size: 8.5, bold: true, c: P.accent });
+        P.text(bx, by + 4.5, lg.m[mi].toUpperCase(), { size: 8.5, bold: true, c: P.accent });
         names.forEach((n, i) => P.text(bx + i * cw + cw / 2, by + 9.5, n[0], { size: 6.5, c: "#8A93A0", align: "center", bold: true }));
         const lead = dowIdx(D(y, mi, 1), o.ws), days = new Date(Date.UTC(y, mi + 1, 0)).getUTCDate();
         for (let d = 1; d <= days; d++) {
@@ -204,10 +240,12 @@
 
   T["weekly-planner"] = {
     opts: [{ k: "start", label: "Week starting (leave empty for undated)", type: "date", def: iso(nextMonday()) }, O.paper(), O.orient("landscape"),
-      { k: "todo", label: "To-do column", type: "check", def: true }, { k: "lines", label: "Writing lines in day boxes", type: "check", def: true }, O.title("Weekly plan"), O.accent(), O.font(), O.brand()],
+      { k: "todo", label: "To-do column", type: "check", def: true }, { k: "lines", label: "Writing lines in day boxes", type: "check", def: true }, O.title("Weekly plan"), O.lang(), O.accent(), O.font(), O.brand()],
     pages(o) {
-      const P = Page({ ...o, lines: "light" }), start = parseDate(o.start);
-      const sub = start ? `${MONTHS[start.getUTCMonth()].slice(0, 3)} ${start.getUTCDate()} – ${(e => `${MONTHS[e.getUTCMonth()].slice(0, 3)} ${e.getUTCDate()}, ${e.getUTCFullYear()}`)(addDays(start, 6))}` : "Week of ____________";
+      const P = Page({ ...o, lines: "light" }), start = parseDate(o.start), lg = L(o), end = start && addDays(start, 6);
+      const sub = !start ? `${lg.weekof} ____________`
+        : lg.day ? `${lg.day(start.getUTCDate(), lg.m[start.getUTCMonth()])} – ${lg.day(end.getUTCDate(), lg.m[end.getUTCMonth()])} ${end.getUTCFullYear()}`
+        : `${MONTHS[start.getUTCMonth()].slice(0, 3)} ${start.getUTCDate()} – ${MONTHS[end.getUTCMonth()].slice(0, 3)} ${end.getUTCDate()}, ${end.getUTCFullYear()}`;
       const top = P.title(o.title, sub), land = P.w > P.h, side = o.todo ? (land ? 60 : 0) : 0;
       const gx = P.x0, gw = P.x1 - P.x0 - (side ? side + 5 : 0), gap = 4;
       const cols = land ? 4 : 2, rows = 2 + (land ? 0 : 2), bw = (gw - gap * (cols - 1)) / cols, bottom = P.y1 - (o.todo && !side ? 46 : 0);
@@ -215,13 +253,13 @@
       const cells = []; for (let i = 0; i < 7; i++) cells.push(i); cells.push("notes");
       cells.forEach((c, i) => {
         const x = gx + (i % cols) * (bw + gap), y = top + Math.floor(i / cols) * (bh + gap);
-        const lbl = c === "notes" ? "Notes" : (start ? `${DOWL[(addDays(start, c).getUTCDay() + 6) % 7]} ${addDays(start, c).getUTCDate()}` : DOWL[c]);
+        const lbl = c === "notes" ? lg.notes : (start ? `${lg.d[(addDays(start, c).getUTCDay() + 6) % 7]} ${addDays(start, c).getUTCDate()}` : lg.d[c]);
         P.box(x, y, bw, bh, lbl, { fill: c === 5 || c === 6 ? "#FBF8F3" : null });
         if (o.lines) P.rules(x + 3, y + 7, bw - 6, y + bh - 2, 6.5);
       });
       if (o.todo) {
         const x = side ? P.x1 - side : P.x0, y = side ? top : bottom + gap, w = side || (P.x1 - P.x0), h = side ? P.y1 - top : P.y1 - y;
-        P.box(x, y, w, h, "To do this week");
+        P.box(x, y, w, h, lg.todo);
         for (let yy = y + 10; yy < y + h - 4; yy += 7) { P.check(x + 3, yy - 2.8); P.line(x + 8.5, yy + 0.4, x + w - 3, yy + 0.4); }
       }
       P.footer(); return [P.ops];
@@ -256,17 +294,17 @@
 
   T["habit-tracker"] = {
     opts: [O.year(), O.month(true), { k: "habits", label: "Habits (one per line, up to 15)", type: "textarea", def: "Read 20 pages\nWalk 8,000 steps\nNo phone after 10 pm\nDrink water\nStretch\nJournal\nLearn something new" },
-      { k: "rows", label: "Extra empty rows", type: "number", def: 3, min: 0, max: 10 }, O.paper(), O.orient("landscape"), O.accent(), O.font(), O.brand()],
+      { k: "rows", label: "Extra empty rows", type: "number", def: 3, min: 0, max: 10 }, O.paper(), O.orient("landscape"), O.lang(), O.accent(), O.font(), O.brand()],
     pages(o) {
-      const months = o.month === "all" ? [...Array(12).keys()] : [+o.month || 0], y = +o.year || thisYear;
+      const months = o.month === "all" ? [...Array(12).keys()] : [+o.month || 0], y = +o.year || thisYear, lg = L(o);
       const list = String(o.habits || "").split("\n").map(s => s.trim()).filter(Boolean).slice(0, 15);
       const n = Math.min(24, list.length + Math.max(0, Math.min(24, +o.rows || 0)));
       return months.map(mi => {
-        const P = Page({ ...o, lines: "light" }), top = P.title("Habit tracker", `${MONTHS[mi]} ${y}`), days = new Date(Date.UTC(y, mi + 1, 0)).getUTCDate();
+        const P = Page({ ...o, lines: "light" }), top = P.title(lg.habit, `${lg.m[mi]} ${y}`), days = new Date(Date.UTC(y, mi + 1, 0)).getUTCDate();
         const nameW = Math.min(62, (P.x1 - P.x0) * 0.3), cw = (P.x1 - P.x0 - nameW - 12) / days, rh = Math.min(10, (P.y1 - top - 10) / Math.max(n, 1));
         for (let d = 1; d <= days; d++) { const dt = D(y, mi, d), we = dt.getUTCDay() % 6 === 0, x = P.x0 + nameW + (d - 1) * cw;
-          P.text(x + cw / 2, top + 3, DOW[(dt.getUTCDay() + 6) % 7][0], { size: 6, c: "#9AA3AF", align: "center" }); P.text(x + cw / 2, top + 7.5, d, { size: 7, c: we ? P.accent : "#2B2B2B", align: "center", bold: true }); }
-        P.text(P.x1 - 5, top + 7.5, "DONE", { size: 5.5, c: P.accent, align: "center", bold: true });
+          P.text(x + cw / 2, top + 3, lg.s[(dt.getUTCDay() + 6) % 7][0], { size: 6, c: "#9AA3AF", align: "center" }); P.text(x + cw / 2, top + 7.5, d, { size: 7, c: we ? P.accent : "#2B2B2B", align: "center", bold: true }); }
+        P.text(P.x1 - 5, top + 7.5, lg.done.toUpperCase(), { size: 5.5, c: P.accent, align: "center", bold: true });
         for (let r = 0; r < n; r++) {
           const yy = top + 10 + r * rh;
           P.rect(P.x0, yy, P.x1 - P.x0, rh, { stroke: P.lineC, lw: 0.2, fill: r % 2 ? "#FAF8F5" : null });
@@ -353,6 +391,51 @@
         P.box(P.x0, yy, W, P.y1 - yy, "Notes & goals"); P.rules(P.x0 + 3, yy + 5, W - 6, P.y1 - 2, 6.5);
         P.footer(); return P.ops;
       });
+    }
+  };
+
+  // Print test page: a 100 mm square, mm and inch rulers, and frames at known distances from the paper edge.
+  const edgeRulerLength = margin => Math.min(10, Math.floor(margin) - 1);   // stays clear of the page content
+  T["print-test-page"] = {
+    opts: [O.paper(), { k: "inch", label: "Inch ruler", type: "check", def: true }, { k: "frames", label: "Edge rulers (find the printer's border)", type: "check", def: true }, O.brand()],
+    pages(o) {
+      const P = Page({ ...o, orient: "portrait", lines: "dark" }), ink = "#1F2430", name = (PAPER[o.paper] || PAPER.a4)[2];
+      const top = P.title("Print test page", `${name} · 100%`), W = P.x1 - P.x0;
+      // millimetre ruler
+      const len = Math.floor(W / 10) * 10; let y = top + 3;
+      P.line(P.x0, y, P.x0 + len, y, ink, 0.25);
+      for (let i = 0; i <= len; i++) { const big = i % 10 === 0, mid = i % 5 === 0; P.line(P.x0 + i, y, P.x0 + i, y + (big ? 5 : mid ? 3.5 : 2), ink, big ? 0.25 : 0.15); if (big) P.text(P.x0 + i + (i ? 0 : 0.8), y + 8.2, i, { size: 6.5, c: ink, align: i ? "center" : "left" }); }
+      P.text(P.x0 + len, y - 1.5, "mm", { size: 6.5, c: "#6B7380", align: "right" });
+      y += 13;
+      if (o.inch) {
+        const inches = Math.floor(W / 25.4), u = 25.4 / 8;
+        P.line(P.x0, y, P.x0 + inches * 25.4, y, ink, 0.25);
+        for (let i = 0; i <= inches * 8; i++) { const big = i % 8 === 0, mid = i % 4 === 0; P.line(P.x0 + i * u, y, P.x0 + i * u, y + (big ? 5 : mid ? 3.5 : 2), ink, big ? 0.25 : 0.15); if (big) P.text(P.x0 + i * u + (i ? 0 : 0.8), y + 8.2, i / 8, { size: 6.5, c: ink, align: i ? "center" : "left" }); }
+        P.text(P.x0 + inches * 25.4, y - 1.5, "in", { size: 6.5, c: "#6B7380", align: "right" });
+        y += 13;
+      }
+      // 100 mm check square with a tick every 10 mm
+      const sx = P.x0, sy = y + 2, S = 100;
+      P.rect(sx, sy, S, S, { stroke: ink, lw: 0.3 });
+      for (let i = 10; i < S; i += 10) { const t = i === 50 ? 3 : 1.8; P.line(sx + i, sy, sx + i, sy + t, ink, 0.2); P.line(sx + i, sy + S, sx + i, sy + S - t, ink, 0.2); P.line(sx, sy + i, sx + t, sy + i, ink, 0.2); P.line(sx + S, sy + i, sx + S - t, sy + i, ink, 0.2); }
+      P.text(sx + S / 2, sy + S / 2 - 3, "100 × 100 mm", { size: 13, bold: true, c: ink, align: "center" });
+      P.text(sx + S / 2, sy + S / 2 + 3, "3.937 × 3.937 in", { size: 8.5, c: "#6B7380", align: "center" });
+      P.text(sx + S / 2, sy + S / 2 + 9, "Measure across and down.", { size: 8, c: "#6B7380", align: "center" });
+      y = sy + S + 7;
+      const lines = [`1. Print on ${name} at 100% / “Actual size”.`, "2. Measure the square. 100 mm each way: the scale is right.", "3. Less? The millimeters you measure are your scale in percent:", "    94 mm = 94%. A “Fit” or “Shrink” option is still on."];
+      if (o.frames) lines.push("4. Edge rulers (middle of each side): ticks are 1 mm apart and start at the", "    paper edge. The first tick you can see is your printer's border on that side.");
+      if (o.brand !== false) lines.push("Enter your measurement at printablejoylab.com/print-test-page.html");
+      lines.forEach((t, i) => { if (y + i * 4.6 <= P.y1) P.text(P.x0, y + i * 4.6, t.replace(/[“”]/g, '"'), { size: 8, c: "#2B2B2B" }); });
+      if (o.frames) {
+        const n = edgeRulerLength(P.m), s = { size: 4.5, c: ink, align: "center" };
+        // [start x, start y, direction x, direction y] – every ruler starts on the paper edge and runs inwards
+        for (const [ex, ey, dx, dy] of [[P.w / 2, 0, 0, 1], [P.w / 2, P.h, 0, -1], [0, P.h * 0.62, 1, 0], [P.w, P.h * 0.62, -1, 0]]) {
+          P.line(ex, ey, ex + dx * n, ey + dy * n, ink, 0.15);
+          for (let i = 1; i <= n; i++) { const t = i % 5 === 0 ? 2.2 : 1.1; P.line(ex + dx * i - dy * t, ey + dy * i - dx * t, ex + dx * i + dy * t, ey + dy * i + dx * t, ink, 0.15);
+            if (i % 5 === 0) P.text(ex + dx * i + Math.abs(dy) * 4.2, ey + dy * i + Math.abs(dx) * 4.4 + (dy ? 0.6 : 0), i, s); }
+        }
+      }
+      return [P.ops];
     }
   };
 
@@ -447,10 +530,10 @@
       window.print();
     });
     $("[data-share]", root).addEventListener("click", async e => {
-      const o = readOpts(form, tpl), qs = new URLSearchParams();
-      tpl.opts.forEach(d => { const v = o[d.k]; if (String(v) !== String(d.def) || d.k === "paper" || d.k === "ws") qs.set(d.k, d.type === "check" ? (v ? "1" : "0") : v); });
+      const o = readOpts(form, tpl), qs = new URLSearchParams(), b = e.currentTarget;   // currentTarget is gone after the first await
+      tpl.opts.forEach(d => { const v = o[d.k]; if (String(v) !== String(d.def) || d.k === "paper" || d.k === "ws" || d.k === "lang") qs.set(d.k, d.type === "check" ? (v ? "1" : "0") : v); });
       const url = `${location.origin}${location.pathname}${qs.toString() ? "?" + qs : ""}`;
-      try { await navigator.clipboard.writeText(url); e.currentTarget.textContent = "Link copied ✓"; } catch { history.replaceState(null, "", url); e.currentTarget.textContent = "Link is in the address bar"; }
+      try { await navigator.clipboard.writeText(url); b.textContent = "Link copied ✓"; } catch { history.replaceState(null, "", url); b.textContent = "Link is in the address bar"; }
     });
     $("[data-reset]", root).addEventListener("click", () => { store.set(`pjl-${key}`, {}); location.href = location.pathname; });
     render();
@@ -471,7 +554,7 @@
     });
   }
 
-  window.PJL = { T, Page, toSVG, PAPER, drawInto }; // used by tests
+  window.PJL = { T, Page, toSVG, PAPER, drawInto, LANG, edgeRulerLength }; // used by tests
   const init = () => { $$("[data-lab]").forEach(initLab); thumbs(); };
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", init) : init();
 })();

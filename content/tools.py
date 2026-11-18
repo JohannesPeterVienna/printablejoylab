@@ -1,4 +1,5 @@
 """Templates: metadata and the guide text shown under each generator."""
+from content.reference import MEASURE
 
 CATS = [("paper", "Paper"), ("calendars", "Calendars"), ("planners", "Planners"), ("trackers", "Trackers & lists")]
 
@@ -192,9 +193,50 @@ TOOLS = [
         ("Is this the same grid video games use?", "Not quite. Many games use a 2:1 pixel slope of about 26.6°. This paper is true isometric with 30° lines, which is what technical drawing and most board-game maps use."),
         ("Why are the vertical lines closer together than the triangle size?", "Their spacing is the triangle height, which is the side × √3 ÷ 2 – about 4.33 mm for a 5 mm triangle. Measurements along the lines still use the full triangle side.")],
 },
+{
+"slug": "print-test-page", "cat": "paper", "name": "Print test page", "accent": "ink", "updated": "2026-11-18", "sizes_js": True,
+"teaser": "A 100 mm square and edge rulers that show your real print scale.",
+"title": "Print Test Page – Check Scale and Printer Margins (Free PDF)",
+"description": "Print one page with a 100 mm square, millimeter and inch rulers and edge rulers. Measure it, enter the result and see your real print scale and your printer's blank border.",
+"lead": "Print this page once, measure the square, and you know whether your printer keeps 5 mm at 5 mm – and how close to the edge it can print.",
+"guide": """
+<h2>What the page measures</h2>
+<p>A print dialog can shrink a page without telling you. This sheet makes the result visible with three things you can measure:</p>
+<ul><li><strong>A square of exactly 100 × 100 mm.</strong> Because it is 100 mm wide, the millimeters you measure are the print scale in percent: 94 mm means 94%.</li>
+<li><strong>A millimeter ruler and an inch ruler.</strong> Lay your own ruler next to them. If the two drift apart, the page was scaled. The rulers are 180 mm and 7 in long on A4, 190 mm and 7 in on US Letter, 130 mm and 5 in on A5, and 120 mm and 4 in on Half Letter.</li>
+<li><strong>Four edge rulers.</strong> In the middle of each side a short ruler starts exactly at the paper edge and runs 10 mm inwards (8 mm on A5 and Half Letter), with a tick every millimeter and a number at 5 and 10. Your printer cannot print the outermost part; the first tick that appears on paper is its blank border on that side.</li></ul>
+<h2 id="check">Enter what you measured</h2>
+<p>Measure the printed square from the middle of one line to the middle of the opposite line, once across and once down, and type both numbers in. The check tells you the scale, what a 5 mm grid turns into, and which print setting produces exactly this result.</p>
+@@MEASURE@@
+<p>Nothing you type here is sent anywhere; the result is calculated in your browser. If you copy the link, your two numbers are part of it.</p>
+<h2>What typical results mean</h2>
+<p>All values are calculated from the paper sizes; they are not measurements of a particular printer.</p>
+<div class="table-wrap"><table><thead><tr><th>Square measures</th><th>Scale</th><th>A 5 mm grid prints as</th><th>What produces it</th></tr></thead><tbody>
+<tr><td>100 mm</td><td>100%</td><td>5.00 mm</td><td>100% / “Actual size” on matching paper</td></tr>
+<tr><td>97.3 mm</td><td>97.3%</td><td>4.86 mm</td><td>A US Letter page fitted onto A4 (210 ÷ 215.9)</td></tr>
+<tr><td>96.2 mm</td><td>96.2%</td><td>4.81 mm</td><td>An A4 page fitted inside a 4 mm border on A4 (202 ÷ 210)</td></tr>
+<tr><td>94.1 mm</td><td>94.1%</td><td>4.70 mm</td><td>An A4 page fitted onto US Letter (279.4 ÷ 297)</td></tr>
+<tr><td>70.5 mm</td><td>70.5%</td><td>3.52 mm</td><td>An A4 page fitted onto A5 (148 ÷ 210)</td></tr>
+</tbody></table></div>
+<p>For any other pair of page and paper, the <a href="/paper-sizes.html#scale">print scale calculator</a> does the same arithmetic with 81 paper sizes.</p>
+<h2>How to read the edge rulers</h2>
+<ol><li>Look at the ruler in the middle of the top edge. Find the tick with the number 5 and count back towards the edge until the ticks stop.</li>
+<li>If the last visible tick is the third one from the edge, the printer leaves 3 mm blank at the top.</li>
+<li>Repeat on the other three sides. Many printers have one side with a wider border than the others, so check all four.</li>
+<li>Compare with our templates: grids, boxes and text keep 12 mm from the edge on A4 and US Letter and 9 mm on A5 and Half Letter. If all your borders are smaller than that, every template prints completely at 100%.</li></ol>
+<p>If a ruler is missing entirely, the border on that side is wider than the ruler is long. In that case choose a larger paper size or check whether the printer is set to a different paper than the one in the tray.</p>
+<h2>When to print it again</h2>
+<p>The result belongs to one combination of program, printer and paper tray. Print the page again after you switch to another browser or PDF viewer, another printer or another paper size, and before a large print run such as a full year of calendar pages.</p>
+""",
+"faq": [("Why is the square 100 mm and not 10 cm or 4 inches?", "It is the same length as 10 cm. With 100 mm the number you read on the ruler is the scale in percent without any calculation. The inch ruler on the page serves rulers without millimeters."),
+        ("The square is 100 mm across but not down. What now?", "A scale setting changes both directions by the same factor, so measure again first. If the difference stays above 1 mm, it does not come from a scaling option in the print dialog."),
+        ("Can I switch the rulers off?", "Yes. Both the inch ruler and the edge rulers have their own checkbox. The 100 mm square and the millimeter ruler are always printed."),
+        ("Does the page work in landscape?", "The page is always portrait. A scale setting applies to the whole sheet, so the result also holds for landscape pages printed with the same settings."),
+        ("Which paper sizes can I test?", "A4, US Letter, A5 and Half Letter – the four sizes in which every template on this site is made.")],
+},
 # ------------------------------------------------------------------ CALENDARS
 {
-"slug": "monthly-calendar", "cat": "calendars", "name": "Monthly calendar", "accent": "tomato",
+"slug": "monthly-calendar", "updated": "2026-11-18", "cat": "calendars", "name": "Monthly calendar", "accent": "tomato",
 "teaser": "Any month, any year – or all twelve in one PDF.",
 "title": "Printable Monthly Calendar 2027 – Any Month, Monday or Sunday Start",
 "description": "Make a free printable monthly calendar for any month and year, starting Monday or Sunday, with week numbers and notes. Download one month or all 12 as PDF.",
@@ -240,10 +282,11 @@ TOOLS = [
         ("Why does my calendar show week 53?", "Some years have 53 ISO weeks. 2026 is one of them, so its last week continues into the first days of January 2027."),
         ("Why does February 2027 have only four rows?", "February 1, 2027 is a Monday and the month has 28 days, so with a Monday start it fills exactly four weeks. With a Sunday start, February 1 is the second column and the month spills into a fifth row."),
         ("Which accent color is best for a black-and-white printer?", "Ink or mono. The weekday bar is filled with the accent color behind white text, and dark accents keep that text readable when printed in grayscale."),
-        ("How much can I write in a day box?", "On A4 or US Letter, two or three short entries in most months. Six-row months have the smallest boxes; if a month is busy, print it in portrait for taller boxes.")],
+        ("How much can I write in a day box?", "On A4 or US Letter, two or three short entries in most months. Six-row months have the smallest boxes; if a month is busy, print it in portrait for taller boxes."),
+        ("Can I print it in another language?", "Yes. “Language of months and weekdays” offers English, German, French, Spanish, Italian, Portuguese, Dutch, Swedish, Danish and Norwegian. The month name, the weekday bar and the “Notes” label change.")],
 },
 {
-"slug": "yearly-calendar", "cat": "calendars", "name": "Yearly calendar", "accent": "sand",
+"slug": "yearly-calendar", "updated": "2026-11-18", "cat": "calendars", "name": "Yearly calendar", "accent": "sand",
 "teaser": "All twelve months on one page – year at a glance.",
 "title": "Printable Yearly Calendar 2027 – Year at a Glance on One Page",
 "description": "Free printable year-at-a-glance calendar for 2027 or any year: all 12 months on one page, Monday or Sunday start, weekends shaded. A4, Letter or A5 PDF.",
@@ -288,11 +331,12 @@ TOOLS = [
         ("Is there space to write on it?", "Only small marks and colors fit into the day cells. For appointments with text, combine it with monthly or weekly pages."),
         ("How do I print it as a large wall planner?", "Print the PDF on A3 (from A4) at 141% or on Tabloid (from US Letter) at about 129%, at a copy shop or on a large-format printer. The vector PDF stays sharp at any size."),
         ("Which paper size is still easy to read?", "A4 and US Letter in either orientation, with 8 pt day numbers. On A5 and Half Letter, choose portrait; landscape makes the numbers very small."),
-        ("Does the yearly calendar show holidays?", "No. Mark them yourself with a colored dot; the US federal holidays for 2027 are listed in our 2027 calendar guide.")],
+        ("Does the yearly calendar show holidays?", "No. Mark them yourself with a colored dot; the US federal holidays for 2027 are listed in our 2027 calendar guide."),
+        ("Can I print it in another language?", "Yes. “Language of months and weekdays” offers English, German, French, Spanish, Italian, Portuguese, Dutch, Swedish, Danish and Norwegian. The twelve month names, the weekday initials and the “Year at a glance” line change.")],
 },
 # ------------------------------------------------------------------ PLANNERS
 {
-"slug": "weekly-planner", "cat": "planners", "name": "Weekly planner", "accent": "teal",
+"slug": "weekly-planner", "updated": "2026-11-18", "cat": "planners", "name": "Weekly planner", "accent": "teal",
 "teaser": "Seven days, notes and a to-do column – dated or undated.",
 "title": "Printable Weekly Planner – Dated or Undated, Free PDF",
 "description": "Create a free printable weekly planner: dated or undated, landscape or portrait, with to-do list, notes and writing lines. A4, Letter or A5 PDF.",
@@ -339,7 +383,8 @@ TOOLS = [
         ("Can I remove the to-do list?", "Untick “To-do column” and the day boxes use the full width or height of the page."),
         ("What is the eighth box for?", "It is labeled Notes and holds everything that belongs to the week but not to a day: phone numbers, a shopping item, ideas or a quote for the week."),
         ("How many lines are in each day box?", "On A4 landscape ten, on US Letter landscape eleven, and fewer on small or portrait pages – see the table above. The lines are 6.5 mm apart."),
-        ("Which setting gives the most writing room per day?", "US Letter or A4 in landscape with the to-do column switched off: each day box is then about 61–65 mm wide and 80 mm tall.")],
+        ("Which setting gives the most writing room per day?", "US Letter or A4 in landscape with the to-do column switched off: each day box is then about 61–65 mm wide and 80 mm tall."),
+        ("Can I print it in another language?", "Yes. “Language of months and weekdays” offers English, German, French, Spanish, Italian, Portuguese, Dutch, Swedish, Danish and Norwegian. The weekday names, the date range and the labels of the notes box and the to-do list change; a title you typed yourself stays as it is.")],
 },
 {
 "slug": "daily-planner", "cat": "planners", "name": "Daily planner", "accent": "tomato",
@@ -389,7 +434,7 @@ TOOLS = [
 },
 # ------------------------------------------------------------------ TRACKERS & LISTS
 {
-"slug": "habit-tracker", "cat": "trackers", "name": "Habit tracker", "accent": "olive",
+"slug": "habit-tracker", "updated": "2026-11-18", "cat": "trackers", "name": "Habit tracker", "accent": "olive",
 "teaser": "Your habits, every day of the month – tick and keep the streak.",
 "title": "Printable Habit Tracker – Monthly, Customizable (Free PDF)",
 "description": "Free printable monthly habit tracker: type your own habits, choose month and year, download one month or a whole year as PDF. A4, Letter, A5.",
@@ -404,7 +449,16 @@ TOOLS = [
 <li>Pick the paper size, landscape or portrait, an accent color and the title style.</li></ol>
 <p>Landscape gives the 28–31 day columns more width and is the better choice for most people; portrait suits a narrow spot on a door or a binder.</p>
 <h2>Write habits you can tick</h2>
-<p>A row only works if the answer each evening is a clear yes or no. “Read more” never gets a tick; “Read 10 pages” does. Add the trigger in brackets if it helps – “Stretch (after coffee)”. Our article <a href="/habit-tracker-ideas.html">habit tracker ideas that actually stick</a> has a table of vague goals rewritten as trackable rows, and explains why research does not support the popular “21 days” rule: in the best-known study, forming a habit took a median of 66 days.</p>
+<p>A row only works if the answer each evening is a clear yes or no. “Read more” never gets a tick; “Read 10 pages” does. Add the trigger in brackets if it helps – “Stretch (after coffee)”. The table turns common vague goals into rows that pass this test.</p>
+<div class="table-wrap"><table><thead><tr><th>Vague goal</th><th>Row you can tick</th><th>Trigger</th></tr></thead><tbody>
+<tr><td>Read more</td><td>Read 10 pages</td><td>After brushing teeth at night</td></tr>
+<tr><td>Exercise</td><td>Walk 20 minutes</td><td>Right after lunch</td></tr>
+<tr><td>Drink more water</td><td>Glass of water with each meal</td><td>Sitting down to eat</td></tr>
+<tr><td>Less phone</td><td>Phone out of the bedroom by 10 pm</td><td>Charging it in the kitchen</td></tr>
+<tr><td>Learn Spanish</td><td>One 10-minute lesson</td><td>With the first coffee</td></tr>
+<tr><td>Sleep better</td><td>In bed by 11 pm</td><td>Alarm at 10:30 pm</td></tr>
+</tbody></table></div>
+<p><a href="/habit-tracker.html?habits=Read+10+pages%0AWalk+20+minutes%0AGlass+of+water+with+each+meal%0APhone+out+of+the+bedroom+by+10+pm%0AOne+10-minute+lesson%0AIn+bed+by+11+pm&amp;rows=2">Load these six rows into the tracker</a> and edit them to fit your day. How long does it take until a row feels automatic? In a study with 96 volunteers who repeated a self-chosen daily behavior, the time to reach a stable level of automaticity ranged from 18 to 254 days, and missing a single day did not materially affect the process (Lally, van Jaarsveld, Potts &amp; Wardle, 2010, European Journal of Social Psychology 40(6), <a href="https://doi.org/10.1002/ejsp.674" rel="noopener">doi.org/10.1002/ejsp.674</a>; abstract read on 18 November 2026). Plan for several monthly pages per habit, not one.</p>
 <h2>A filled example: January with five habits</h2>
 <p>A tracker for January 2027 lists: Read 10 pages, Walk 20 minutes, Phone in kitchen by 10 pm, Spanish lesson, Floss – plus three empty rows. Each evening the owner fills in the circles while setting the alarm. By the end of the month, the “Read” row has 25 filled circles out of 31, “Walk” has 17, and the gaps in the walking row cluster on Saturdays and Sundays. The “Done” boxes get the numbers, and a note at the bottom of the page records the decision for February: arrange the weekend walks with a friend, keep the rest.</p>
 <h2>Tips for a tracker that sticks</h2>
@@ -437,7 +491,8 @@ TOOLS = [
         ("Can I track numbers, like hours of sleep?", "Yes – write the number inside the circle instead of filling it in. Keep such rows to one or two, as they take longer to fill in."),
         ("How big are the circles?", "About 3.9 mm on A4 landscape and 3.5 mm on US Letter landscape in a 31-day month. In portrait they shrink to about 2.3 mm, which is why landscape is the better choice for most people."),
         ("Can I use it as a chore chart for several children?", "Yes. Type one line per child and chore, such as “Ben – feed the cat”. Each row gets its own circles and its own “Done” count for the month."),
-        ("Does the tracker follow a Monday or Sunday week?", "Neither: the columns are simply the days of the month from 1 to 28–31. The weekday letter above each date shows where the weekends fall.")],
+        ("Does the tracker follow a Monday or Sunday week?", "Neither: the columns are simply the days of the month from 1 to 28–31. The weekday letter above each date shows where the weekends fall."),
+        ("Can I print it in another language?", "Yes. “Language of months and weekdays” offers English, German, French, Spanish, Italian, Portuguese, Dutch, Swedish, Danish and Norwegian. The page title, the month name, the weekday initials and the total column change; your own habit names are printed exactly as you typed them.")],
 },
 {
 "slug": "checklist", "cat": "trackers", "name": "Checklist & to-do list", "accent": "ink",
@@ -579,4 +634,5 @@ TOOLS = [
 },
 ]
 
+for _t in TOOLS: _t["guide"] = _t["guide"].replace("@@MEASURE@@", MEASURE)
 BY = {t["slug"]: t for t in TOOLS}

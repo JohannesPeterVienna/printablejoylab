@@ -225,3 +225,28 @@ ins.adsbygoogle[data-ad-status="unfilled"]{display:none!important}
 .tally-title{padding-right:28px}
 body.tally-open{padding-bottom:var(--tally-room,0)}
 @media (max-width:480px){.tally{padding:0 8px 8px}.tally-sheet{grid-template-columns:minmax(0,1fr);padding:14px 14px 12px}.tally-marks,.tally-kicker{display:none}.tally-title{font-size:1.4rem}.tally-text,.tally-now{font-size:.88rem;line-height:1.5}.tally-pick{min-height:44px}}
+
+/* Home: the generator comes first */
+.home-head{padding:34px 0 4px}.home-head h1{font-size:clamp(2.2rem,5vw,3.6rem)}
+.home-chips{margin:14px auto 34px}
+/* Calculators, example chips and the paper size table */
+.chips{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:14px 0;font-size:.85rem;color:var(--muted);font-weight:700}
+.chips button,.chips a{font:600 .85rem var(--sans);border:1.5px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:8px 13px;min-height:38px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center}
+.chips button:hover,.chips a:hover{border-color:var(--ink)}
+.calc{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px;margin:0 0 1.2em}
+.calc form,.filter{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:14px}
+.calc [hidden]{display:none}
+.calc-result{display:grid;grid-template-columns:minmax(0,1fr) 170px;gap:18px;align-items:start;border-top:1px solid var(--line);padding-top:14px}
+.calc-out{min-width:0}.calc-out p:last-child{margin-bottom:0}.calc-out ul{margin:0 0 1em}
+[data-measure] .calc-out{border-top:1px solid var(--line);padding-top:14px}
+.calc-big strong{font:400 2rem var(--serif);margin-right:4px}
+.calc-fig svg{width:100%;height:auto;display:block}
+.fig-sheet{fill:var(--soft);stroke:var(--muted);stroke-width:1}.fig-area{fill:none;stroke:var(--muted);stroke-width:.8;stroke-dasharray:3 3}.fig-page{fill:rgba(217,74,51,.14);stroke:var(--tomato);stroke-width:1.3}
+.fig-b{fill:rgba(20,20,20,.05);stroke:var(--ink);stroke-width:1.3}.fig-t{fill:var(--ink);font:600 9px var(--sans)}.fig-tm{fill:var(--muted);font:500 8px var(--sans)}
+@media (prefers-color-scheme:dark){.fig-b{fill:rgba(255,255,255,.06)}}
+.calc-actions,.filter-actions{display:flex;gap:8px 18px;flex-wrap:wrap;font-size:.88rem;color:var(--muted);margin:12px 0 0}
+.filter{margin:0 0 6px;align-items:end}.filter-actions{margin:0 0 6px}
+table.sizes th,table.sizes td{white-space:nowrap}table.sizes code{font-size:.8rem}
+tr[hidden]{display:none}
+figure.figure{margin:0 0 1.2em}figure.figure svg{width:100%;max-width:420px;height:auto;display:block}figure.figure figcaption{font-size:.875rem;color:var(--muted);margin-top:6px}
+@media (max-width:640px){.calc-result{grid-template-columns:minmax(0,1fr)}.calc-fig{max-width:150px}}

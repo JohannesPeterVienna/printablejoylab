@@ -7,7 +7,7 @@ Each guide: concrete numbers, a worked example, an FAQ and a sources section (st
 ARTICLES = [
 {
 "slug": "print-at-actual-size",
-"published": "2026-10-29", "modified": "2026-11-03",
+"published": "2026-10-29", "modified": "2026-11-18",
 "title": "How to print at actual size (and why your grid comes out wrong)",
 "teaser": "A4 vs US Letter, “Fit to page” and the settings that keep 5 mm at 5 mm.",
 "description": "Why printed grids and calendars come out slightly too small, how A4 and US Letter differ, what “Fit” does in numbers, and the exact print settings for Windows, Mac, Acrobat, iPhone and Android.",
@@ -22,7 +22,7 @@ ARTICLES = [
 <p>Both are solved in the same two steps: generate the template in the paper size you really have, and print at 100%.</p>
 
 <h2>A4 and US Letter in numbers</h2>
-<p>A4 belongs to the international A series defined in ISO 216. US Letter is the North American standard size, listed as size A in ANSI/ASME Y14.1. They look similar, but they are different shapes:</p>
+<p>A4 belongs to the international A series (ISO 216). US Letter is the North American office size; the Printer Working Group's media list also carries it under the aliases “a” and “engineering-a”. They look similar, but they are different shapes:</p>
 <div class="table-wrap"><table>
 <thead><tr><th>Size</th><th>Millimeters</th><th>Inches</th><th>Where it is standard</th></tr></thead>
 <tbody>
@@ -31,7 +31,13 @@ ARTICLES = [
 <tr><td>A5</td><td>148 × 210</td><td>5.83 × 8.27</td><td>Half of A4; common planner and notebook size</td></tr>
 <tr><td>Half Letter</td><td>139.7 × 215.9</td><td>5.5 × 8.5</td><td>Half of Letter; US planner inserts</td></tr>
 </tbody></table></div>
-<p>US Letter is 5.9 mm wider than A4 but 17.6 mm shorter. That height difference is why an A4 calendar printed on Letter paper loses its bottom edge, or gets shrunk. Every template on this site lets you choose A4, US Letter, A5 or Half Letter, so the PDF can match the sheet before you even open the print dialog.</p>
+<p>US Letter is 5.9 mm wider than A4 but 17.6 mm shorter. That height difference is why an A4 calendar printed on Letter paper loses its bottom edge, or gets shrunk. Every template on this site lets you choose A4, US Letter, A5 or Half Letter, so the PDF can match the sheet before you even open the print dialog. Sizes beyond these four – Legal, A3, B5, envelopes and more – are in our <a href="/paper-sizes.html#table">paper size reference</a>.</p>
+<figure class="figure"><svg viewBox="0 0 340 176" role="img" aria-label="A4 and US Letter drawn to the same scale with their top left corners aligned">
+<rect x="10" y="12" width="105" height="148.5" class="fig-page"/><rect x="10" y="12" width="107.95" height="139.7" class="fig-b"/>
+<text x="132" y="30" class="fig-t">A4 (red): 210 × 297 mm</text><text x="132" y="46" class="fig-t">US Letter (black): 215.9 × 279.4 mm</text>
+<text x="132" y="70" class="fig-tm">Letter is 5.9 mm wider</text><text x="132" y="83" class="fig-tm">and 17.6 mm shorter.</text>
+<text x="132" y="159" class="fig-tm">← 17.6 mm of an A4 page do not fit on Letter</text>
+</svg><figcaption>A4 and US Letter drawn to the same scale, top left corners aligned. The strip at the bottom is what gets cut off – or what “Fit” removes by shrinking the whole page to 94.1%.</figcaption></figure>
 
 <h2>What “Fit” does to your page</h2>
 <p>Scaling is simple arithmetic: the program divides the available width and height by the page width and height and uses the smaller ratio. The table shows typical results for a page that contains a 5 mm grid.</p>
@@ -43,7 +49,8 @@ ARTICLES = [
 <tr><td>US Letter PDF fitted onto A4 (210 ÷ 215.9)</td><td>about 97%</td><td>about 4.86 mm</td><td>about 9.7 cm</td></tr>
 <tr><td>Matching A4, fitted inside a 4 mm border on every side (202 ÷ 210)</td><td>about 96%</td><td>about 4.81 mm</td><td>about 9.6 cm</td></tr>
 </tbody></table></div>
-<p>The last row is the sneaky one: even with the correct paper, “Fit to printable area” shrinks the page because the printer cannot reach the outermost few millimeters. The real border depends on the printer model.</p>
+<p>The last row is the sneaky one: even with the correct paper, “Fit to printable area” shrinks the page because the printer cannot reach the outermost few millimeters. The real border depends on the printer model; the 4 mm in the table is an example.</p>
+<p><strong>Try it with your own values.</strong> These links open the print scale calculator with the rows of the table: <a href="/paper-sizes.html?doc=iso_a4_210x297mm&amp;sheet=na_letter_8.5x11in&amp;mode=fit&amp;border=0&amp;feature=5#scale">A4 page on US Letter</a>, <a href="/paper-sizes.html?doc=na_letter_8.5x11in&amp;sheet=iso_a4_210x297mm&amp;mode=fit&amp;border=0&amp;feature=5#scale">US Letter page on A4</a>, <a href="/paper-sizes.html?doc=iso_a4_210x297mm&amp;sheet=iso_a4_210x297mm&amp;mode=fit&amp;border=4&amp;feature=5#scale">A4 inside a 4 mm border</a>. There you can change the paper, the border and the spacing you care about, for example 7.1 mm for college-ruled lines.</p>
 
 <h2>Where to find the setting</h2>
 <p>Program menus change between versions, but the wording is usually close to the following. The goal is always the same: <strong>100%</strong>, <strong>Actual size</strong>, <strong>Default</strong> or <strong>None</strong> – never a “fit” or “shrink” option.</p>
@@ -55,14 +62,14 @@ ARTICLES = [
 <li><strong>Android:</strong> in the print preview, select the paper size first; if the printer plugin offers a scaling or “fit” option, switch it off or set it to 100%.</li></ul>
 
 <h2>Why every template keeps a white border</h2>
-<p>Most home inkjet and laser printers cannot print to the very edge of the sheet; a border of roughly 3–6 mm stays white, depending on the model. Our templates keep 12 mm free at the top and sides on A4 and US Letter and 9 mm on A5 and Half Letter. At the bottom the border is 5 mm larger, because the optional site credit sits there. Because nothing important lies in the outer few millimeters, you can print at 100% without losing a line – there is no need to let the printer shrink anything.</p>
+<p>A printer cannot mark a sheet reliably right up to its edges. The W3C specification for paged media calls this strip the non-printable area and notes that its size depends on the printer. You can measure yours: the <a href="/print-test-page.html">print test page</a> has a short ruler on each side that starts at the paper edge, and the first tick you can see is the border on that side. Our templates keep 12 mm free at the top and sides on A4 and US Letter and 9 mm on A5 and Half Letter. At the bottom the border is 5 mm larger, because the optional site credit sits there. Because nothing important lies in the outer few millimeters, you can print at 100% without losing a line – there is no need to let the printer shrink anything.</p>
 
 <h2>Worked example: checking a print with a ruler</h2>
 <p>Suppose you want to be sure your 5 mm dot grid really prints at 5 mm before you print a 50-sheet stack.</p>
-<ol><li>Open the <a href="/graph-paper.html">graph paper</a> template, choose your paper size, set the grid to 1 cm and switch bold lines off.</li>
-<li>Print one page with the scale set to 100% (see the list above).</li>
-<li>Lay a ruler along one row and count ten squares. Then do the same down a column, because width and height can be scaled separately when the paper size is wrong.</li>
-<li>Compare with the table: 10.0 cm means you are done; about 9.4 cm means an A4 page went onto Letter paper with “Fit”; about 9.7 cm means the opposite; 9.5–9.6 cm on matching paper means a “fit to printable area” option is still active.</li>
+<ol><li>Open the <a href="/print-test-page.html">print test page</a> and choose the paper that is in your printer.</li>
+<li>Print it with the scale set to 100% (see the list above).</li>
+<li>Measure the square across and down. It is drawn exactly 100 mm wide and 100 mm high, so the millimeters you read are the scale in percent.</li>
+<li>Type both numbers into the ruler check below the generator, or open an example: <a href="/print-test-page.html?across=94&amp;down=94#check">94 × 94 mm</a> is 94%, which is what “Fit” produces when an A4 page lands on US Letter paper; <a href="/print-test-page.html?across=97.3&amp;down=97.3#check">97.3 mm</a> means a Letter page on A4; <a href="/print-test-page.html?across=96&amp;down=96#check">about 96 mm</a> on matching paper means the page was fitted inside the printer's border.</li>
 <li>Fix the setting, print once more and measure again. Only then print the rest of the stack in the pattern you actually wanted.</li></ol>
 <p>A difference of half a millimeter over 10 cm is hard to see on the finished page and usually not worth chasing; a difference of several millimeters is always a scaling setting.</p>
 
@@ -78,14 +85,17 @@ ARTICLES = [
 <p>Only some printers support borderless printing, mostly for photo paper. It is not needed here, because the templates already keep a safe border.</p>
 
 <h2>Sources and standards</h2>
-<ul><li><strong>ISO 216</strong> – international paper sizes of the A and B series, including A4 (210 × 297 mm) and A5 (148 × 210 mm).</li>
-<li><strong>ANSI/ASME Y14.1</strong> – US drawing sheet sizes; size A is 8.5 × 11 in, the same as US Letter.</li>
-<li>Conversions use the exact definition 1 inch = 25.4 mm. Scaling figures are calculated from these dimensions; print dialog names reflect common program versions at the time of review.</li></ul>
+<ul><li><strong>The Printer Working Group, PWG 5101.1-2023, “PWG Media Standardized Names v2.1”</strong>: <a href="https://ftp.pwg.org/pub/pwg/candidates/cs-pwgmsn21-20230915-5101.1.pdf" rel="noopener">ftp.pwg.org/pub/pwg/candidates/cs-pwgmsn21-20230915-5101.1.pdf</a> – dimensions of A4, A5, US Letter and Half Letter (media names <code>iso_a4_210x297mm</code>, <code>iso_a5_148x210mm</code>, <code>na_letter_8.5x11in</code>, <code>na_invoice_5.5x8.5in</code>). Accessed 18 November 2026.</li>
+<li><strong>NIST, “SI Units – Length”</strong>: <a href="https://www.nist.gov/pml/owm/si-units-length" rel="noopener">nist.gov/pml/owm/si-units-length</a> – 1 inch = 25.4 mm exactly. Accessed 18 November 2026.</li>
+<li><strong>W3C, “CSS Paged Media Module Level 3”</strong> (Working Draft, 14 September 2023): <a href="https://www.w3.org/TR/css-page-3/" rel="noopener">w3.org/TR/css-page-3</a> – printable and non-printable area. Accessed 18 November 2026.</li>
+<li>ISO 216 is the standard usually named for the A series. We did not read it and quote the dimensions from the Printer Working Group list instead.</li>
+<li>Scaling figures are calculated from these dimensions. The names of the print dialog options reflect common program versions at the time of the review on November 3, 2026; we did not test them on specific devices.</li></ul>
+
 """,
 },
 {
 "slug": "choose-the-right-paper",
-"published": "2026-10-29", "modified": "2026-11-03",
+"published": "2026-10-29", "modified": "2026-11-18",
 "title": "Lined, grid, dot or isometric: which paper for which job?",
 "teaser": "Rulings, grid sizes and paper weights compared – with gsm to pound conversions.",
 "description": "Compare lined, graph, dot grid and isometric paper: standard spacings, how many lines or squares fit on A4 and US Letter, paper weights in gsm and pounds, and a worked floor-plan example.",
@@ -143,16 +153,18 @@ ARTICLES = [
 <p>You want to sketch a bedroom of 4.2 m × 3.6 m and try out furniture positions.</p>
 <ol><li><strong>Pick the grid:</strong> 5 mm graph paper, landscape. On A4 landscape the page holds 54 × 36 squares; on US Letter landscape 51 × 37.</li>
 <li><strong>Pick the scale:</strong> with 1 square = 10 cm, the room needs 42 × 36 squares. That fits on both sizes, with 9–12 squares to spare for labels on the long side.</li>
-<li><strong>Use bold lines:</strong> set a bold line every 10 squares, so each bold square equals exactly 1 m. Counting becomes much faster.</li>
+<li><strong>Use bold lines:</strong> set a bold line every 10 squares, so each bold square equals exactly 1 m. Counting becomes much faster. <a href="/graph-paper.html?grid=5&amp;major=10&amp;orient=landscape">Open this exact sheet</a> (5 mm grid, bold every 10, landscape) and pick your paper size.</li>
 <li><strong>Draw the furniture to the same scale:</strong> a 90 × 200 cm bed is 9 × 20 squares. Cut the pieces out of a second sheet and move them around before you move anything heavy.</li></ol>
 <p>Working in feet? Choose the 1/4 in grid and let one square stand for 6 in: a 14 × 12 ft room then needs 28 × 24 squares, which fits on a Letter page in either orientation.</p>
 
 <h2>Quick recommendations</h2>
-<ul><li><strong>Lecture notes:</strong> college-ruled lines, or 5 mm dot grid if you draw diagrams.</li>
-<li><strong>Math homework:</strong> 5 mm or 1/4 in graph paper.</li>
-<li><strong>Handwriting practice for children:</strong> wide ruling or a 1 cm grid.</li>
-<li><strong>Journaling and planning:</strong> 5 mm dot grid, medium dots.</li>
-<li><strong>Product and room sketches:</strong> isometric paper with 7 mm triangles.</li></ul>
+<p>Each link opens the generator with that setting already chosen; your paper size stays as you last used it.</p>
+<ul><li><strong>Lecture notes:</strong> <a href="/lined-paper.html?ruling=college">college-ruled lines</a>, or a <a href="/dot-grid.html?gap=5&amp;size=m">5 mm dot grid</a> if you draw diagrams.</li>
+<li><strong>Math homework:</strong> <a href="/graph-paper.html?grid=5&amp;major=5">5 mm</a> or <a href="/graph-paper.html?grid=6.35&amp;major=4">1/4 in graph paper</a>.</li>
+<li><strong>Handwriting practice for children:</strong> <a href="/lined-paper.html?ruling=wide">wide ruling</a> or a <a href="/graph-paper.html?grid=10&amp;major=0">1 cm grid</a>.</li>
+<li><strong>Journaling and planning:</strong> <a href="/dot-grid.html?gap=5&amp;size=m">5 mm dot grid, medium dots</a>.</li>
+<li><strong>Product and room sketches:</strong> <a href="/isometric-paper.html?gap=7&amp;style=lines">isometric paper with 7 mm triangles</a>.</li>
+<li><strong>Not sure the grid will print at its real size?</strong> Print the <a href="/print-test-page.html">test page</a> first.</li></ul>
 
 <h2>FAQ</h2>
 <h3>Is college ruled the same as 7 mm?</h3>
@@ -171,7 +183,7 @@ ARTICLES = [
 },
 {
 "slug": "printable-calendar-2027",
-"published": "2026-11-03", "modified": "2026-11-03",
+"published": "2026-11-03", "modified": "2026-11-18",
 "title": "Printable calendar 2027: week numbers, holidays and layout choices",
 "teaser": "What is special about 2027, how ISO week numbers work, US federal holidays and which layout to print.",
 "description": "Everything you need for a printed 2027 calendar: ISO 8601 week numbers (week 1 starts January 4), US federal holidays and observed dates, Monday vs Sunday start, and which layout and paper size to choose.",
@@ -223,12 +235,13 @@ ARTICLES = [
 <p>In the US, Canada and Japan, wall calendars traditionally start on Sunday; ISO 8601 and most European calendars start on Monday. Neither is more correct. A practical test: if your weekend plans usually span Saturday and Sunday, a Monday start keeps them together at the end of the row. If your week “begins” at church, with family on Sunday or with Sunday meal prep, a Sunday start may match your routine better. All our calendars offer both.</p>
 
 <h2>Worked example: a 2027 wall calendar in ten minutes</h2>
-<ol><li>Open the monthly calendar, set the year to 2027 and the month to <em>All 12 months</em>.</li>
-<li>Choose your paper size and landscape orientation; keep week numbers and the notes column switched on.</li>
+<ol><li>Open the <a href="/monthly-calendar.html?year=2027&amp;month=all&amp;orient=landscape&amp;weeks=1&amp;notes=1">monthly calendar with these settings</a>: year 2027, <em>All 12 months</em>, landscape, week numbers and the notes column switched on.</li>
+<li>Choose the paper size that is in your printer.</li>
 <li>Pick Sunday or Monday as the first day, and an accent color you like.</li>
 <li>Download the 12-page PDF and print it at 100% (see <a href="/print-at-actual-size.html">printing at actual size</a>).</li>
 <li>Go through the holiday table above and write each observed date into its box, plus birthdays, school breaks and paydays.</li>
-<li>Print the <a href="/yearly-calendar.html">yearly calendar</a> for 2027 in the same accent color and use it as the cover page.</li></ol>
+<li>Print the <a href="/yearly-calendar.html?year=2027">yearly calendar for 2027</a> in the same accent color and use it as the cover page.</li></ol>
+<p>The same twelve pages can be made with month and weekday names in ten languages, for example <a href="/monthly-calendar.html?year=2027&amp;month=all&amp;lang=es&amp;ws=mon">Spanish with a Monday start</a> or <a href="/monthly-calendar.html?year=2027&amp;month=all&amp;lang=de&amp;ws=mon">German</a>. The holiday table above covers the United States only.</p>
 <p>Punch the sheets for a binder or clip them to a board; with two-sided printing, each month's back stays free for notes.</p>
 
 <h2>FAQ</h2>
@@ -250,7 +263,7 @@ ARTICLES = [
 },
 {
 "slug": "plan-a-week-on-paper",
-"published": "2026-11-03", "modified": "2026-11-03",
+"published": "2026-11-03", "modified": "2026-11-18",
 "title": "How to plan a week on paper (with the weekly planner)",
 "teaser": "A 25-minute weekly review, a capacity check in hours, and a filled example page.",
 "description": "A step-by-step routine for planning a week on a printed page: review, fixed appointments, three priorities, a simple hours-based capacity check and a filled example of the weekly planner.",
@@ -287,7 +300,7 @@ ARTICLES = [
 
 <h2>Worked example: one filled page</h2>
 <p>Here is how a page for the week of Monday, March 15, 2027 (ISO week 11) could look for someone working full-time with two evening commitments. The example is made up to illustrate the method.</p>
-<ul><li><strong>Header:</strong> title “Weekly plan”, date range Mar 15 – Mar 21, 2027 printed automatically.</li>
+<ul><li><strong>Header:</strong> title “Weekly plan”, date range Mar 15 – Mar 21, 2027 printed automatically. <a href="/weekly-planner.html?start=2027-03-15&amp;orient=landscape&amp;todo=1&amp;lines=1&amp;lang=en">Open this exact page</a> and change the date to your own week.</li>
 <li><strong>Monday:</strong> 9:00 team meeting (1 h), 14:00 dentist. Priority 1: draft the project report – block 10:30–12:30.</li>
 <li><strong>Tuesday:</strong> report, second block 9:00–11:00; 18:30 choir.</li>
 <li><strong>Wednesday:</strong> 13:00–15:00 client workshop. Priority 2: prepare workshop slides on Tuesday afternoon (written there as well).</li>
@@ -312,7 +325,7 @@ ARTICLES = [
 <h3>How many tasks should go on the to-do list?</h3>
 <p>As many as you know of, but only three are priorities. In landscape on A4 the column holds 22 lines, which is a useful natural limit.</p>
 <h3>Do I still need a digital calendar?</h3>
-<p>For reminders and shared appointments, usually yes. Our guide <a href="/paper-vs-digital-planning.html">paper or app?</a> describes a simple way to combine both.</p>
+<p>For reminders and shared appointments, usually yes: a printed page cannot ring and cannot be shared. A simple split is to keep everything that has a time in the digital calendar and to copy the week's appointments onto the page during the weekly review.</p>
 
 <h2>Sources and standards</h2>
 <ul><li><strong>ISO 8601</strong> – week numbering (weeks start on Monday; week 11 of 2027 runs from March 15 to March 21).</li>
@@ -321,7 +334,7 @@ ARTICLES = [
 },
 {
 "slug": "meal-planning-one-page",
-"published": "2026-11-03", "modified": "2026-11-03",
+"published": "2026-11-03", "modified": "2026-11-18",
 "title": "Meal planning on one page: a 20-minute weekly routine",
 "teaser": "Plan seven days of meals and a sorted grocery list on one sheet – with leftover timing that stays food-safe.",
 "description": "A practical 20-minute routine for planning a week of meals on one printed page: checking the calendar and fridge, themes, cook once eat twice, a grocery list by category and food-safe leftover timing.",
@@ -356,7 +369,7 @@ ARTICLES = [
 <li>Label containers with the cooking date; the planner's date headings make it easy to copy.</li></ul>
 
 <h2>Worked example: a week for a household of three</h2>
-<p>This is an illustrative plan for two adults and a child, week starting Monday, with football practice on Tuesday and Thursday evenings. It uses the “breakfast, lunch, dinner” rows.</p>
+<p>This is an illustrative plan for two adults and a child, week starting Monday, with football practice on Tuesday and Thursday evenings. It uses the “breakfast, lunch, dinner” rows. <a href="/meal-planner.html?meals=bld&amp;ws=mon&amp;grocery=1&amp;orient=landscape">Open the empty page for this plan</a> (three meal rows, Monday start, grocery list, landscape).</p>
 <ul><li><strong>Monday:</strong> dinner – vegetable lasagna, double batch. The spinach and zucchini from last week are used up here.</li>
 <li><strong>Tuesday (practice):</strong> dinner – lasagna leftovers, 10 minutes to reheat. Lunch – bean salad.</li>
 <li><strong>Wednesday:</strong> soup night – lentil soup with bread; extra portion written into Thursday's lunch cell.</li>
@@ -388,81 +401,8 @@ ARTICLES = [
 """,
 },
 {
-"slug": "habit-tracker-ideas",
-"published": "2026-11-03", "modified": "2026-11-03",
-"title": "Habit tracker ideas that actually stick",
-"teaser": "Measurable habit ideas, the right number of rows, and how to review a month of circles.",
-"description": "Habit tracker ideas written so they can be ticked off every day, how many habits to track, if-then plans, what research says about how long habits take, and a worked monthly review.",
-"body": """
-<p>Most habit trackers are abandoned for the same reason: the habits on them cannot be answered with a clear yes or no. “Be healthier” never gets a tick; “walk 20 minutes” does. This guide collects habit ideas that are written to be tracked, explains how many rows make sense, and shows how to read a finished month so the next one goes better. It works with our printable <a href="/habit-tracker.html">habit tracker</a>, which prints one row per habit and one circle per day of the month.</p>
-
-<h2>What makes a habit trackable</h2>
-<p>A good tracker row passes three tests. It is <strong>binary</strong> – at the end of the day you can say done or not done. It is <strong>small enough</strong> to do on a bad day. And it has a <strong>trigger</strong>: a time, place or existing routine that reminds you. The table turns common vague goals into rows that pass all three.</p>
-<div class="table-wrap"><table>
-<thead><tr><th>Vague goal</th><th>Trackable row</th><th>Natural trigger</th></tr></thead>
-<tbody>
-<tr><td>Read more</td><td>Read 10 pages</td><td>After brushing teeth at night</td></tr>
-<tr><td>Exercise</td><td>Walk 20 minutes</td><td>Right after lunch</td></tr>
-<tr><td>Drink more water</td><td>Glass of water with each meal</td><td>Sitting down to eat</td></tr>
-<tr><td>Less phone</td><td>Phone out of the bedroom by 10 pm</td><td>Charging it in the kitchen</td></tr>
-<tr><td>Learn Spanish</td><td>One 10-minute lesson</td><td>With the first coffee</td></tr>
-<tr><td>Tidy home</td><td>10-minute reset of one room</td><td>Before dinner</td></tr>
-<tr><td>Save money</td><td>No-spend day (only bills and groceries)</td><td>Checked in the evening</td></tr>
-<tr><td>Sleep better</td><td>In bed by 11 pm</td><td>Alarm at 10:30 pm</td></tr>
-</tbody></table></div>
-
-<h2>More ideas by area</h2>
-<ul><li><strong>Health:</strong> stretch 5 minutes, take the stairs, vegetables at lunch, floss, no snacks after 8 pm.</li>
-<li><strong>Mind:</strong> write three lines in a journal, 5 minutes of quiet breathing, one page of a language workbook, no news before 9 am.</li>
-<li><strong>Home:</strong> dishes done before bed, laundry started by 8 am, 5-minute declutter, plants watered (only on the days that need it).</li>
-<li><strong>Work and study:</strong> plan tomorrow before leaving, one hour of focused work before email, review flashcards, inbox below 20.</li>
-<li><strong>Relationships:</strong> message a friend, phone-free dinner, ask the kids one real question about their day.</li></ul>
-<p>Not every habit is daily. For something you do three times a week, track it anyway and judge the month by the count, not by the streak.</p>
-
-<h2>How many habits?</h2>
-<p>Our tracker accepts up to 15 named habits plus empty rows (24 rows at most), but most people do better with three to seven. Every row is a promise you check every evening. Five rows take ten seconds to tick; fifteen rows turn the tracker into a report card. A useful rule: add a new habit only when the existing ones have been mostly automatic for two weeks, and use one of the empty rows for it so it has a visible start date.</p>
-
-<h2>If-then plans</h2>
-<p>Psychologist Peter Gollwitzer described “implementation intentions”: plans in the form <em>if situation X happens, then I will do Y</em>. Instead of “I will stretch more”, you decide “if I switch on the kettle in the morning, then I stretch while it boils”. Writing the trigger next to the habit name – for example “Stretch (kettle)” – keeps the plan visible every time you look at the page. Our tracker has room for about 32 characters per habit name, enough for a short trigger.</p>
-
-<h2>How long does it take?</h2>
-<p>The popular claim that a habit forms in 21 days is not supported by research. In a 2010 study by Phillippa Lally and colleagues at University College London, 96 volunteers repeated a self-chosen daily behavior; for those whose data could be modeled, it took a median of 66 days to reach a plateau of automaticity, with individual times ranging from 18 to 254 days. Missing a single day did not noticeably set people back. The practical lesson: plan for two to three monthly pages per habit, not one, and do not restart from zero after a missed day.</p>
-
-<h2>Worked example: reviewing a month</h2>
-<p>Imagine a finished tracker for January 2027 (31 days) with four habits. The numbers are made up to show the method.</p>
-<div class="table-wrap"><table>
-<thead><tr><th>Habit</th><th>Done</th><th>Rate</th><th>Decision for February</th></tr></thead>
-<tbody>
-<tr><td>Read 10 pages</td><td>27 / 31</td><td>87%</td><td>Keep as is; almost automatic</td></tr>
-<tr><td>Walk 20 minutes</td><td>19 / 31</td><td>61%</td><td>Missed mostly on Mondays and Fridays – move to after lunch</td></tr>
-<tr><td>Phone out of bedroom</td><td>12 / 31</td><td>39%</td><td>Too big a step: change to “phone on the charger by 11 pm”</td></tr>
-<tr><td>Spanish lesson</td><td>24 / 31</td><td>77%</td><td>Keep; add a weekly review row</td></tr>
-</tbody></table></div>
-<p>The rate is simply the number in the “Done” box divided by the days in the month. Look at the pattern of empty circles as well as the total: gaps that line up in the same column point to a problem day; gaps that line up in one row point to a habit that needs to be smaller or moved.</p>
-
-<h2>Making the page work</h2>
-<ul><li><strong>Keep it where the habit happens</strong> – on the fridge, by the desk or inside your planner – and keep a pen next to it.</li>
-<li><strong>Tick at a fixed time</strong>, for example while setting the alarm. Ticking from memory a week later turns the tracker into fiction.</li>
-<li><strong>Print the year in one go:</strong> choose “All 12 months” and your habits are printed on every page.</li>
-<li>Combine with a <a href="/yearly-calendar.html">yearly calendar</a> to color one habit across all 365 days, or with the <a href="/bullet-journal-starter.html">bullet journal starter kit</a> if you journal anyway.</li></ul>
-
-<h2>FAQ</h2>
-<h3>What if I miss a day?</h3>
-<p>Leave the circle empty and do the habit the next day. A useful personal rule is “never miss twice”: one gap is normal, two in a row starts a new pattern.</p>
-<h3>Can I track habits I want to stop?</h3>
-<p>Yes, phrase them as something you did: “no soda”, “no phone in bed”. A filled circle then means you avoided it.</p>
-<h3>Should I track mood or sleep too?</h3>
-<p>You can use a row for hours of sleep or a 1–5 mood score by writing the number in the circle. Keep at most one or two such rows, since they take longer to fill in.</p>
-
-<h2>Sources and standards</h2>
-<ul><li>Lally, P., van Jaarsveld, C. H. M., Potts, H. W. W. &amp; Wardle, J. (2010). How are habits formed: Modelling habit formation in the real world. <em>European Journal of Social Psychology</em>, 40(6).</li>
-<li>Gollwitzer, P. M. (1999). Implementation intentions: Strong effects of simple plans. <em>American Psychologist</em>, 54(7).</li>
-<li>Template capacities (15 named habits, 24 rows in total, about 32 characters per name) are taken from the habit tracker itself.</li></ul>
-""",
-},
-{
 "slug": "bullet-journal-starter",
-"published": "2026-10-29", "modified": "2026-11-03",
+"published": "2026-10-29", "modified": "2026-11-18",
 "title": "Bullet journal for beginners: a starter kit you can print",
 "teaser": "Rapid logging, the core collections and a first month set up step by step.",
 "description": "A beginner-friendly introduction to bullet journaling: rapid logging symbols, index, future log, monthly and daily log, migration, a first month set up page by page, and printed pages vs a notebook.",
@@ -495,12 +435,12 @@ ARTICLES = [
 <p>At the end of each month – and, if you like, at the end of each week – you look through open tasks. Each one gets one of three decisions: do it now, move it to the new monthly log (mark it with &gt;) or schedule it into the future log (mark it with &lt;). If a task is not worth rewriting, cross it out – it probably was not worth doing. This deliberate rewriting is what keeps the journal from turning into an endless list. Plan about 15 minutes for it; with 20 or more open tasks it is a sign that the monthly list was too ambitious, and the next one should be shorter.</p>
 
 <h2>Worked example: setting up January 2027</h2>
-<p>Here is a complete setup for a new journal on 5 mm dot grid, page by page. It takes about 30 minutes.</p>
+<p>Here is a complete setup for a new journal on 5 mm dot grid, page by page. It takes about 30 minutes. For loose pages, <a href="/dot-grid.html?paper=a5&amp;gap=5&amp;size=m">open the A5 dot grid used in this example</a> (5 mm, medium dots).</p>
 <ul><li><strong>Pages 1–2: Index.</strong> Write “Index” at the top of both pages and leave them empty for now.</li>
 <li><strong>Pages 3–4: Future log.</strong> Divide each page into three boxes – six months across two pages. On an A5 dot grid page (27 × 38 dots in our generator) each box is about 12 dots high. Enter known dates such as birthdays and trips.</li>
 <li><strong>Page 5: Monthly log, calendar side.</strong> Write the numbers 1–31 down the left edge, one per row of dots, with the weekday initial next to each. January 1, 2027 is a Friday.</li>
 <li><strong>Page 6: Monthly log, task side.</strong> List what should happen in January: “• Book dentist”, “• Plan spring trip”.</li>
-<li><strong>Page 7: Habit collection.</strong> A small grid with 31 columns and three or four rows, or a printed <a href="/habit-tracker.html">habit tracker</a> glued or clipped in.</li>
+<li><strong>Page 7: Habit collection.</strong> A small grid with 31 columns and three or four rows, or a printed <a href="/habit-tracker.html?year=2027&amp;month=0">habit tracker for January 2027</a> glued or clipped in.</li>
 <li><strong>Page 8 onward: Daily log.</strong> Write today's date as a heading and start logging.</li>
 <li><strong>Back to the index:</strong> add “Future log 3–4”, “January 2027 5–8”.</li></ul>
 <p>On January 31, migrate open tasks to a new February monthly log and add “February 2027” to the index.</p>
@@ -537,71 +477,6 @@ ARTICLES = [
 <li><strong>ISO 216</strong> – A5 (148 × 210 mm) is half of A4.</li>
 <li>Dot counts are measured from our dot grid template with default margins.</li></ul>
 <p class="small muted">Bullet Journal® is a registered trademark of Ryder Carroll. Printable Joy Lab is not affiliated with the official Bullet Journal method.</p>
-""",
-},
-{
-"slug": "paper-vs-digital-planning",
-"published": "2026-10-29", "modified": "2026-11-03",
-"title": "Paper or app? Why many people still plan on paper",
-"teaser": "What a printed planner does better, what apps do better – and a hybrid routine that uses both.",
-"description": "An honest comparison of planning on paper and in apps: overview, distractions, reminders, sharing, what the note-taking research does and does not show, and a hybrid weekly routine.",
-"body": """
-<p>Phones can remind you of every appointment, sync with your family and search ten years of notes in a second. And yet many people still print a weekly page or carry a paper planner. That is not just nostalgia: paper and screens are good at different parts of planning. This guide compares them honestly, looks at what research on handwriting can and cannot tell us, and ends with a hybrid routine that uses each tool for what it does best.</p>
-
-<h2>What each tool does well</h2>
-<div class="table-wrap"><table>
-<thead><tr><th>Planning job</th><th>Better on paper</th><th>Better in an app</th></tr></thead>
-<tbody>
-<tr><td>Seeing a whole week or month at once</td><td>✓ – a full sheet, no scrolling or zooming</td><td></td></tr>
-<tr><td>Deciding priorities</td><td>✓ – writing slows you down just enough</td><td></td></tr>
-<tr><td>Staying focused while planning</td><td>✓ – no notifications on the page</td><td></td></tr>
-<tr><td>Reminders at a specific time</td><td></td><td>✓ – alarms and notifications</td></tr>
-<tr><td>Shared and recurring appointments</td><td></td><td>✓ – sync, invites, repeat rules</td></tr>
-<tr><td>Searching old notes</td><td></td><td>✓ – full-text search across years</td></tr>
-<tr><td>Quick sketches, arrows, margin notes</td><td>✓ – no menus</td><td></td></tr>
-<tr><td>Working across time zones</td><td></td><td>✓ – automatic conversion</td></tr>
-</tbody></table></div>
-<p>The pattern is clear: apps are strong at storing, reminding and sharing; paper is strong at overview and deciding. A planning system can use both.</p>
-
-<h2>What the research does and does not show</h2>
-<p>A frequently cited 2014 paper by Pam Mueller and Daniel Oppenheimer, “The Pen Is Mightier Than the Keyboard”, reported that students who took lecture notes on laptops tended to transcribe more word for word and did worse on conceptual questions than students writing by hand. A later replication by Kayla Morehead, John Dunlosky and Katherine Rawson (2019) found the differences much less clear-cut. The honest summary: handwriting may help in some learning situations, but the evidence is mixed, and these studies are about note-taking in lectures, not about planners.</p>
-<p>For planning, a more modest argument is enough. Writing a task by hand takes a few seconds longer than tapping it into an app. Those seconds act as a small filter: you are more likely to ask whether the task is worth writing down at all. Whether that helps you is something you can test on yourself in two weeks.</p>
-
-<h2>Where paper planning goes wrong</h2>
-<ul><li><strong>Double entry without a rule:</strong> appointments in the app and in the planner drift apart. Decide which one is the master for each type of information.</li>
-<li><strong>No reminder:</strong> a paper page does not ring. Time-critical items need an alarm somewhere.</li>
-<li><strong>Too much setup:</strong> a beautiful planner that takes an hour per week to prepare is often abandoned by March.</li>
-<li><strong>Lost history:</strong> paper cannot be searched. Keep finished pages in a binder by month, or photograph the weekly page before you file it.</li></ul>
-
-<h2>A hybrid routine that uses both</h2>
-<ol><li><strong>Appointments live in the digital calendar.</strong> Anything with a time, a place or other people goes there, so it can remind you and be shared.</li>
-<li><strong>Once a week, print a <a href="/weekly-planner.html">weekly planner</a></strong> and copy the week's appointments onto it. This takes about five minutes and is the moment you really see the week. Our guide <a href="/plan-a-week-on-paper.html">how to plan a week on paper</a> describes the full review.</li>
-<li><strong>Tasks and priorities live on paper.</strong> Choose three priorities for the week and give each a day.</li>
-<li><strong>Each morning, look at the page, not the phone.</strong> On full days, add a <a href="/daily-planner.html">daily page</a> with an hourly schedule.</li>
-<li><strong>Visible habits stay on paper.</strong> A <a href="/habit-tracker.html">habit tracker</a> on the fridge is seen several times a day; a hidden app is not.</li>
-<li><strong>Anything you need to find again goes back into digital form</strong> – a photo of the page, or a note in your notes app.</li></ol>
-
-<h2>Worked example: one hybrid week</h2>
-<p>Take a week with nine calendar entries: five work meetings, a dentist appointment, two after-school activities and a dinner with friends. All nine stay in the shared digital calendar, so the family sees them and the phone reminds everyone. On Sunday, the planner copies only the six that affect their own time onto the printed page – the children's activities are relevant only where they need a lift. The to-do column gets fourteen tasks, three of them marked as priorities with a day assigned. During the week, new tasks go onto the paper page; one appointment that comes in by email goes straight into the app. On Friday the page is photographed and filed.</p>
-<p>The rule that makes it work is simple: times in the app, decisions on paper. Nothing is lost when the paper page is filed, because everything with a time already lives in the calendar, and everything still open moves onto next week's page during the review.</p>
-
-<h2>Writing dates so both systems agree</h2>
-<p>If you copy dates between paper and screen, consider the ISO 8601 format YYYY-MM-DD, such as 2027-03-04. It sorts correctly in file names and avoids the confusion between 03/04 meaning March 4 in the US and April 3 in much of Europe. On paper, writing the month as a word (“Mar 4”) is just as safe.</p>
-
-<h2>FAQ</h2>
-<h3>Is paper planning better for everyone?</h3>
-<p>No. People whose days are mostly shared meetings may do better almost fully digital. Paper helps most when you have many self-directed tasks to choose between.</p>
-<h3>Won't copying appointments waste time?</h3>
-<p>Copying a week takes a few minutes, and it doubles as a review. If it feels like waste, copy only appointments that change what you can do that day.</p>
-<h3>Which paper size is best for a planner I carry around?</h3>
-<p>A5 or Half Letter fits most bags and still holds a full week on one page. Use A4 or US Letter for a desk or wall, where more space per day matters more than size.</p>
-<h3>Can I write on the printables with a tablet?</h3>
-<p>Yes. Import the PDF into a note-taking app that supports PDF annotation and write with a stylus; you lose the “no notifications” advantage, but keep the layout.</p>
-
-<h2>Sources and standards</h2>
-<ul><li>Mueller, P. A. &amp; Oppenheimer, D. M. (2014). The Pen Is Mightier Than the Keyboard: Advantages of Longhand Over Laptop Note Taking. <em>Psychological Science</em>, 25(6).</li>
-<li>Morehead, K., Dunlosky, J. &amp; Rawson, K. A. (2019). How Much Mightier Is the Pen Than the Keyboard for Note-Taking? A Replication and Extension of Mueller and Oppenheimer (2014). <em>Educational Psychology Review</em>, 31.</li>
-<li><strong>ISO 8601</strong> – date format YYYY-MM-DD.</li></ul>
 """,
 },
 ]
