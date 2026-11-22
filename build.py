@@ -145,7 +145,7 @@ def main():
 <h2>Contact</h2><p>Ideas for a new template or found a mistake? Write to <a href="mailto:office@adstern.com">office@adstern.com</a>. If something prints wrongly, tell us the template, the paper size and your browser or PDF viewer; a share link with your settings (the “Copy link to these settings” button) lets us reproduce the exact page.</p>""")
 
     write("imprint.html", "page.html", title="Imprint | Printable Joy Lab", description="Legal notice for Printable Joy Lab.", h1="Imprint", ads=False, robots="noindex,follow", active="",
-          body=f"""<h2>Media owner and publisher</h2><p>{LEGAL_ADDR}</p>
+          body=f"""<h2>Media owner and publisher</h2><p>{LEGAL_ADDR.replace('Seilerstätte 8/8', 'Seilerstätte 8')}</p>
 <h2>Company details</h2><p>Business purpose: advertising agency (Werbeagentur)<br>VAT ID: ATU54682507<br>Trade authority: Magistratisches Bezirksamt für den 1. und 8. Bezirk, Vienna<br>Chamber membership: Austrian Economic Chamber Vienna (Wirtschaftskammer Wien), advertising and market communication group<br>Professional title: advertising agency (Werbeagentur), trade licence granted in Austria<br>Applicable regulations: Austrian Trade Regulation Act (Gewerbeordnung), available at <a href="https://www.ris.bka.gv.at" rel="noopener">www.ris.bka.gv.at</a></p>
 <h2>Editorial line</h2><p>Free printable templates and guides on planning, organisation and paper.</p>
 <p class="small muted">Information pursuant to § 5 E-Commerce-Gesetz and § 25 Mediengesetz (Austria).</p>""")
