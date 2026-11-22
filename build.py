@@ -83,7 +83,7 @@ def main():
 
     write("index.html", "home.html", title="Printable Joy Lab: Free Customizable Planners, Calendars & Paper",
           description="Free printable planners, calendars, habit trackers, checklists and paper you customize in seconds – A4 or US Letter, your colors and dates – then download as PDF.",
-          active="/", priority=1.0, lastmod=EIGENWERT,
+          active="/", priority=1.0, lastmod="2026-11-22",
           jsonld=[{"@context": "https://schema.org", "@type": "WebSite", "name": "Printable Joy Lab", "url": SITE + "/", "inLanguage": "en"}])
 
     for t in TOOLS:

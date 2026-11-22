@@ -55,7 +55,7 @@ TOOLS = [
         ("Will the pages mix with store-bought college-ruled paper?", "The spacing is the same 9/32 inch, so the lines match. The position of the first line and the margin can differ slightly between brands, so pages side by side in a binder may not line up exactly.")],
 },
 {
-"slug": "graph-paper", "cat": "paper", "name": "Graph paper", "accent": "teal",
+"slug": "graph-paper", "updated": "2026-11-22", "cat": "paper", "name": "Graph paper", "accent": "teal",
 "teaser": "Metric or imperial grids, with bold lines every few squares.",
 "title": "Printable Graph Paper – 5 mm, 1 cm, 1/4 Inch Grid (Free PDF)",
 "description": "Create free printable graph paper: 4 mm, 5 mm, 1 cm, 1/4 or 1/5 inch grids with optional bold lines, in A4, Letter or A5. Download as vector PDF.",
@@ -65,6 +65,9 @@ TOOLS = [
 <p>Graph paper (also called grid or squared paper) comes in two families. <strong>Metric</strong> grids of 4 mm, 5 mm or 1 cm are standard in most of Europe and in the sciences. <strong>Imperial</strong> grids divide each inch into 4 or 5 squares: 1/4 inch (6.35 mm) is the classic US quad-ruled paper used in schools, and 1/5 inch (5.08 mm) is common on engineering pads. Choose <em>Custom</em> for anything from 2 to 25 mm. The grid is centered on the page, so the white border is the same on both sides. With 5 mm squares, a portrait A4 page holds 37 × 53 squares and a US Letter page 38 × 50.</p>
 <h2>Bold lines make counting easy</h2>
 <p>A heavier line every few squares turns the grid into a ruler. With 5 mm squares and bold lines every 2, each bold square is exactly 1 cm; with bold lines every 10, each bold square is 5 cm. On a 1/4 inch grid, bold lines every 4 squares mark whole inches. Choose <em>No bold lines</em> for pixel art or stitch charts, where every square counts the same, or bold lines every 10 for charts where you count stitches in tens.</p>
+<h2>Make a coordinate sheet for a walking route</h2>
+<p>Switch on <strong>Coordinate axes through the middle</strong>. The origin lands on a grid intersection, including when the sheet has an odd number of squares. Choose 5 mm cells and assign one block to each cell. Start at (0, 0), walk three blocks east and two north, then five west. Mark the turns at (3, 0), (3, 2) and (−2, 2). Your endpoint is two blocks west of the starting street. You walked ten blocks along the route.</p>
+<p>For a room plan, leave the axes off so the wall outline stands out. For a measured scale drawing, verify the printed spacing with the <a href="/print-test-page.html">physical print test</a>.</p>
 <h2>How to use it for a scale drawing</h2>
 <ol><li>Measure the longest side of the room, garden bed or object.</li>
 <li>Count how many squares fit along the matching side of the page (landscape usually gives more).</li>

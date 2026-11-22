@@ -148,13 +148,23 @@
   T["graph-paper"] = {
     opts: [O.paper(), O.orient(), { k: "grid", label: "Grid size", type: "select", def: "5", options: [["4", "4 mm"], ["5", "5 mm"], ["6.35", "1/4 inch (4 squares per inch)"], ["5.08", "1/5 inch (5 squares per inch)"], ["10", "1 cm"], ["custom", "Custom"]] },
       { k: "gap", label: "Custom grid (mm)", type: "number", def: 7, min: 2, max: 25, step: 0.5, when: o => o.grid === "custom" },
-      { k: "major", label: "Bold line every … squares", type: "select", def: "5", options: [["0", "No bold lines"], ["2", "2"], ["4", "4"], ["5", "5"], ["10", "10"]] }, O.lines(), O.brand()],
+      { k: "major", label: "Bold line every … squares", type: "select", def: "5", options: [["0", "No bold lines"], ["2", "2"], ["4", "4"], ["5", "5"], ["10", "10"]] },
+      { k: "axes", label: "Coordinate axes through the middle", type: "check", def: false }, O.lines(), O.brand()],
     pages(o) {
       const P = Page(o), g = o.grid === "custom" ? Math.max(2, +o.gap || 7) : +o.grid, maj = +o.major;
       const cols = Math.floor((P.x1 - P.x0) / g), rows = Math.floor((P.y1 - P.y0) / g);
       const x0 = (P.w - cols * g) / 2, y0 = P.y0 + ((P.y1 - P.y0) - rows * g) / 2;
       for (let i = 0; i <= cols; i++) { const b = maj && i % maj === 0; P.line(x0 + i * g, y0, x0 + i * g, y0 + rows * g, b ? P.lineC : P.lineC, b ? 0.42 : 0.16); }
       for (let j = 0; j <= rows; j++) { const b = maj && j % maj === 0; P.line(x0, y0 + j * g, x0 + cols * g, y0 + j * g, P.lineC, b ? 0.42 : 0.16); }
+      if (o.axes) {
+        const cx = x0 + Math.floor(cols / 2) * g;
+        const cy = y0 + Math.floor(rows / 2) * g;
+        P.line(x0, cy, x0 + cols * g, cy, "#202630", 0.65);
+        P.line(cx, y0, cx, y0 + rows * g, "#202630", 0.65);
+        P.text(cx + 1, cy + 3, "0", { size: 7 });
+        P.text(x0 + cols * g - 3, cy - 1, "x", { size: 8 });
+        P.text(cx + 1, y0 + 3, "y", { size: 8 });
+      }
       P.footer(); return [P.ops];
     }
   };
