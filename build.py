@@ -25,7 +25,7 @@ SHOP_OPEN = SHOP_ENABLED and bool(BUY_PLANNER)
 NAV = [("/", "Templates"), ("/weekly-planner.html", "Planners"), ("/monthly-calendar.html", "Calendars"), ("/habit-tracker.html", "Trackers"), ("/dot-grid.html", "Paper"), ("/paper-sizes.html", "Paper sizes"), ("/guides.html", "Guides")]
 env = Environment(loader=FileSystemLoader(ROOT / "templates"), autoescape=True, trim_blocks=True, lstrip_blocks=True)
 PAGES = []
-LEGAL_ADDR = "AdStern – Agentur für digitales Marketing<br>Seilerstätte 8/8, 1010 Wien, Österreich<br>Email: <a href='mailto:office@adstern.com'>office@adstern.com</a><br>Web: <a href='https://www.adstern.com'>www.adstern.com</a>"
+LEGAL_ADDR = "AdStern – Agentur für digitales Marketing<br>Seilerstätte 8, 1010 Wien, Österreich<br>Email: <a href='mailto:office@adstern.com'>office@adstern.com</a><br>Web: <a href='https://www.adstern.com'>www.adstern.com</a>"
 ORG = {"@type": "Organization", "name": "Printable Joy Lab", "url": SITE + "/"}
 AUTHOR = {"@type": "Organization", "name": "AdStern – Agentur für digitales Marketing", "url": SITE + "/about.html"}
 
@@ -133,7 +133,7 @@ def main():
     write("about.html", "page.html", title="About Printable Joy Lab", description="Who makes Printable Joy Lab, how the templates are generated and how we check them.",
           h1="About Printable Joy Lab", lead="Customizable printables, generated in your browser.", priority=0.3, active="", lastmod=EIGENWERT,
           body="""<p>Printable Joy Lab is made by AdStern, a small digital agency in Vienna, Austria. We build free tools that are genuinely useful – and printables were a natural fit: almost everyone needs a planner page, a calendar or a sheet of graph paper now and then, but most downloads come in one fixed size and style.</p>
-<h2>Who is behind it</h2><p>AdStern – Agentur für digitales Marketing, based at Seilerstätte 8/8, 1010 Wien, Österreich, develops the generator, writes the guides and is responsible for everything on the site; the full legal details are in the <a href="/imprint.html">imprint</a>. There are no accounts to create, and what you type into a template stays in your browser.</p>
+<h2>Who is behind it</h2><p>AdStern – Agentur für digitales Marketing, based at Seilerstätte 8, 1010 Wien, Österreich, develops the generator, writes the guides and is responsible for everything on the site; the full legal details are in the <a href="/imprint.html">imprint</a>. There are no accounts to create, and what you type into a template stays in your browser.</p>
 <h2>What you will find here</h2><p>Thirteen generators in four groups – paper (lined, graph, dot grid, isometric and a print test page), calendars (monthly and yearly), planners (weekly, daily, meal) and trackers and lists (habit tracker, checklist, budget planner). Four of them – the monthly calendar, the yearly calendar, the weekly planner and the habit tracker – can print month and weekday names in ten languages; the other templates are English only. A <a href="/paper-sizes.html">paper size reference</a> lists 81 sheet sizes with their source and calculates print scales, and six <a href="/guides.html">guides</a> cover printing at actual size, choosing paper patterns and weights, a 2027 calendar with ISO week numbers and US holidays, weekly and meal planning, and bullet journaling.</p>
 <h2>How the templates work</h2><p>Each template is described once as a set of lines, boxes and text positioned in millimeters. From that description your browser draws the live preview and creates the PDF – the same data for both, so what you see is what you print. The four paper sizes are A4, A5, US Letter and Half Letter. Calendars use the Gregorian calendar and ISO 8601 week numbers.</p>
 <h2>How we check them</h2><p>Every time the site is updated, an automated test draws every template with many combinations of settings – all paper sizes, orientations, week starts and options – and checks that every line, box and label lands on the page. If a single check fails, the update is not published.</p>
@@ -145,14 +145,33 @@ def main():
 <h2>Contact</h2><p>Ideas for a new template or found a mistake? Write to <a href="mailto:office@adstern.com">office@adstern.com</a>. If something prints wrongly, tell us the template, the paper size and your browser or PDF viewer; a share link with your settings (the “Copy link to these settings” button) lets us reproduce the exact page.</p>""")
 
     write("imprint.html", "page.html", title="Imprint | Printable Joy Lab", description="Legal notice for Printable Joy Lab.", h1="Imprint", ads=False, robots="noindex,follow", active="",
-          body=f"""<h2>Media owner and publisher</h2><p>{LEGAL_ADDR.replace('Seilerstätte 8/8', 'Seilerstätte 8')}</p>
-<h2>Company details</h2><p>Business purpose: advertising agency (Werbeagentur)<br>VAT ID: ATU54682507<br>Trade authority: Magistratisches Bezirksamt für den 1. und 8. Bezirk, Vienna<br>Chamber membership: Austrian Economic Chamber Vienna (Wirtschaftskammer Wien), advertising and market communication group<br>Professional title: advertising agency (Werbeagentur), trade licence granted in Austria<br>Applicable regulations: Austrian Trade Regulation Act (Gewerbeordnung), available at <a href="https://www.ris.bka.gv.at" rel="noopener">www.ris.bka.gv.at</a></p>
-<h2>Editorial line</h2><p>Free printable templates and guides on planning, organisation and paper.</p>
+          body=f"""<h2>Media owner and service provider</h2>
+<p><strong>AdStern – Agentur für digitales Marketing</strong><br>Johannes Peter<br>Seilerstätte 8<br>1010 Wien<br>Austria</p>
+<p><a href="mailto:office@adstern.com">office@adstern.com</a></p>
+<h2>Business details</h2><dl><dt><strong>Business activity</strong></dt><dd>Advertising agency</dd>
+<dt><strong>VAT identification number</strong></dt><dd>ATU54682507</dd>
+<dt><strong>Austrian trade register number (GISA)</strong></dt><dd>31741743</dd>
+<dt><strong>Registered trade location</strong></dt><dd>Seilerstätte 8, 1010 Wien</dd>
+<dt><strong>Membership</strong></dt><dd>Member of the Fachgruppe Werbung und Marktkommunikation (Advertising and Market Communication trade group)</dd>
+<dt><strong>Supervisory and trade authority</strong></dt><dd><a href="https://www.wien.gv.at/kontakt/mba0108">Magistratisches Bezirksamt für den 1. und 8. Bezirk, Wien</a></dd>
+<dt><strong>Applicable trade regulation</strong></dt><dd><a href="https://www.ris.bka.gv.at/GeltendeFassung.wxe?Abfrage=Bundesnormen&amp;Gesetzesnummer=10007517">Austrian Trade Regulation Act (Gewerbeordnung 1994, RIS)</a></dd></dl>
+<h2>Editorial policy (§ 25 Austrian Media Act, Mediengesetz)</h2><p>Printable Joy Lab publishes customizable calendars, planners and checklists and shows readers how to adapt and print them for everyday use.</p>
+<h2>Contact form</h2>
+<form action="https://www.viennabyalocal.com/kontakt.php" method="post" accept-charset="UTF-8" aria-label="Contact form" style="display:grid;gap:.85rem;max-width:34rem">
+ <input type="hidden" name="site" value="printablejoylab.com"><input type="hidden" name="language" value="en">
+ <div hidden aria-hidden="true"><label>Website URL <input name="company_url" tabindex="-1" autocomplete="off"></label></div>
+ <label style="display:grid;gap:.25rem">Name (optional)<input name="sender_name" autocomplete="name" type="text" maxlength="120" style="font:inherit;width:100%;box-sizing:border-box;padding:.55em"></label>
+ <label style="display:grid;gap:.25rem">Your email address (required)<input name="email" autocomplete="email" type="email" required maxlength="254" style="font:inherit;width:100%;box-sizing:border-box;padding:.55em"></label>
+ <label style="display:grid;gap:.25rem">Your message (required)<textarea name="message" rows="5" required maxlength="6000" style="font:inherit;width:100%;box-sizing:border-box;padding:.55em"></textarea></label>
+ <p>AdStern uses your details to respond to your enquiry. <a href="/privacy.html">Privacy policy</a></p>
+ <button type="submit" style="justify-self:start;padding:.65em 1.2em;font:inherit">Send message</button>
+</form>
 <p class="small muted">Information pursuant to § 5 E-Commerce-Gesetz and § 25 Mediengesetz (Austria).</p>""")
 
     write("privacy.html", "page.html", title="Privacy Policy | Printable Joy Lab", description="Privacy policy of Printable Joy Lab.", h1="Privacy policy",
           lead="Last updated: 5 November 2026", ads=False, robots="noindex,follow", active="",
           body=f"""<h2>Controller</h2><p>{LEGAL_ADDR}</p>
+<h3>Contact form</h3><p>When you submit the form in the legal notice, your email address, message, optional name and the name of the referring website are sent to office@adstern.com through AdStern’s World4You hosting. AdStern uses these details to answer your enquiry. To limit automated submissions, the server counts requests per pseudonymous IP identifier over a 15-minute window.</p>
 <h2>Hosting</h2><p>This website is delivered via GitHub Pages (GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, USA). When you visit, GitHub processes technically necessary connection data such as your IP address, the requested address, browser information and time to deliver the site and protect it from attacks. The legal basis is our legitimate interest in secure operation (Art. 6(1)(f) GDPR). GitHub is certified under the EU-US Data Privacy Framework. Fonts are hosted on our own server; no connection to Google Fonts is made.</p>
 <h2>Templates and PDF creation</h2><p>All templates and PDFs are generated in your browser. Your settings, habits, lists and titles are not sent to us. To remember your last settings, we store them in your browser's local storage; this is necessary for the function you requested. You can delete it at any time in your browser settings. If you copy a share link, your settings are part of that link – only share it if the content is not private.</p>
 <h2>Consent management</h2><p>For advertising and analytics we use Google's consent management solution “Privacy &amp; messaging” (Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Ireland), certified under the IAB Transparency &amp; Consent Framework. On your first visit you can accept, reject or choose individual purposes and vendors. You can change or withdraw your choice at any time via “Privacy settings” in the footer.</p>
@@ -208,7 +227,7 @@ def main():
     <h2>Right of withdrawal for digital content</h2><p>If you are a consumer in the EU or UK, you normally have a 14-day right of withdrawal. For digital content delivered immediately, this right ends once the download is provided, provided you agreed at checkout to immediate delivery and acknowledged that you thereby lose your right of withdrawal.</p>
     <h2>Our promise</h2><p>If a file is damaged, incomplete or not as described, write to <a href="mailto:office@adstern.com">office@adstern.com</a> within 30 days of purchase with your order number. We will send a corrected file or refund your purchase in full. If you bought the wrong paper size or week start, don't worry – every download already contains all versions.</p>
     <h2>How refunds are paid</h2><p>Refunds are issued by Lemon Squeezy to the original payment method. Depending on your bank, it can take 5–10 business days to appear.</p>
-    <h2>Contact</h2><p>AdStern – Agentur für digitales Marketing, Seilerstätte 8/8, 1010 Wien, Österreich · <a href="mailto:office@adstern.com">office@adstern.com</a></p>""")
+    <h2>Contact</h2><p>AdStern – Agentur für digitales Marketing, Seilerstätte 8, 1010 Wien, Österreich · <a href="mailto:office@adstern.com">office@adstern.com</a></p>""")
 
     write("404.html", "page.html", title="Page not found | Printable Joy Lab", description="This page does not exist.", h1="This page doesn't exist", ads=False, robots="noindex,follow", active="",
           body='<p>The page may have moved. Try one of our <a href="/">free templates</a>.</p>')
