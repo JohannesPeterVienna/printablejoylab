@@ -277,7 +277,7 @@ TOOLS = [
 <li><strong>Reusable month:</strong> slip a printed month into a sheet protector and write with a wet-erase marker; dry-erase markers smudge more easily when you touch the page.</li>
 <li><strong>Shift schedule:</strong> one letter per shift type – E, L, N – in the box, and a legend in the notes column.</li></ul>
 <h2>Printing tips</h2>
-<p>For a wall calendar, print all twelve months double-sided so each month has a blank back, or single-sided on 120 g/m² paper so ink does not show through. Use the paper size that is in your tray – an A4 calendar printed on US Letter loses its bottom row unless the printer shrinks it. Need the whole year on one sheet? Use the <a href="/yearly-calendar.html">yearly calendar</a>.</p>
+<p>For a wall calendar, print each month single-sided so every page has a blank back, ideally on 120 g/m² paper so ink does not show through. Use the paper size that is in your tray – an A4 calendar printed on US Letter loses its bottom row unless the printer shrinks it. Need the whole year on one sheet? Use the <a href="/yearly-calendar.html">yearly calendar</a>.</p>
 """,
 "faq": [("Does the calendar include holidays?", "No – holidays differ between countries and regions, so the day boxes are left free for you to fill in. US federal holidays for 2027 are listed in our 2027 calendar guide."),
         ("Which years can I create?", "Any year from 1900 to 2100. All dates are calculated with the Gregorian calendar."),
